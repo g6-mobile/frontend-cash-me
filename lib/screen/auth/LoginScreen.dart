@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
+import 'package:pocket_swap_fisi/screen/auth/widgets/LoginTextField.dart';
 
 
 class LoginScreen extends StatefulWidget {
@@ -12,16 +13,27 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen>{
   bool _obscureText = true;
   bool _isKeyboardVisible = false;
+  late TextEditingController _emailController;
+  late TextEditingController _passwordController;
 
   @override
   void initState() {
     super.initState();
+    _emailController = TextEditingController();
+    _passwordController = TextEditingController();
     // Suscribirse a los cambios de visibilidad del teclado
     KeyboardVisibilityController().onChange.listen((bool visible) {
       setState(() {
         _isKeyboardVisible = visible;
       });
     });
+  }
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
   }
 
   void _togglePasswordVisibility() {
@@ -98,49 +110,19 @@ class _LoginScreenState extends State<LoginScreen>{
                         ),
                       ),
                       SizedBox(height: 20),
-                      TextField(
-                        decoration: InputDecoration(
-                          hintText: 'Email',
-                          hintStyle: TextStyle(
-                            color: Color(0xFFC8C8C8),
-                            fontSize: 16,
-                            fontFamily: 'Poppins',
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Color(0xFFC8C8C8)),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.black),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                            contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 15),
-                        ),
-
+                      LoginTextField(
+                        hintText: 'Email',
+                        controller: _emailController,
+                        keyboardType: TextInputType.emailAddress,
                       ),
                       SizedBox(height: 15),
                       Stack(
                         alignment: Alignment.centerRight,
                         children: [
-                          TextField(
-                            obscureText: _obscureText,
-                            decoration: InputDecoration(
-                              hintText: 'Contraseña',
-                              hintStyle: TextStyle(
-                                color: Color(0xFFC8C8C8),
-                                fontSize: 16,
-                                fontFamily: 'Poppins',
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: Color(0xFFC8C8C8)),
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.black),
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 15),
-                            ),
+                          LoginTextField(hintText: 'Contraseña',
+                              controller: _passwordController,
+                              obscureText: _obscureText,
+                              keyboardType: TextInputType.visiblePassword,
                           ),
                           IconButton(
                             icon: Icon(
