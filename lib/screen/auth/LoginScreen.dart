@@ -43,8 +43,7 @@ class _LoginScreenState extends State<LoginScreen>{
               alignment: Alignment.centerLeft,
               ),
             ),
-            Expanded(
-              child: Container(
+            Container(
                 padding: EdgeInsets.symmetric(horizontal: 35),
                 child: Center(
                   child: Column(
@@ -197,7 +196,6 @@ class _LoginScreenState extends State<LoginScreen>{
                     ]
                   )
                 ),
-              ),
             ),
             Positioned(
               bottom: _isKeyboardVisible ? -40 : 20,
