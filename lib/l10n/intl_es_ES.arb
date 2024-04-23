@@ -1,0 +1,11 @@
+{
+  "Login": "Iniciar sesión",
+  "LoginGoogle": "Iniciar sesión con Google",
+  "LoginEmail": "O ingresa con tu correo electrónico",
+  "HintEmail": "Email",
+  "HintPassword": "Contraseña",
+  "ForgotPassword": "Olvidé mi contraseña",
+  "LoginButton": "Continuar",
+  "QuestionSignUp": "¿No tienes una cuenta? ",
+  "SignUp": "Crear cuenta"
+}

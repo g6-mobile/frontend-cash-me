@@ -1,0 +1,11 @@
+{
+  "Login": "Login",
+  "LoginGoogle": "Login with Google",
+  "LoginEmail": "Or sign in with your email",
+  "HintEmail": "Email",
+  "HintPassword": "Password",
+  "ForgotPassword": "Forgot my password",
+  "LoginButton": "Continue",
+  "QuestionSignUp": "Don't have an account? ",
+  "SignUp": "Sign Up"
+}

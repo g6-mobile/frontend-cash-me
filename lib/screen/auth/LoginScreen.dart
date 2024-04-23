@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:pocket_swap_fisi/screen/auth/widgets/LoginTextField.dart';
 
+import '../../generated/l10n.dart';
+
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -21,7 +23,7 @@ class _LoginScreenState extends State<LoginScreen>{
     super.initState();
     _emailController = TextEditingController();
     _passwordController = TextEditingController();
-    // Suscribirse a los cambios de visibilidad del teclado
+
     KeyboardVisibilityController().onChange.listen((bool visible) {
       setState(() {
         _isKeyboardVisible = visible;
@@ -43,6 +45,7 @@ class _LoginScreenState extends State<LoginScreen>{
   }
   @override
   Widget build(BuildContext context) {
+    print(S.delegate);  // Imprime el delegado de localización
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -51,8 +54,12 @@ class _LoginScreenState extends State<LoginScreen>{
             Positioned(
               left: 20,
               top: 10,
-              child: Image.asset('assets/images/logo.png', height: 60, width: 60,
-              alignment: Alignment.centerLeft,
+              child:
+              Image.asset(
+                'assets/images/logo.png',
+                height: 60,
+                width: 60,
+                alignment: Alignment.centerLeft,
               ),
             ),
             Container(
@@ -62,7 +69,7 @@ class _LoginScreenState extends State<LoginScreen>{
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        'Iniciar Sesión',
+                        S.current.Login,
                         style: TextStyle(
                           color: Color(0xFF2A2A2A),
                           fontSize: 36,
@@ -80,7 +87,7 @@ class _LoginScreenState extends State<LoginScreen>{
                         ),
                         label:
                         Text(
-                            'Inicia sesión con Google',
+                            S.current.LoginGoogle,
                           style: TextStyle(
                             color: Colors.black,
                             fontSize: 18,
@@ -101,7 +108,7 @@ class _LoginScreenState extends State<LoginScreen>{
                       ),
                       SizedBox(height: 20),
                       Text(
-                        'O ingresa con tu correo electrónico',
+                        S.current.LoginEmail,
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: 16,
@@ -111,7 +118,7 @@ class _LoginScreenState extends State<LoginScreen>{
                       ),
                       SizedBox(height: 20),
                       LoginTextField(
-                        hintText: 'Email',
+                        hintText: S.current.HintEmail,
                         controller: _emailController,
                         keyboardType: TextInputType.emailAddress,
                       ),
@@ -119,7 +126,7 @@ class _LoginScreenState extends State<LoginScreen>{
                       Stack(
                         alignment: Alignment.centerRight,
                         children: [
-                          LoginTextField(hintText: 'Contraseña',
+                          LoginTextField(hintText: S.current.HintPassword,
                               controller: _passwordController,
                               obscureText: _obscureText,
                               keyboardType: TextInputType.visiblePassword,
@@ -141,10 +148,10 @@ class _LoginScreenState extends State<LoginScreen>{
                         children: [
                           GestureDetector(
                             onTap: () {
-                              print('Olvidé mi contraseña');
+                              print(S.current.ForgotPassword);
                             },
                             child: Text(
-                              'Olvidé mi contraseña',
+                              S.current.ForgotPassword,
                               style: TextStyle(
                                 color: Color(0xFF262626),
                                 fontSize: 15,
@@ -159,7 +166,7 @@ class _LoginScreenState extends State<LoginScreen>{
                       ElevatedButton(
                         onPressed: () {},
                         child: Text(
-                          'Continuar',
+                          S.current.LoginButton,
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 18,
@@ -191,7 +198,7 @@ class _LoginScreenState extends State<LoginScreen>{
                   alignment: Alignment.center, // Centra el contenido horizontalmente
                   child: Text.rich(
                     TextSpan(
-                      text: '¿No tienes una cuenta? ',
+                      text: S.current.QuestionSignUp,
                       style: TextStyle(
                         fontSize: 16,
                         color: Color(0xFF2A2A2A),
@@ -199,7 +206,7 @@ class _LoginScreenState extends State<LoginScreen>{
                       ),
                       children: [
                         TextSpan(
-                          text: 'Crear cuenta',
+                          text: S.current.SignUp,
                           style: TextStyle(
                             fontSize: 16,
                             color: Color(0xFF1F878E), // Color del enlace
