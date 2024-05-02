@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 
-class LoginTextField extends StatelessWidget{
+class BaseTextField extends StatelessWidget{
   final String hintText;
   final bool obscureText;
+  final bool enabled;
   final TextEditingController controller;
   final TextInputType keyboardType;
 
-  const LoginTextField({
+  const BaseTextField({
     Key? key,
     required this.hintText,
     this.obscureText = false,
+    this.enabled = true,
     required this.controller,
     this.keyboardType = TextInputType.text,
   }) : super(key: key);
@@ -17,6 +19,7 @@ class LoginTextField extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return TextField(
+      enabled: enabled,
       controller: controller,
       obscureText: obscureText,
       keyboardType: keyboardType,

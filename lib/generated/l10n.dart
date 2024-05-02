@@ -139,6 +139,46 @@ class S {
       args: [],
     );
   }
+
+  /// `Forgot Password`
+  String get ForgotPasswordTitle {
+    return Intl.message(
+      'Forgot Password',
+      name: 'ForgotPasswordTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `We will send an OTP code to your email to verify your identity`
+  String get ForgotPasswordDescription {
+    return Intl.message(
+      'We will send an OTP code to your email to verify your identity',
+      name: 'ForgotPasswordDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Email Address`
+  String get EmailAddress {
+    return Intl.message(
+      'Email Address',
+      name: 'EmailAddress',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Send`
+  String get SendButton {
+    return Intl.message(
+      'Send',
+      name: 'SendButton',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

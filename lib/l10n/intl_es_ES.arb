@@ -7,5 +7,9 @@
   "ForgotPassword": "Olvidé mi contraseña",
   "LoginButton": "Continuar",
   "QuestionSignUp": "¿No tienes una cuenta? ",
-  "SignUp": "Crear cuenta"
+  "SignUp": "Crear cuenta",
+  "ForgotPasswordTitle": "Recuperar Contraseña",
+  "ForgotPasswordDescription": "Enviaremos un codigo OTP a su correo electrónico para verificar su indentidad",
+  "EmailAddress": "Correo Electrónico",
+  "SendButton": "Enviar"
 }

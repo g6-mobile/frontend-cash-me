@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
-import 'package:pocket_swap_fisi/screen/auth/widgets/LoginTextField.dart';
+import 'package:pocket_swap_fisi/widget/button.dart';
+import 'package:pocket_swap_fisi/widget/text_field.dart';
 
 import '../../generated/l10n.dart';
+import '../../widget/text_field.dart';
+import '../passwords/forgot_password_screen.dart';
 
 
 class LoginScreen extends StatefulWidget {
@@ -47,7 +50,7 @@ class _LoginScreenState extends State<LoginScreen>{
   Widget build(BuildContext context) {
     print(S.delegate);  // Imprime el delegado de localización
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).colorScheme.background,
       body: SafeArea(
         child: Stack(
           children: [
@@ -117,7 +120,7 @@ class _LoginScreenState extends State<LoginScreen>{
                         ),
                       ),
                       SizedBox(height: 20),
-                      LoginTextField(
+                      BaseTextField(
                         hintText: S.current.HintEmail,
                         controller: _emailController,
                         keyboardType: TextInputType.emailAddress,
@@ -126,7 +129,7 @@ class _LoginScreenState extends State<LoginScreen>{
                       Stack(
                         alignment: Alignment.centerRight,
                         children: [
-                          LoginTextField(hintText: S.current.HintPassword,
+                          BaseTextField(hintText: S.current.HintPassword,
                               controller: _passwordController,
                               obscureText: _obscureText,
                               keyboardType: TextInputType.visiblePassword,
@@ -149,6 +152,11 @@ class _LoginScreenState extends State<LoginScreen>{
                           GestureDetector(
                             onTap: () {
                               print(S.current.ForgotPassword);
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ForgotPassword(),
+                                ));
                             },
                             child: Text(
                               S.current.ForgotPassword,
@@ -163,25 +171,10 @@ class _LoginScreenState extends State<LoginScreen>{
                         ],
                       ),
                       SizedBox(height: 20),
-                      ElevatedButton(
-                        onPressed: () {},
-                        child: Text(
-                          S.current.LoginButton,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            fontFamily: 'Poppins',
-                          ),
-                        ),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Color(0xFF762B2B),
-                          minimumSize: Size(double.infinity, 50),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                        ),
-                      ),
+                      BaseElevatedButton(
+                          text: S.current.LoginButton,
+                          onPressed: (){}
+                      )
                     ]
                   )
                 ),

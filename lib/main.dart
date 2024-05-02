@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pocket_swap_fisi/screen/auth/LoginScreen.dart';
+import 'package:pocket_swap_fisi/screen/auth/login_screen.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:pocket_swap_fisi/theme/dark_theme.dart';
+import 'package:pocket_swap_fisi/theme/light_theme.dart';
 
 import 'generated/l10n.dart';
 
@@ -24,9 +26,8 @@ class MyApp extends StatelessWidget {
       ],
       supportedLocales: S.delegate.supportedLocales,
       title: 'Flutter Demo',
-      theme: ThemeData(
-        useMaterial3: true,
-      ),
+      theme: lightTheme,
+      darkTheme: darkTheme,
       home: const LoginScreen(),
     );
   }
