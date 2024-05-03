@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:pocket_swap_fisi/widget/button.dart';
+import 'package:pocket_swap_fisi/widget/text.dart';
 import 'package:pocket_swap_fisi/widget/text_field.dart';
 
 import '../../generated/l10n.dart';
@@ -48,7 +49,6 @@ class _LoginScreenState extends State<LoginScreen>{
   }
   @override
   Widget build(BuildContext context) {
-    print(S.delegate);  // Imprime el delegado de localización
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       body: SafeArea(
@@ -66,66 +66,31 @@ class _LoginScreenState extends State<LoginScreen>{
               ),
             ),
             Container(
-                padding: EdgeInsets.symmetric(horizontal: 35),
+                padding: const EdgeInsets.symmetric(horizontal: 35),
                 child: Center(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(
-                        S.current.Login,
-                        style: TextStyle(
-                          color: Color(0xFF2A2A2A),
-                          fontSize: 36,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: 'Poppins',
-                        ),
+                      TitleText(
+                        text: S.current.Login,
                       ),
-                      SizedBox(height: 42),
-                      OutlinedButton.icon(
-                        onPressed: () {},
-                        icon: Image.asset(
-                          'assets/images/google_logo.png',
-                          height: 23,
-                          width: 23,
-                        ),
-                        label:
-                        Text(
-                            S.current.LoginGoogle,
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 18,
-                            fontWeight: FontWeight.normal,
-                            fontFamily: 'Poppins'
-                          )
-                        ),
-                        style: ElevatedButton.styleFrom(
-                          foregroundColor: Color(0xFF2A2A2A),
-                          backgroundColor: Colors.white,
-                          alignment: Alignment.centerLeft,
-                          minimumSize: Size(double.infinity, 50),
-                          shape: RoundedRectangleBorder(
-                            side: BorderSide(color: Color(0xFFC8C8C8)),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                        ),
+                      const SizedBox(height: 42),
+                      BaseAssetOutlinedButton(
+                          text: S.current.LoginGoogle,
+                          onPressed: (){},
+                          asset: 'assets/images/google_logo.png'
                       ),
-                      SizedBox(height: 20),
-                      Text(
-                        S.current.LoginEmail,
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 16,
-                          fontWeight: FontWeight.normal,
-                          fontFamily: 'Poppins',
-                        ),
+                      const SizedBox(height: 20),
+                      RegularText(
+                        text: S.current.LoginEmail,
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       BaseTextField(
                         hintText: S.current.HintEmail,
                         controller: _emailController,
                         keyboardType: TextInputType.emailAddress,
                       ),
-                      SizedBox(height: 15),
+                      const SizedBox(height: 15),
                       Stack(
                         alignment: Alignment.centerRight,
                         children: [
@@ -145,32 +110,25 @@ class _LoginScreenState extends State<LoginScreen>{
                           ),
                         ],
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           GestureDetector(
                             onTap: () {
-                              print(S.current.ForgotPassword);
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => ForgotPassword(),
+                                  builder: (context) => const ForgotPassword(),
                                 ));
                             },
-                            child: Text(
-                              S.current.ForgotPassword,
-                              style: TextStyle(
-                                color: Color(0xFF262626),
-                                fontSize: 15,
-                                fontWeight: FontWeight.normal,
-                                fontFamily: 'Poppins',
-                              ),
+                            child: RegularText(
+                              text: S.current.ForgotPassword
                             ),
                           ),
                         ],
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       BaseElevatedButton(
                           text: S.current.LoginButton,
                           onPressed: (){}
@@ -194,7 +152,7 @@ class _LoginScreenState extends State<LoginScreen>{
                       text: S.current.QuestionSignUp,
                       style: TextStyle(
                         fontSize: 16,
-                        color: Color(0xFF2A2A2A),
+                        color: Theme.of(context).colorScheme.onBackground,
                         fontFamily: 'Poppins',
                       ),
                       children: [

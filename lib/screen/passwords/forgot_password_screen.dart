@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pocket_swap_fisi/widget/button.dart';
+import 'package:pocket_swap_fisi/widget/text.dart';
 import 'package:pocket_swap_fisi/widget/text_field.dart';
 import '../../generated/l10n.dart';
 
@@ -59,17 +60,12 @@ class _ForgotPasswordState extends State<ForgotPassword>{
             ),
             SizedBox(height: 50),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 35),
+              padding: const EdgeInsets.symmetric(horizontal: 35),
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children:[
-                  Text(
-                    S.current.ForgotPasswordDescription,
-                    style: TextStyle(
-                      color: Color(0xFF262626),
-                      fontSize: 16,
-                      fontWeight: FontWeight.w400,
-                      fontFamily: 'Poppins',
-                    ),
+                  RegularText(
+                    text: S.current.ForgotPasswordDescription,
                     textAlign: TextAlign.center,
                   ),
                   SizedBox(height: 50),
@@ -81,20 +77,20 @@ class _ForgotPasswordState extends State<ForgotPassword>{
                         style: TextStyle(
                           color: Color(0xFF262626),
                           fontSize: 16,
-                          fontWeight: FontWeight.w400,
+                          fontWeight: FontWeight.w600,
                           fontFamily: 'Poppins',
                         ),
                         textAlign: TextAlign.left,
                       ),
                     ]
                   ),
-                  SizedBox(height: 2),
+                  const SizedBox(height: 2),
                   BaseTextField(
                       hintText: S.current.HintEmail,
                       controller: _emailController,
                       enabled: false
                   ),
-                  SizedBox(height: 50),
+                  const SizedBox(height: 50),
                   BaseElevatedButton(
                       text: S.current.SendButton,
                       onPressed: (){}
