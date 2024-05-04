@@ -11,5 +11,13 @@
   "ForgotPasswordTitle": "Recuperar Contraseña",
   "ForgotPasswordDescription": "Enviaremos un codigo OTP a su correo electrónico para verificar su indentidad",
   "EmailAddress": "Correo Electrónico",
-  "SendButton": "Enviar"
+  "SendButton": "Enviar",
+  "Register": "Registrarse",
+  "RegisterName": "Nombre",
+  "RegisterLastName": "Apellido",
+  "RegisterStudentCode": "Código de alumno",
+  "RegisterInstitutionalEmail": "Correo institucional",
+  "RegisterPasswordRequired": "Debe tener al menos 8 caracteres, una mayúscula, un número y un caracter especial.",
+  "AcceptTerms": "Aceptar los términos y condiciones.",
+  "RegisterButton": "Continuar"
 }

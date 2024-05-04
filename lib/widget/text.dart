@@ -50,3 +50,26 @@ class RegularText extends StatelessWidget {
     );
   }
 }
+
+class HelperText extends StatelessWidget {
+  final String text;
+
+  const HelperText({
+    Key? key,
+    required this.text,
+  }): super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      text,
+      style: TextStyle(
+        color: Color(0xFFCA9292),
+        fontSize: 10,
+        fontWeight: FontWeight.normal,
+        fontFamily: 'Poppins',
+      ),
+    );
+  }
+}
+

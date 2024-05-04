@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
+import 'package:pocket_swap_fisi/screen/register/register_screen.dart';
 import 'package:pocket_swap_fisi/widget/button.dart';
 import 'package:pocket_swap_fisi/widget/text.dart';
 import 'package:pocket_swap_fisi/widget/text_field.dart';
@@ -143,7 +144,11 @@ class _LoginScreenState extends State<LoginScreen>{
               right: 0,
               child: GestureDetector(
                 onTap: () {
-                  print("Crear cuenta");
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const RegisterScreen(),
+                      ));
                 },
                 child: Container(
                   alignment: Alignment.center, // Centra el contenido horizontalmente

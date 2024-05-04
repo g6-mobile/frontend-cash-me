@@ -22,6 +22,8 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "AcceptTerms": MessageLookupByLibrary.simpleMessage(
+            "Aceptar los términos y condiciones."),
         "EmailAddress":
             MessageLookupByLibrary.simpleMessage("Correo Electrónico"),
         "ForgotPassword":
@@ -40,6 +42,16 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Iniciar sesión con Google"),
         "QuestionSignUp":
             MessageLookupByLibrary.simpleMessage("¿No tienes una cuenta? "),
+        "Register": MessageLookupByLibrary.simpleMessage("Registrarse"),
+        "RegisterButton": MessageLookupByLibrary.simpleMessage("Continuar"),
+        "RegisterInstitutionalEmail":
+            MessageLookupByLibrary.simpleMessage("Correo institucional"),
+        "RegisterLastName": MessageLookupByLibrary.simpleMessage("Apellido"),
+        "RegisterName": MessageLookupByLibrary.simpleMessage("Nombre"),
+        "RegisterPasswordRequired": MessageLookupByLibrary.simpleMessage(
+            "Debe tener al menos 8 caracteres, una mayúscula, un número y un caracter especial."),
+        "RegisterStudentCode":
+            MessageLookupByLibrary.simpleMessage("Código de alumno"),
         "SendButton": MessageLookupByLibrary.simpleMessage("Enviar"),
         "SignUp": MessageLookupByLibrary.simpleMessage("Crear cuenta")
       };

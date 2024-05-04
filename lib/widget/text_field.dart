@@ -38,7 +38,7 @@ class BaseTextField extends StatelessWidget{
           borderSide: BorderSide(color: Colors.black),
           borderRadius: BorderRadius.circular(8),
         ),
-        contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 15),
+        contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
       ),
     );
   }

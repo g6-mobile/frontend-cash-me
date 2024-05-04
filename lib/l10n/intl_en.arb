@@ -11,5 +11,13 @@
   "ForgotPasswordTitle": "Forgot Password",
   "ForgotPasswordDescription": "We will send an OTP code to your email to verify your identity",
   "EmailAddress": "Email Address",
-  "SendButton": "Send"
+  "SendButton": "Send",
+  "Register": "Register",
+  "RegisterName": "Name",
+  "RegisterLastName": "Last Name",
+  "RegisterStudentCode": "Student Code",
+  "RegisterInstitutionalEmail": "Institutional Email",
+  "RegisterPasswordRequired": "It must have at least 8 characters, a capital letter, a number and a special character.",
+  "AcceptTerms": "Accept the terms and conditions.",
+  "RegisterButton": "Continue"
 }

@@ -179,6 +179,86 @@ class S {
       args: [],
     );
   }
+
+  /// `Register`
+  String get Register {
+    return Intl.message(
+      'Register',
+      name: 'Register',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Name`
+  String get RegisterName {
+    return Intl.message(
+      'Name',
+      name: 'RegisterName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Last Name`
+  String get RegisterLastName {
+    return Intl.message(
+      'Last Name',
+      name: 'RegisterLastName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Student Code`
+  String get RegisterStudentCode {
+    return Intl.message(
+      'Student Code',
+      name: 'RegisterStudentCode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Institutional Email`
+  String get RegisterInstitutionalEmail {
+    return Intl.message(
+      'Institutional Email',
+      name: 'RegisterInstitutionalEmail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `It must have at least 8 characters, a capital letter, a number and a special character.`
+  String get RegisterPasswordRequired {
+    return Intl.message(
+      'It must have at least 8 characters, a capital letter, a number and a special character.',
+      name: 'RegisterPasswordRequired',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Accept the terms and conditions.`
+  String get AcceptTerms {
+    return Intl.message(
+      'Accept the terms and conditions.',
+      name: 'AcceptTerms',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Continue`
+  String get RegisterButton {
+    return Intl.message(
+      'Continue',
+      name: 'RegisterButton',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
