@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:pocket_swap_fisi/screen/auth/login_screen.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:pocket_swap_fisi/screen/register/register_screen.dart';
-import 'package:pocket_swap_fisi/service/auth_service.dart';
+import 'package:pocket_swap_fisi/domain/service/auth_service.dart';
 import 'package:pocket_swap_fisi/theme/dark_theme.dart';
 import 'package:pocket_swap_fisi/theme/light_theme.dart';
 
