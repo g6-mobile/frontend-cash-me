@@ -3,6 +3,8 @@
         android:label="pocket_swap_fisi"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+        <meta-data android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyAY7O01ZekldlgRMCq-rz-DQtaf_5DhNTk"/>
         <activity
             android:name=".MainActivity"
             android:exported="true"

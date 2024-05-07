@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
+import 'package:pocket_swap_fisi/screen/home/home_screen.dart';
 import 'package:pocket_swap_fisi/screen/register/register_screen.dart';
 import 'package:pocket_swap_fisi/widget/button.dart';
 import 'package:pocket_swap_fisi/widget/text.dart';
@@ -132,7 +133,13 @@ class _LoginScreenState extends State<LoginScreen>{
                       const SizedBox(height: 20),
                       BaseElevatedButton(
                           text: S.current.LoginButton,
-                          onPressed: (){}
+                          onPressed: (){
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                builder: (context) => HomeScreen(),
+                                ));
+                          }
                       )
                     ]
                   )
