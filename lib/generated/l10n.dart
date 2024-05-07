@@ -160,6 +160,16 @@ class S {
     );
   }
 
+  /// `Please enter a valid email with the domain @unmsm.edu.pe`
+  String get ForgotPasswordSnackBar {
+    return Intl.message(
+      'Please enter a valid email with the domain @unmsm.edu.pe',
+      name: 'ForgotPasswordSnackBar',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Email Address`
   String get EmailAddress {
     return Intl.message(
@@ -255,6 +265,36 @@ class S {
     return Intl.message(
       'Continue',
       name: 'RegisterButton',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Check your institutional email`
+  String get EmailVerificationTitle {
+    return Intl.message(
+      'Check your institutional email',
+      name: 'EmailVerificationTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `This action requires email verification, you will be asked to fill out the code. A verification email has been sent to:`
+  String get EmailVerificationDescription {
+    return Intl.message(
+      'This action requires email verification, you will be asked to fill out the code. A verification email has been sent to:',
+      name: 'EmailVerificationDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Resend code`
+  String get ResendCode {
+    return Intl.message(
+      'Resend code',
+      name: 'ResendCode',
       desc: '',
       args: [],
     );
