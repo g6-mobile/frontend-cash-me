@@ -26,10 +26,16 @@ class MessageLookup extends MessageLookupByLibrary {
             "Aceptar los términos y condiciones."),
         "EmailAddress":
             MessageLookupByLibrary.simpleMessage("Correo Electrónico"),
+        "EmailVerificationDescription": MessageLookupByLibrary.simpleMessage(
+            "Esta acción requiere una verificación de correo, se pedirá que rellene el código.\nSe ha enviado un correo de verificación a:"),
+        "EmailVerificationTitle": MessageLookupByLibrary.simpleMessage(
+            "Revisa tu correo institucional"),
         "ForgotPassword":
             MessageLookupByLibrary.simpleMessage("Olvidé mi contraseña"),
         "ForgotPasswordDescription": MessageLookupByLibrary.simpleMessage(
             "Enviaremos un codigo OTP a su correo electrónico para verificar su indentidad"),
+        "ForgotPasswordSnackBar": MessageLookupByLibrary.simpleMessage(
+            "Por favor, ingresa un correo electrónico válido con el dominio @unmsm.edu.pe"),
         "ForgotPasswordTitle":
             MessageLookupByLibrary.simpleMessage("Recuperar Contraseña"),
         "HintEmail": MessageLookupByLibrary.simpleMessage("Email"),
@@ -52,6 +58,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Debe tener al menos 8 caracteres, una mayúscula, un número y un caracter especial."),
         "RegisterStudentCode":
             MessageLookupByLibrary.simpleMessage("Código de alumno"),
+        "ResendCode": MessageLookupByLibrary.simpleMessage("Reenviar código"),
         "SendButton": MessageLookupByLibrary.simpleMessage("Enviar"),
         "SignUp": MessageLookupByLibrary.simpleMessage("Crear cuenta")
       };

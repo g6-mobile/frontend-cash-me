@@ -62,6 +62,7 @@ class _RegisterScreenState extends State<RegisterScreen>{
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.background,
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios),
           onPressed: (){
@@ -69,7 +70,6 @@ class _RegisterScreenState extends State<RegisterScreen>{
           },
         ),
       ),
-      backgroundColor: Colors.white,
       body: SafeArea(
         child: Center(
           child: Column(

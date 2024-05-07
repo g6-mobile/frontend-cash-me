@@ -10,6 +10,7 @@
   "SignUp": "Sign Up",
   "ForgotPasswordTitle": "Forgot Password",
   "ForgotPasswordDescription": "We will send an OTP code to your email to verify your identity",
+  "ForgotPasswordSnackBar": "Please enter a valid email with the domain @unmsm.edu.pe",
   "EmailAddress": "Email Address",
   "SendButton": "Send",
   "Register": "Register",
@@ -19,5 +20,8 @@
   "RegisterInstitutionalEmail": "Institutional Email",
   "RegisterPasswordRequired": "It must have at least 8 characters, a capital letter, a number and a special character.",
   "AcceptTerms": "Accept the terms and conditions.",
-  "RegisterButton": "Continue"
+  "RegisterButton": "Continue",
+  "EmailVerificationTitle": "Check your institutional email",
+  "EmailVerificationDescription": "This action requires email verification, you will be asked to fill out the code. A verification email has been sent to:",
+  "ResendCode": "Resend code"
 }

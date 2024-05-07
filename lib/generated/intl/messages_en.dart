@@ -25,10 +25,16 @@ class MessageLookup extends MessageLookupByLibrary {
         "AcceptTerms": MessageLookupByLibrary.simpleMessage(
             "Accept the terms and conditions."),
         "EmailAddress": MessageLookupByLibrary.simpleMessage("Email Address"),
+        "EmailVerificationDescription": MessageLookupByLibrary.simpleMessage(
+            "This action requires email verification, you will be asked to fill out the code. A verification email has been sent to:"),
+        "EmailVerificationTitle": MessageLookupByLibrary.simpleMessage(
+            "Check your institutional email"),
         "ForgotPassword":
             MessageLookupByLibrary.simpleMessage("Forgot my password"),
         "ForgotPasswordDescription": MessageLookupByLibrary.simpleMessage(
             "We will send an OTP code to your email to verify your identity"),
+        "ForgotPasswordSnackBar": MessageLookupByLibrary.simpleMessage(
+            "Please enter a valid email with the domain @unmsm.edu.pe"),
         "ForgotPasswordTitle":
             MessageLookupByLibrary.simpleMessage("Forgot Password"),
         "HintEmail": MessageLookupByLibrary.simpleMessage("Email"),
@@ -51,6 +57,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "It must have at least 8 characters, a capital letter, a number and a special character."),
         "RegisterStudentCode":
             MessageLookupByLibrary.simpleMessage("Student Code"),
+        "ResendCode": MessageLookupByLibrary.simpleMessage("Resend code"),
         "SendButton": MessageLookupByLibrary.simpleMessage("Send"),
         "SignUp": MessageLookupByLibrary.simpleMessage("Sign Up")
       };

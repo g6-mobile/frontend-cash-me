@@ -22,16 +22,46 @@ class TitleText extends StatelessWidget {
   }
 }
 
+class SubtitleText extends StatelessWidget {
+  final String text;
+  final TextAlign textAlign;
+  final FontWeight fontWeight;
+
+
+  const SubtitleText({
+    Key? key,
+    required this.text,
+    this.textAlign = TextAlign.start,
+    this.fontWeight = FontWeight.bold,
+  }): super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      text,
+      style: TextStyle(
+        color: Theme.of(context).colorScheme.onBackground,
+        fontSize: 24,
+        fontWeight: fontWeight,
+        fontFamily: 'Poppins',
+      ),
+      textAlign: textAlign,
+    );
+  }
+}
+
 
 class RegularText extends StatelessWidget {
   final String text;
   final TextAlign textAlign;
+  final FontWeight fontWeight;
   final TextDecoration textDecoration;
 
   const RegularText({
     Key? key,
     required this.text,
     this.textAlign = TextAlign.start,
+    this.fontWeight = FontWeight.normal,
     this.textDecoration = TextDecoration.none,
   }): super(key: key);
 
@@ -42,7 +72,7 @@ class RegularText extends StatelessWidget {
       style: TextStyle(
         color: Theme.of(context).colorScheme.onBackground,
         fontSize: 16,
-        fontWeight: FontWeight.normal,
+        fontWeight: fontWeight,
         fontFamily: 'Poppins',
         decoration: textDecoration,
       ),

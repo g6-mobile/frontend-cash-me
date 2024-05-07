@@ -9,6 +9,12 @@ ThemeData lightTheme = ThemeData(
     onPrimary: Color(0xFF2A2A2A),
     secondary: Color(0xFFC8C8C8),
     onPrimaryContainer: Colors.white,
+
+
   ),
 
+
+
+
 );
+
