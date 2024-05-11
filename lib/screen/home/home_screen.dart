@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pocket_swap_fisi/screen/maps/maps_screen.dart';
 import 'package:pocket_swap_fisi/screen/passwords/forgot_password_screen.dart';
+import 'package:pocket_swap_fisi/screen/profile/profile_screen.dart';
 import '../../generated/l10n.dart';
 
 class HomeScreen extends StatefulWidget{
@@ -18,6 +19,8 @@ class _HomeScreenState extends State<HomeScreen>{
     return AnnotatedRegion(
         value: SystemUiOverlayStyle.light.copyWith(
           statusBarColor: Colors.transparent,
+          statusBarIconBrightness: Brightness.dark
+          
         ),
         child: Scaffold(
             bottomNavigationBar: NavigationBar(
@@ -95,6 +98,7 @@ class _HomeScreenState extends State<HomeScreen>{
                   ),
                 ),
 
+                //Map Screen
                 Center(
                     child: MapSample()
                 ),
@@ -109,34 +113,9 @@ class _HomeScreenState extends State<HomeScreen>{
                   ),
                 ),
 
-                /// Messages page
-                ListView.builder(
-                  reverse: true,
-                  itemCount: 2,
-                  itemBuilder: (BuildContext context, int index) {
-                    if (index == 0) {
-                      return Align(
-                        alignment: Alignment.centerRight,
-                        child: Container(
-                          margin: const EdgeInsets.all(8.0),
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                              'Hello'
-                          ),
-                        ),
-                      );
-                    }
-                    return Align(
-                      alignment: Alignment.centerLeft,
-                      child: Container(
-                        margin: const EdgeInsets.all(8.0),
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                            'Hi!'
-                        ),
-                      ),
-                    );
-                  },
+                /// ProfileScreen
+                Center(
+                  child: ProfileScreen(),
                 ),
               ][currentPageIndex],
             )
