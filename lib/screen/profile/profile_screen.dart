@@ -40,15 +40,9 @@ class _ProfileScreenState extends State<ProfileScreen>{
           children: [
 
             Container(
-              padding: const EdgeInsets.all(30.0),
-              decoration: BoxDecoration(
-                border: Border.all(
-                  color: Colors.red, // Color del borde
-                  width: 2, // Ancho del borde
-                ),
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 10.0),
               child: Center(
-                child: Card(
+                child: Card.outlined(    
                   child: ListTile(
                     leading: ConstrainedBox(
                       constraints: BoxConstraints(
@@ -71,28 +65,127 @@ class _ProfileScreenState extends State<ProfileScreen>{
                 ),
               ),
             ),
-            
+
+            /*
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 35),
-              decoration: BoxDecoration(
-                border: Border.all(
-                  color: Colors.red, // Color del borde
-                  width: 2, // Ancho del borde
-                ),
+              padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 10.0),
+              child: Center(
+                child: Card(
+                  shadowColor: Colors.transparent,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10), // if you need this
+                    side: BorderSide(
+                      color: Colors.grey.withOpacity(0.2),
+                      width: 1,
+                    ),
+                  ),
+                  child: ListTile(
+                    leading: ConstrainedBox(
+                      constraints: BoxConstraints(
+                        minWidth: 44,
+                        minHeight: 44,
+                        maxWidth: 64,
+                        maxHeight: 64,
+                      ),
+                      child: Image.asset('assets/images/img_profile_user.png', fit: BoxFit.cover),
+                    ),
+                    title: Text(
+                      'Diego Chavala',
+                      style: TextStyle(
+                        fontSize: 18.0,
+                        fontWeight: FontWeight.bold
+                      ),
+                    ),
+                    subtitle: Text('Ing. de Software\n#20203513'),
+                  ),
+                )
               ),
+            ),
+            */
+
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 30.0),
               child: Column(
                 children: [
-                  Card(
+                  TextButton(
+                    style: ButtonStyle(
+                      padding: MaterialStateProperty.all<EdgeInsetsGeometry>(EdgeInsets.zero), // Establece el padding a cero
+                    ),
+                    onPressed: () {}, 
                     child: ListTile(
-                      leading: Icon(Icons.person),
+                      leading: Icon(Icons.person_2_outlined),
                       title: Text('Editar Perfil'),
+                    )
+                  ),
+                  TextButton(
+                    style: ButtonStyle(
+                      padding: MaterialStateProperty.all<EdgeInsetsGeometry>(EdgeInsets.zero), // Establece el padding a cero
+                    ),
+                    onPressed: () {}, 
+                    child: ListTile(
+                      leading: Icon(Icons.phone_android),
+                      title: Text('Dispositivos Vinculados'),
+                    )
+                  ),
+                  TextButton(
+                    style: ButtonStyle(
+                      padding: MaterialStateProperty.all<EdgeInsetsGeometry>(EdgeInsets.zero), // Establece el padding a cero
+                    ),
+                    onPressed: () {}, 
+                    child: ListTile(
+                      leading: Icon(Icons.wb_sunny_outlined),
+                      title: Text('Apariencia'),
+                    )
+                  ),
+                  TextButton(
+                    style: ButtonStyle(
+                      padding: MaterialStateProperty.all<EdgeInsetsGeometry>(EdgeInsets.zero), // Establece el padding a cero
+                    ),
+                    onPressed: () {}, 
+                    child: ListTile(
+                      leading: Icon(Icons.public_outlined),
+                      title: Text('Idioma'),
+                    )
+                  ),
+                  TextButton(
+                    style: ButtonStyle(
+                      padding: MaterialStateProperty.all<EdgeInsetsGeometry>(EdgeInsets.zero), // Establece el padding a cero
+                    ),
+                    onPressed: () {}, 
+                    child: ListTile(
+                      leading: Icon(Icons.notifications),
+                      title: Text('Notificaciones'),
+                    )
+                  ),
+                  TextButton(
+                    style: ButtonStyle(
+                      padding: MaterialStateProperty.all<EdgeInsetsGeometry>(EdgeInsets.zero), // Establece el padding a cero
+                    ),
+                    onPressed: () {}, 
+                    child: ListTile(
+                      leading: Icon(Icons.bug_report_outlined),
+                      title: Text('Reportar un error'),
                     )
                   ),
                   
                 ],
               ),
-            )
+            ),
             
+            /*
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 30.0),
+              child: Positioned(
+                bottom: -420,
+                left: 0,
+                right: 0,
+                child: BaseElevatedButton(
+                    text: S.current.Login,
+                    onPressed: (){}
+                )
+              ),
+            ),
+            */
           ],
         )
       ),
