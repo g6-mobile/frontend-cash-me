@@ -23,9 +23,10 @@ class MyApp extends StatelessWidget {
   late AuthUseCase _authUseCase;
 
   @override
-  Widget build(BuildContext context) {    
-    dio.options.baseUrl = ApiConstants.baseURL;   
-    _authService = AuthService(dio);  
+  Widget build(BuildContext context) {
+    dio.options.baseUrl = ApiConstants.baseURL;
+
+    _authService = AuthService(dio);
     _authUseCase = AuthUseCase(_authService);
 
     return MaterialApp(
@@ -48,7 +49,9 @@ class MyApp extends StatelessWidget {
             if (snapshot.hasData && snapshot.data != null) {
               return RegisterScreen(); // Si el token existe, redirige a la pantalla principal
             } else {
-              return LoginScreen(authUseCase: _authUseCase); // Si el token no existe, redirige a la pantalla de inicio de sesión
+              return LoginScreen(
+                  authUseCase:
+                      _authUseCase); // Si el token no existe, redirige a la pantalla de inicio de sesión
             }
           }
         },

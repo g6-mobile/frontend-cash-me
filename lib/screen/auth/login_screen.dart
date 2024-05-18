@@ -130,8 +130,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     text: S.current.LoginButton,
                     onPressed: () async {
                       try {
-                        final user = await widget.authUseCase.login(
-                            _emailController.text, _passwordController.text);
+                        final user = await widget.authUseCase.login(_emailController.text, _passwordController.text);
                         Navigator.push(
                             context,
                             MaterialPageRoute(

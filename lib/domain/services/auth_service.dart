@@ -12,11 +12,11 @@ class AuthService {
       final response = await dio.post('${ApiConstants.baseURL}/auth/login',
           data: {'email': email, 'password': password});
 
-      if (response.statusCode != 200) {
+      if (response.statusCode != 201) {
         throw Exception('Failed to login');
       }
-
-      return User.fromJson(response.data);
+      print(response.data.user);
+      return User.fromJson(response.data.user);
     } catch (e) {
       throw Exception(e);
     }
