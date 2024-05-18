@@ -1,10 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pocket_swap_fisi/screen/auth/email_verification_screen.dart';
+import 'package:pocket_swap_fisi/theme/light_theme.dart';
 import 'package:pocket_swap_fisi/widget/button.dart';
 import 'package:pocket_swap_fisi/widget/text.dart'; //subtittleText
 // import 'package:pocket_swap_fisi/widget/text_field.dart';
 import '../../generated/l10n.dart'; //S
+import 'package:shared_preferences/shared_preferences.dart';
+
 
 
 class ProfileScreen extends StatefulWidget{
@@ -19,15 +22,18 @@ class _ProfileScreenState extends State<ProfileScreen>{
   
   @override
   Widget build(BuildContext  context){
+    
     return Scaffold(
 
       appBar: AppBar(
+        /*
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios),
           onPressed: (){
             Navigator.pop(context);
           },
         ),
+        */
         title: SubtitleText(
             text: S.current.Account,
             fontWeight: FontWeight.w500
@@ -107,6 +113,7 @@ class _ProfileScreenState extends State<ProfileScreen>{
               padding: const EdgeInsets.symmetric(horizontal: 30.0),
               child: Column(
                 children: [
+
                   TextButton(
                     style: ButtonStyle(
                       padding: MaterialStateProperty.all<EdgeInsetsGeometry>(EdgeInsets.zero), // Establece el padding a cero
@@ -114,7 +121,7 @@ class _ProfileScreenState extends State<ProfileScreen>{
                     onPressed: () {}, 
                     child: ListTile(
                       leading: Icon(Icons.person_2_outlined),
-                      title: Text('Editar Perfil'),
+                      title: Text('Edit profile'),
                     )
                   ),
                   TextButton(
@@ -124,7 +131,7 @@ class _ProfileScreenState extends State<ProfileScreen>{
                     onPressed: () {}, 
                     child: ListTile(
                       leading: Icon(Icons.phone_android),
-                      title: Text('Dispositivos Vinculados'),
+                      title: Text('Linked devices'),
                     )
                   ),
                   TextButton(
@@ -134,19 +141,30 @@ class _ProfileScreenState extends State<ProfileScreen>{
                     onPressed: () {}, 
                     child: ListTile(
                       leading: Icon(Icons.wb_sunny_outlined),
-                      title: Text('Apariencia'),
+                      title: Text('Appearance'),
                     )
                   ),
                   TextButton(
                     style: ButtonStyle(
                       padding: MaterialStateProperty.all<EdgeInsetsGeometry>(EdgeInsets.zero), // Establece el padding a cero
                     ),
-                    onPressed: () {}, 
+
+                    onPressed: () {
+                      showModalBottomSheet (
+                        context: context,
+                        builder: (context) {
+                          return SwitchBottomSheet();
+                        },
+                      );
+                    },
+
                     child: ListTile(
                       leading: Icon(Icons.public_outlined),
-                      title: Text('Idioma'),
+                      title: Text('Language'),
                     )
                   ),
+
+
                   TextButton(
                     style: ButtonStyle(
                       padding: MaterialStateProperty.all<EdgeInsetsGeometry>(EdgeInsets.zero), // Establece el padding a cero
@@ -154,7 +172,7 @@ class _ProfileScreenState extends State<ProfileScreen>{
                     onPressed: () {}, 
                     child: ListTile(
                       leading: Icon(Icons.notifications),
-                      title: Text('Notificaciones'),
+                      title: Text('Notifications'),
                     )
                   ),
                   TextButton(
@@ -164,10 +182,15 @@ class _ProfileScreenState extends State<ProfileScreen>{
                     onPressed: () {}, 
                     child: ListTile(
                       leading: Icon(Icons.bug_report_outlined),
-                      title: Text('Reportar un error'),
+                      title: Text('Report an error'),
                     )
                   ),
-                  
+                  SizedBox(height: 90),
+                  BaseElevatedButton(
+                    text: S.current.LoginButton,
+                    onPressed: () {
+                    }
+                  )
                 ],
               ),
             ),
@@ -188,6 +211,67 @@ class _ProfileScreenState extends State<ProfileScreen>{
             */
           ],
         )
+      ),
+    );
+  }
+}
+
+
+/*  */
+class SwitchBottomSheet extends StatefulWidget {
+  @override
+  _SwitchBottomSheetState createState() => _SwitchBottomSheetState();
+}
+
+class _SwitchBottomSheetState extends State<SwitchBottomSheet> {
+  bool _isSwitched = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadSwitchState();
+  }
+
+  _loadSwitchState() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _isSwitched = prefs.getBool('switchState') ?? false;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      height: 250,
+      padding: EdgeInsets.all(10.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center, // Centra verticalmente
+        crossAxisAlignment: CrossAxisAlignment.center, // Centra horizontalmente
+        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Image.asset(
+            _isSwitched ? 'assets/images/eeuu_english.png' : 'assets/images/peru_spanish.png',
+            width: 100,
+            height: 100,
+          ),
+          
+          SizedBox(height: 10),
+          Text(_isSwitched ? 'English' : 'Español'),
+          SizedBox(height: 2),
+
+          CupertinoSwitch(
+            value: _isSwitched,
+            activeColor: Color.fromARGB(255, 217, 217, 217),
+            onChanged: (bool value) async {
+              SharedPreferences prefs = await SharedPreferences.getInstance();
+              setState(() {
+                _isSwitched = value;
+                prefs.setBool('switchState', value);
+              });
+            },
+          ),
+        ],
       ),
     );
   }
