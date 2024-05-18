@@ -1,11 +1,13 @@
-import 'package:flutter/cupertino.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:pocket_swap_fisi/screen/auth/login_screen.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:pocket_swap_fisi/domain/services/auth_service.dart';
+import 'package:pocket_swap_fisi/domain/usecases/auth_usecase.dart';
+import 'package:pocket_swap_fisi/screen/auth/login_screen.dart';
 import 'package:pocket_swap_fisi/screen/register/register_screen.dart';
-import 'package:pocket_swap_fisi/domain/service/auth_service.dart';
 import 'package:pocket_swap_fisi/theme/dark_theme.dart';
 import 'package:pocket_swap_fisi/theme/light_theme.dart';
+import 'package:pocket_swap_fisi/utils/constants/api_constants.dart';
 
 import 'generated/l10n.dart';
 
@@ -16,10 +18,16 @@ void main() {
 class MyApp extends StatelessWidget {
   MyApp({Key? key}) : super(key: key);
 
-  final AuthService _authService = AuthService();
+  final Dio dio = Dio();
+  late AuthService _authService;
+  late AuthUseCase _authUseCase;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) {    
+    dio.options.baseUrl = ApiConstants.baseURL;   
+    _authService = AuthService(dio);  
+    _authUseCase = AuthUseCase(_authService);
+
     return MaterialApp(
       localizationsDelegates: const [
         S.delegate,
@@ -40,7 +48,7 @@ class MyApp extends StatelessWidget {
             if (snapshot.hasData && snapshot.data != null) {
               return RegisterScreen(); // Si el token existe, redirige a la pantalla principal
             } else {
-              return const LoginScreen(); // Si el token no existe, redirige a la pantalla de inicio de sesión
+              return LoginScreen(authUseCase: _authUseCase); // Si el token no existe, redirige a la pantalla de inicio de sesión
             }
           }
         },
