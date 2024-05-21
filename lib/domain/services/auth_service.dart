@@ -15,8 +15,10 @@ class AuthService {
       if (response.statusCode != 201) {
         throw Exception('Failed to login');
       }
-      print(response.data.user);
-      return User.fromJson(response.data.user);
+
+      final data = response.data['data'];
+      print(data);
+      return User.fromJson(data['user']);
     } catch (e) {
       throw Exception(e);
     }
