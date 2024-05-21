@@ -4,6 +4,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:pocket_swap_fisi/domain/services/auth_service.dart';
 import 'package:pocket_swap_fisi/domain/usecases/auth_usecase.dart';
 import 'package:pocket_swap_fisi/screen/auth/login_screen.dart';
+import 'package:pocket_swap_fisi/screen/home/home_screen.dart';
 import 'package:pocket_swap_fisi/screen/register/register_screen.dart';
 import 'package:pocket_swap_fisi/theme/dark_theme.dart';
 import 'package:pocket_swap_fisi/theme/light_theme.dart';
@@ -47,7 +48,7 @@ class MyApp extends StatelessWidget {
             return CircularProgressIndicator(); // Muestra un indicador de carga mientras se obtiene el token
           } else {
             if (snapshot.hasData && snapshot.data != null) {
-              return RegisterScreen(); // Si el token existe, redirige a la pantalla principal
+              return HomeScreen(); // Si el token existe, redirige a la pantalla principal
             } else {
               return LoginScreen(
                   authUseCase:
