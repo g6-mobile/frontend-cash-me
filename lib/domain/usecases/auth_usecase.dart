@@ -13,7 +13,11 @@ class AuthUseCase {
     return user;
   }
 
-  Future<String?> getToken() async {
-    return await _authService.getToken();
+  Future<void> logout(String? accessToken) async {
+    await _authService.logout(accessToken);
+  }
+
+  Future<bool> hasToken() async {
+    return await _authService.hasToken();
   }
 }
