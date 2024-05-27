@@ -8,6 +8,8 @@ import 'package:pocket_swap_fisi/widget/text.dart'; //subtittleText
 import '../../generated/l10n.dart'; //S
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../widget/bottom_sheet.dart';
+
 
 
 class ProfileScreen extends StatefulWidget{
@@ -25,30 +27,35 @@ class _ProfileScreenState extends State<ProfileScreen>{
     
     return Scaffold(
 
-      appBar: AppBar(
-        /*
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios),
-          onPressed: (){
-            Navigator.pop(context);
-          },
-        ),
-        */
-        title: SubtitleText(
-            text: S.current.Account,
-            fontWeight: FontWeight.w500
-        ),
-        centerTitle: true,
-      ),
+      // appBar: AppBar(
+      //   /*
+      //   leading: IconButton(
+      //     icon: const Icon(Icons.arrow_back_ios),
+      //     onPressed: (){
+      //       Navigator.pop(context);
+      //     },
+      //   ),
+      //   */
+      //   title: SubtitleText(
+      //       text: S.current.Account,
+      //       fontWeight: FontWeight.w500
+      //   ),
+      //   centerTitle: true,
+      // ),
 
       body: SafeArea(
         child: Column(
           children: [
-
+            SubtitleText(
+                text: S.current.Account,
+                fontWeight: FontWeight.w500
+            ),
+            SizedBox(height: 20),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 10.0),
               child: Center(
-                child: Card.outlined(    
+                child: Card(
+                  elevation: 10,
                   child: ListTile(
                     leading: ConstrainedBox(
                       constraints: BoxConstraints(
@@ -211,67 +218,6 @@ class _ProfileScreenState extends State<ProfileScreen>{
             */
           ],
         )
-      ),
-    );
-  }
-}
-
-
-/*  */
-class SwitchBottomSheet extends StatefulWidget {
-  @override
-  _SwitchBottomSheetState createState() => _SwitchBottomSheetState();
-}
-
-class _SwitchBottomSheetState extends State<SwitchBottomSheet> {
-  bool _isSwitched = false;
-
-  @override
-  void initState() {
-    super.initState();
-    _loadSwitchState();
-  }
-
-  _loadSwitchState() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    setState(() {
-      _isSwitched = prefs.getBool('switchState') ?? false;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      height: 250,
-      padding: EdgeInsets.all(10.0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center, // Centra verticalmente
-        crossAxisAlignment: CrossAxisAlignment.center, // Centra horizontalmente
-        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Image.asset(
-            _isSwitched ? 'assets/images/eeuu_english.png' : 'assets/images/peru_spanish.png',
-            width: 100,
-            height: 100,
-          ),
-          
-          SizedBox(height: 10),
-          Text(_isSwitched ? 'English' : 'Español'),
-          SizedBox(height: 2),
-
-          CupertinoSwitch(
-            value: _isSwitched,
-            activeColor: Color.fromARGB(255, 217, 217, 217),
-            onChanged: (bool value) async {
-              SharedPreferences prefs = await SharedPreferences.getInstance();
-              setState(() {
-                _isSwitched = value;
-                prefs.setBool('switchState', value);
-              });
-            },
-          ),
-        ],
       ),
     );
   }

@@ -24,6 +24,7 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "AcceptTerms": MessageLookupByLibrary.simpleMessage(
             "Aceptar los términos y condiciones."),
+        "Account": MessageLookupByLibrary.simpleMessage("Cuenta"),
         "EmailAddress":
             MessageLookupByLibrary.simpleMessage("Correo Electrónico"),
         "EmailVerificationDescription": MessageLookupByLibrary.simpleMessage(

@@ -53,7 +53,6 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
       body: SafeArea(
           child: Stack(children: [
         Positioned(
@@ -130,7 +129,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     text: S.current.LoginButton,
                     onPressed: () async {
                       try {
-                        final user = await widget.authUseCase.login(_emailController.text, _passwordController.text);
+                        //final user = await widget.authUseCase.login(_emailController.text, _passwordController.text);
                         Navigator.push(
                             context,
                             MaterialPageRoute(

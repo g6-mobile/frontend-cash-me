@@ -1,5 +1,6 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:pocket_swap_fisi/domain/services/auth_service.dart';
 import 'package:pocket_swap_fisi/domain/usecases/auth_usecase.dart';
@@ -30,32 +31,43 @@ class MyApp extends StatelessWidget {
     _authService = AuthService(dio);
     _authUseCase = AuthUseCase(_authService);
 
-    return MaterialApp(
-      localizationsDelegates: const [
-        S.delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-      ],
-      supportedLocales: S.delegate.supportedLocales,
-      title: 'Flutter Demo',
-      theme: lightTheme,
-      darkTheme: darkTheme,
-      home: FutureBuilder<String?>(
-        future: _authService.getToken(),
-        builder: (BuildContext context, AsyncSnapshot<String?> snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return CircularProgressIndicator(); // Muestra un indicador de carga mientras se obtiene el token
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: SystemUiOverlayStyle.light.copyWith(statusBarColor: Colors.transparent),
+      child: MaterialApp(
+        localizationsDelegates: const [
+          S.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+        ],
+        supportedLocales: S.delegate.supportedLocales,
+        theme: lightTheme,
+        darkTheme: darkTheme,
+        builder: (context, child) {
+          final brightness = MediaQuery.of(context).platformBrightness;
+          if (brightness == Brightness.dark) {
+            SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
           } else {
-            if (snapshot.hasData && snapshot.data != null) {
-              return HomeScreen(); // Si el token existe, redirige a la pantalla principal
-            } else {
-              return LoginScreen(
-                  authUseCase:
-                      _authUseCase); // Si el token no existe, redirige a la pantalla de inicio de sesión
-            }
+            SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
           }
+          return child!;
         },
+        home: FutureBuilder<String?>(
+          future: _authService.getToken(),
+          builder: (BuildContext context, AsyncSnapshot<String?> snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return CircularProgressIndicator(); // Muestra un indicador de carga mientras se obtiene el token
+            } else {
+              if (snapshot.hasData && snapshot.data != null) {
+                return HomeScreen(); // Si el token existe, redirige a la pantalla principal
+              } else {
+                return LoginScreen(
+                    authUseCase:
+                    _authUseCase); // Si el token no existe, redirige a la pantalla de inicio de sesión
+              }
+            }
+          },
+        ),
       ),
     );
   }

@@ -4,6 +4,9 @@ import 'package:pocket_swap_fisi/screen/maps/maps_screen.dart';
 import 'package:pocket_swap_fisi/screen/passwords/forgot_password_screen.dart';
 import 'package:pocket_swap_fisi/screen/profile/profile_screen.dart';
 import '../../generated/l10n.dart';
+import 'package:pocket_swap_fisi/dummy_data.dart';
+
+import '../history/transaction_history_screen.dart';
 
 class HomeScreen extends StatefulWidget{
   const HomeScreen({Key? key}) : super(key: key);
@@ -63,16 +66,8 @@ class _HomeScreenState extends State<HomeScreen>{
             ),
             body: <Widget>[
                 // Home page
-                Card(
-                  shadowColor: Colors.transparent,
-                  margin: const EdgeInsets.all(8.0),
-                  child: SizedBox.expand(
-                    child: Center(
-                      child: Text(
-                          'Home page'
-                      ),
-                    ),
-                  ),
+                Center(
+                  child: TransactionsList(transactions: transactions),
                 ),
 
                 /// Notifications page

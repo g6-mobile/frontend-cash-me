@@ -50,6 +50,16 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
+  /// `Account`
+  String get Account {
+    return Intl.message(
+      'Account',
+      name: 'Account',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Login`
   String get Login {
     return Intl.message(
@@ -295,16 +305,6 @@ class S {
     return Intl.message(
       'Resend code',
       name: 'ResendCode',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Account`
-  String get Account {
-    return Intl.message(
-      'Account',
-      name: 'Account',
       desc: '',
       args: [],
     );
