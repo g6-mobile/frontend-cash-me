@@ -5,7 +5,7 @@ class User {
   final String? studentCode;
   final String? faculty;
   final String? major;
-  final String? userPhoto;
+  final String userPhoto;
   final String? password;
   final UserRole role;
   final String? googleId;
@@ -18,7 +18,7 @@ class User {
     this.studentCode,
     this.faculty,
     this.major,
-    this.userPhoto,
+    required this.userPhoto,
     this.password,
     required this.role,
     this.googleId,

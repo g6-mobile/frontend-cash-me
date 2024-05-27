@@ -1,7 +1,12 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:pocket_swap_fisi/providers/user_provider.dart';
+import 'package:pocket_swap_fisi/screen/chat/chat_screen.dart';
 import 'package:pocket_swap_fisi/screen/maps/maps_screen.dart';
 import 'package:pocket_swap_fisi/screen/profile/profile_screen.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -12,6 +17,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int currentPageIndex = 2;
+  int randomNumber = Random().nextInt(10);
   @override
   Widget build(BuildContext context) {    
     return AnnotatedRegion(
@@ -95,15 +101,17 @@ class _HomeScreenState extends State<HomeScreen> {
             //Map Screen
             const Center(child: MapSample()),
 
-            const Card(
-              shadowColor: Colors.transparent,
-              margin: EdgeInsets.all(8.0),
-              child: SizedBox.expand(
-                child: Center(
-                  child: MapSample(),
-                ),
-              ),
-            ),
+            // Chat Screen
+            Center(child: ChatScreen()),
+            // const Card(
+            //   shadowColor: Colors.transparent,
+            //   margin: EdgeInsets.all(8.0),
+            //   child: SizedBox.expand(
+            //     child: Center(
+            //       child: MapSample(),
+            //     ),
+            //   ),
+            // ),
 
             /// ProfileScreen
             const Center(

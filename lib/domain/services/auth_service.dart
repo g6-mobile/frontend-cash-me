@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:pocket_swap_fisi/domain/entities/user.dart';
 import 'package:pocket_swap_fisi/utils/constants/api_constants.dart';
 
 class AuthService {
@@ -8,7 +8,7 @@ class AuthService {
 
   AuthService(this.dio);
 
-  Future<User> login(String email, String password) async {
+  Future<void> login(String email, String password, BuildContext context) async {    
     try {
       final response = await dio.post('${ApiConstants.baseURL}/auth/login',
           data: {'email': email, 'password': password});
@@ -23,8 +23,12 @@ class AuthService {
       const storage = FlutterSecureStorage();
       await storage.write(key: 'accessToken', value: data['accessToken']);
       await storage.write(key: 'refreshToken', value: data['refreshToken']);
+
+      final user = await dio.get('${ApiConstants.baseURL}/users/me',
+          options: Options(headers: {'Authorization': 'Bearer ${data['accessToken']}'}));
       
-      return User.fromJson(data['user']);
+      // userProvider.setUser(User.fromJson(user.data['data']));            
+      await storage.write(key: 'user', value: user.data['data'].toString());
     } catch (e) {
       throw Exception(e);
     }
@@ -42,7 +46,7 @@ class AuthService {
       // Eliminar el token del almacenamiento seguro
       const storage = FlutterSecureStorage();
       await storage.delete(key: 'accessToken');
-      await storage.delete(key: 'refreshToken');      
+      await storage.delete(key: 'refreshToken');
     } catch (e) {
       throw Exception(e);
     }
@@ -54,7 +58,7 @@ class AuthService {
       final accessToken = await storage.read(key: 'accessToken');
       // final refreshToken = await storage.read(key: 'refreshToken');
 
-      return accessToken != null;    
+      return accessToken != null;
     } catch (e) {
       throw Exception(e);
     }

@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:pocket_swap_fisi/domain/entities/user.dart';
 import 'package:pocket_swap_fisi/providers/auth_provider.dart';
+import 'package:pocket_swap_fisi/providers/user_provider.dart';
 import 'package:pocket_swap_fisi/screen/auth/login_screen.dart';
 import 'package:pocket_swap_fisi/widget/button.dart';
 import 'package:pocket_swap_fisi/widget/text.dart'; //subtittleText
@@ -9,7 +11,7 @@ import 'package:provider/provider.dart';
 import '../../generated/l10n.dart'; //S
 import 'package:shared_preferences/shared_preferences.dart';
 
-class ProfileScreen extends StatefulWidget {  
+class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
 
   @override
@@ -19,7 +21,10 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
-    final authProvider = Provider.of<AuthProvider>(context);    
+    final authProvider = Provider.of<AuthProvider>(context);
+    final userProvider = Provider.of<UserProvider>(context);
+    Future<User> user = userProvider.getUser();
+    
     return Scaffold(
       appBar: AppBar(
         /*
@@ -50,15 +55,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       maxWidth: 64,
                       maxHeight: 64,
                     ),
-                    child: Image.asset('assets/images/img_profile_user.png',
-                        fit: BoxFit.cover),
+                    child: ClipOval(
+                      child: Image.network(user.userPhoto, fit: BoxFit.cover),
+                    ),
                   ),
-                  title: const Text(
-                    'Diego Chavala',
-                    style:
-                        TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+                  title: Text(
+                    '${user.firstName} ${user.lastName}',
+                    style: const TextStyle(
+                        fontSize: 18.0, fontWeight: FontWeight.bold),
                   ),
-                  subtitle: const Text('Ing. de Software\n#20203513'),
+                  subtitle: Text('${user.major}\n#${user.studentCode}'),
                 ),
               ),
             ),
@@ -174,16 +180,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     )),
                 const SizedBox(height: 90),
                 BaseElevatedButton(
-                    text: S.current.LoginButton,
+                    text: "Cerrar sesión",
                     onPressed: () async {
                       const storage = FlutterSecureStorage();
-                      final accessToken = await storage.read(key: 'accessToken');
+                      final accessToken =
+                          await storage.read(key: 'accessToken');
                       await authProvider.logout(accessToken);
 
                       Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(builder: (context) => const LoginScreen()),
-                          (Route<dynamic> route) => false,
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const LoginScreen()),
+                        (Route<dynamic> route) => false,
                       );
                     })
               ],

@@ -4,6 +4,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:pocket_swap_fisi/domain/services/auth_service.dart';
 import 'package:pocket_swap_fisi/domain/usecases/auth_usecase.dart';
 import 'package:pocket_swap_fisi/providers/auth_provider.dart';
+import 'package:pocket_swap_fisi/providers/user_provider.dart';
 import 'package:pocket_swap_fisi/screen/splash_screen.dart';
 import 'package:pocket_swap_fisi/theme/dark_theme.dart';
 import 'package:pocket_swap_fisi/theme/light_theme.dart';
@@ -19,16 +20,20 @@ void main() {
 class MyApp extends StatelessWidget {
   MyApp({Key? key}) : super(key: key);
 
-  final Dio dio = Dio();  
+  final Dio dio = Dio();
 
   @override
   Widget build(BuildContext context) {
-    dio.options.baseUrl = ApiConstants.baseURL;    
+    dio.options.baseUrl = ApiConstants.baseURL;
 
     return MultiProvider(
         providers: [
           ChangeNotifierProvider(
-              create: (_) => AuthProvider(AuthUseCase(AuthService(dio))))
+            create: (_) => AuthProvider(AuthUseCase(AuthService(dio))),
+          ),
+          ChangeNotifierProvider(
+            create: (_) => UserProvider(),
+          ),
         ],
         child: MaterialApp(
           localizationsDelegates: const [
@@ -41,8 +46,7 @@ class MyApp extends StatelessWidget {
           title: 'Flutter Demo',
           theme: lightTheme,
           darkTheme: darkTheme,
-          home: const SplashScreen(),          
-        )
-      );
+          home: const SplashScreen(),
+        ));
   }
 }

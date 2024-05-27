@@ -11,7 +11,7 @@ import 'package:provider/provider.dart';
 import '../../generated/l10n.dart';
 import '../passwords/forgot_password_screen.dart';
 
-class LoginScreen extends StatefulWidget {  
+class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
 
   @override
@@ -131,12 +131,14 @@ class _LoginScreenState extends State<LoginScreen> {
                     text: S.current.LoginButton,
                     onPressed: () async {
                       try {
-                        await authProvider.login(_emailController.text, _passwordController.text);
+                        await authProvider.login(_emailController.text,
+                            _passwordController.text, context);
                         Navigator.pushAndRemoveUntil(
-                            context,
-                            MaterialPageRoute(builder: (context) => const HomeScreen()),
-                            (Route<dynamic> route) => false,
-                            );
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const HomeScreen()),
+                          (Route<dynamic> route) => false,
+                        );
                       } catch (e) {
                         print('Error: $e');
                       }
