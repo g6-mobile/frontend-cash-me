@@ -1,7 +1,11 @@
+import 'dart:async';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:pocket_swap_fisi/utils/constants/api_constants.dart';
+
+import '../entities/user.dart';
 
 class AuthService {
   final Dio dio;
@@ -59,6 +63,34 @@ class AuthService {
       // final refreshToken = await storage.read(key: 'refreshToken');
 
       return accessToken != null;
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
+
+  Future<User> register(String name, String lastName, String studentCode, String email, String password) async {
+    try {
+      final response = await dio.post('${ApiConstants.baseURL}/auth/register',
+          data: {
+            'firstName': name,
+            'lastName': lastName,
+            'email': email,
+            'password': password,
+            'studentCode': studentCode,
+          });
+
+      if (response.statusCode != 201) {
+        throw Exception('Failed to register');
+      }
+
+      final data = response.data['data'];
+
+      print(data);
+
+      final user = User.fromJson(data);
+      return user;
+
     } catch (e) {
       throw Exception(e);
     }

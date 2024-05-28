@@ -46,6 +46,13 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Or sign in with your email"),
         "LoginGoogle":
             MessageLookupByLibrary.simpleMessage("Login with Google"),
+        "NavBarBottomGiftShop":
+            MessageLookupByLibrary.simpleMessage("Gift Shop"),
+        "NavBarBottomHome": MessageLookupByLibrary.simpleMessage("Home"),
+        "NavBarBottomMessage": MessageLookupByLibrary.simpleMessage("Messages"),
+        "NavBarBottomProfile": MessageLookupByLibrary.simpleMessage("Profile"),
+        "NavBarBottomTransaction":
+            MessageLookupByLibrary.simpleMessage("History"),
         "QuestionSignUp":
             MessageLookupByLibrary.simpleMessage("Don\'t have an account? "),
         "Register": MessageLookupByLibrary.simpleMessage("Register"),
@@ -60,6 +67,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Student Code"),
         "ResendCode": MessageLookupByLibrary.simpleMessage("Resend code"),
         "SendButton": MessageLookupByLibrary.simpleMessage("Send"),
+        "SignOut": MessageLookupByLibrary.simpleMessage("Sign Out"),
         "SignUp": MessageLookupByLibrary.simpleMessage("Sign Up")
       };
 }

@@ -309,6 +309,66 @@ class S {
       args: [],
     );
   }
+
+  /// `History`
+  String get NavBarBottomTransaction {
+    return Intl.message(
+      'History',
+      name: 'NavBarBottomTransaction',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Home`
+  String get NavBarBottomHome {
+    return Intl.message(
+      'Home',
+      name: 'NavBarBottomHome',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Gift Shop`
+  String get NavBarBottomGiftShop {
+    return Intl.message(
+      'Gift Shop',
+      name: 'NavBarBottomGiftShop',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Messages`
+  String get NavBarBottomMessage {
+    return Intl.message(
+      'Messages',
+      name: 'NavBarBottomMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Profile`
+  String get NavBarBottomProfile {
+    return Intl.message(
+      'Profile',
+      name: 'NavBarBottomProfile',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sign Out`
+  String get SignOut {
+    return Intl.message(
+      'Sign Out',
+      name: 'SignOut',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

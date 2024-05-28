@@ -35,7 +35,7 @@ class TransactionsList extends StatelessWidget {
                 fontWeight: FontWeight.normal,
                 fontFamily: 'Poppins',
                 fontStyle: FontStyle.italic,
-                color: Color(0xFF762B2B))
+                color: Theme.of(context).colorScheme.primary),
           ),
         ),
       );
@@ -50,14 +50,17 @@ class TransactionsList extends StatelessWidget {
                     fontSize: 20,
                     fontWeight: FontWeight.normal,
                     fontFamily: 'Poppins',
-                    color: Color(0xFF000000))),
+                    color: Theme.of(context).colorScheme.onBackground
+                )
+            ),
             trailing: Text(
-                "\s/${transaction.amount.toStringAsFixed(2)}",
+                "s/${transaction.amount.toStringAsFixed(2)}",
                 style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.normal,
                     fontFamily: 'Poppins',
-                    color: Color(0xFF000000))
+                    color: Theme.of(context).colorScheme.onBackground
+                )
             ),
           ),
         );
@@ -66,7 +69,7 @@ class TransactionsList extends StatelessWidget {
         if (i < transactions.length - 1) {
           transactionWidgets.add(
               Divider(
-                  color: Color(0xFFDFE0EB)
+                  color: Theme.of(context).colorScheme.onBackground
               )
           );
         }
@@ -84,9 +87,10 @@ class TransactionsList extends StatelessWidget {
                       fontSize: 24,
                       fontWeight: FontWeight.w600,
                       fontFamily: 'Poppins',
-                      color: Color(0xFF000000))
+                      color: Theme.of(context).colorScheme.onBackground
+                  )
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Expanded(
                   child: ListView(
                     children: transactionWidgets,

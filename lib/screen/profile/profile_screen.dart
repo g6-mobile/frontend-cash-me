@@ -9,6 +9,7 @@ import 'package:pocket_swap_fisi/widget/button.dart';
 import 'package:pocket_swap_fisi/widget/text.dart'; //subtittleText
 import 'package:provider/provider.dart';
 import '../../generated/l10n.dart'; //S
+import 'package:pocket_swap_fisi/widget/bottom_sheet.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -26,51 +27,43 @@ class _ProfileScreenState extends State<ProfileScreen> {
     Future<User> user = userProvider.getUser();
     
     return Scaffold(
-      appBar: AppBar(
-        /*
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios),
-          onPressed: (){
-            Navigator.pop(context);
-          },
-        ),
-        */
-        title:
-            SubtitleText(text: S.current.Account, fontWeight: FontWeight.w500),
-        centerTitle: true,
-      ),
       body: SafeArea(
-          child: Column(
-        children: [
-          Container(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 30.0, vertical: 10.0),
-            child: Center(
-              child: Card.outlined(
-                child: ListTile(
-                  leading: ConstrainedBox(
-                    constraints: const BoxConstraints(
-                      minWidth: 44,
-                      minHeight: 44,
-                      maxWidth: 64,
-                      maxHeight: 64,
+        child: Column(
+          children: [
+            SubtitleText(
+                text: S.current.Account,
+                fontWeight: FontWeight.w500
+            ),
+            SizedBox(height: 20),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 10.0),
+              child: Center(
+                child: Card(
+                  elevation: 5,
+                  child: ListTile(
+                    leading: ConstrainedBox(
+                      constraints: BoxConstraints(
+                        minWidth: 44,
+                        minHeight: 44,
+                        maxWidth: 64,
+                        maxHeight: 64,
+                      ),
+                      child: Image.asset('assets/images/img_profile_user.png', fit: BoxFit.cover),
                     ),
-                    child: ClipOval(
-                      child: Image.network(user.userPhoto, fit: BoxFit.cover),
+                    title: Text(
+                      'Diego Chavala',
+                      style: TextStyle(
+                        fontSize: 18.0,
+                        fontWeight: FontWeight.bold
+                      ),
                     ),
+                    subtitle: Text('Ing. de Software\n#20203513'),
                   ),
-                  title: Text(
-                    '${user.firstName} ${user.lastName}',
-                    style: const TextStyle(
-                        fontSize: 18.0, fontWeight: FontWeight.bold),
-                  ),
-                  subtitle: Text('${user.major}\n#${user.studentCode}'),
                 ),
               ),
             ),
-          ),
 
-          /*
+            /*
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 10.0),
               child: Center(
@@ -150,7 +143,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       showModalBottomSheet(
                         context: context,
                         builder: (context) {
-                          return const SwitchBottomSheet();
+                          return SwitchBottomSheet();
                         },
                       );
                     },
@@ -212,68 +205,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
             ),
             */
-        ],
-      )),
-    );
-  }
-}
-
-/*  */
-class SwitchBottomSheet extends StatefulWidget {
-  const SwitchBottomSheet({Key? key}) : super(key: key);
-  @override
-  _SwitchBottomSheetState createState() => _SwitchBottomSheetState();
-}
-
-class _SwitchBottomSheetState extends State<SwitchBottomSheet> {
-  bool _isSwitched = false;
-
-  @override
-  void initState() {
-    super.initState();
-    _loadSwitchState();
-  }
-
-  _loadSwitchState() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    setState(() {
-      _isSwitched = prefs.getBool('switchState') ?? false;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      height: 250,
-      padding: const EdgeInsets.all(10.0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center, // Centra verticalmente
-        crossAxisAlignment: CrossAxisAlignment.center, // Centra horizontalmente
-        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Image.asset(
-            _isSwitched
-                ? 'assets/images/eeuu_english.png'
-                : 'assets/images/peru_spanish.png',
-            width: 100,
-            height: 100,
-          ),
-          const SizedBox(height: 10),
-          Text(_isSwitched ? 'English' : 'Español'),
-          const SizedBox(height: 2),
-          CupertinoSwitch(
-            value: _isSwitched,
-            activeColor: const Color.fromARGB(255, 217, 217, 217),
-            onChanged: (bool value) async {
-              SharedPreferences prefs = await SharedPreferences.getInstance();
-              setState(() {
-                _isSwitched = value;
-                prefs.setBool('switchState', value);
-              });
-            },
-          ),
-        ],
+          ],
+        )
       ),
     );
   }

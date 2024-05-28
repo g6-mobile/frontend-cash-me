@@ -2,11 +2,15 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:pocket_swap_fisi/screen/gift_shop/gift_shop_screen.dart';
 import 'package:pocket_swap_fisi/providers/user_provider.dart';
 import 'package:pocket_swap_fisi/screen/chat/chat_screen.dart';
 import 'package:pocket_swap_fisi/screen/maps/maps_screen.dart';
 import 'package:pocket_swap_fisi/screen/profile/profile_screen.dart';
 import 'package:provider/provider.dart';
+import '../../dummy_data.dart';
+import '../../generated/l10n.dart';
+import '../history/transaction_history_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -19,105 +23,74 @@ class _HomeScreenState extends State<HomeScreen> {
   int currentPageIndex = 2;
   int randomNumber = Random().nextInt(10);
   @override
-  Widget build(BuildContext context) {    
+  Widget build(BuildContext context) {
     return AnnotatedRegion(
         value: SystemUiOverlayStyle.light.copyWith(
             statusBarColor: Colors.transparent,
             statusBarIconBrightness: Brightness.dark),
         child: Scaffold(
-          bottomNavigationBar: NavigationBar(
-            labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
-            backgroundColor: Theme.of(context).colorScheme.background,
-            onDestinationSelected: (int index) {
-              setState(() {
-                currentPageIndex = index;
-              });
-            },
-            indicatorColor: const Color(0xFFFFE7E7),
-            selectedIndex: currentPageIndex,
-            destinations: const <Widget>[
-              NavigationDestination(
-                selectedIcon: Icon(Icons.restore),
-                icon: Icon(Icons.restore_outlined),
-                label: 'Transactions',
-              ),
-              NavigationDestination(
-                selectedIcon: Icon(Icons.card_giftcard),
-                icon: Icon(Icons.card_giftcard_outlined),
-                label: 'Gift Shop',
-              ),
-              NavigationDestination(
-                selectedIcon: Icon(Icons.home),
-                icon: Icon(Icons.home_outlined),
-                label: 'Home',
-              ),
-              NavigationDestination(
-                selectedIcon: Icon(Icons.message),
-                icon: Icon(Icons.message_outlined),
-                label: 'Messages',
-              ),
-              NavigationDestination(
-                selectedIcon: Icon(Icons.person_2),
-                icon: Icon(Icons.person_2_outlined),
-                label: 'Profile',
-              ),
-            ],
-          ),
-          body: <Widget>[
-            // Home page
-            const Card(
-              shadowColor: Colors.transparent,
-              margin: const EdgeInsets.all(8.0),
-              child: SizedBox.expand(
-                child: Center(
-                  child: Text('Home page'),
+            bottomNavigationBar: NavigationBar(
+              labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
+              backgroundColor: Theme.of(context).colorScheme.background,
+              onDestinationSelected: (int index) {
+                setState(() {
+                  currentPageIndex = index;
+                });
+              },
+              indicatorColor: Color(0xFFFFE7E7),
+              selectedIndex: currentPageIndex,
+              destinations: <Widget>[
+                NavigationDestination(
+                  selectedIcon: const Icon(Icons.restore),
+                  icon: const Icon(Icons.restore_outlined),
+                  label: S.current.NavBarBottomTransaction,
                 ),
-              ),
+                NavigationDestination(
+                  selectedIcon: const Icon(Icons.card_giftcard),
+                  icon: const Icon(Icons.card_giftcard_outlined),
+                  label: S.current.NavBarBottomGiftShop,
+                ),
+                NavigationDestination(
+                  selectedIcon: const Icon(Icons.home),
+                  icon: const Icon(Icons.home_outlined),
+                  label: S.current.NavBarBottomHome,
+                ),
+                NavigationDestination(
+                  selectedIcon: const Icon(Icons.message),
+                  icon: const Icon(Icons.message_outlined),
+                  label: S.current.NavBarBottomMessage,
+                ),
+                NavigationDestination(
+                  selectedIcon: const Icon(Icons.person_2),
+                  icon: const Icon(Icons.person_2_outlined),
+                  label: S.current.NavBarBottomProfile,
+                ),
+              ],
             ),
+            body: <Widget>[
+                // Home page
+                TransactionsList(transactions: transactions),
 
-            /// Notifications page
-            const Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Column(
-                children: <Widget>[
-                  Card(
-                    child: ListTile(
-                      leading: Icon(Icons.notifications_sharp),
-                      title: Text('Notification 1'),
-                      subtitle: Text('This is a notification'),
+                // Gift Shop Screen
+                const GiftShopScreen(),
+
+                //Map Screen
+                const MapSample(),
+
+                Card(
+                  shadowColor: Colors.transparent,
+                  margin: const EdgeInsets.all(8.0),
+                  child: SizedBox.expand(
+                    child: Center(
+                      child: MapSample(),
                     ),
                   ),
-                  Card(
-                    child: ListTile(
-                      leading: Icon(Icons.notifications_sharp),
-                      title: Text('Notification 2'),
-                      subtitle: Text('This is a notification'),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+                ),
 
-            //Map Screen
-            const Center(child: MapSample()),
-
-            // Chat Screen
-            Center(child: ChatScreen()),
-            // const Card(
-            //   shadowColor: Colors.transparent,
-            //   margin: EdgeInsets.all(8.0),
-            //   child: SizedBox.expand(
-            //     child: Center(
-            //       child: MapSample(),
-            //     ),
-            //   ),
-            // ),
-
-            /// ProfileScreen
-            const Center(
-              child: ProfileScreen(),
-            ),
-          ][currentPageIndex],
-        ));
+                // ProfileScreen
+                const ProfileScreen(),
+              ][currentPageIndex],
+            )
+    );
   }
 }

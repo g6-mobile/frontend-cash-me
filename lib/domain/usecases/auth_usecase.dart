@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:pocket_swap_fisi/domain/services/auth_service.dart';
 
+import '../entities/user.dart';
+
 class AuthUseCase {
   final AuthService _authService;
 
@@ -17,5 +19,12 @@ class AuthUseCase {
 
   Future<bool> hasToken() async {
     return await _authService.hasToken();
+  }
+
+  Future<User> register(String name, String lastName, String studentCode, String email, String password) async {
+    final user = await _authService.register(name, lastName, studentCode, email, password);
+    //PRINT INT CONSOLE
+    print(user);
+    return user;
   }
 }
