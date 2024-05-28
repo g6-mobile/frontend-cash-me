@@ -24,5 +24,6 @@
   "RegisterButton": "Continue",
   "EmailVerificationTitle": "Check your institutional email",
   "EmailVerificationDescription": "This action requires email verification, you will be asked to fill out the code. A verification email has been sent to:",
-  "ResendCode": "Resend code"
+  "ResendCode": "Resend code",
+  "SignOut": "Sign Out",
 }

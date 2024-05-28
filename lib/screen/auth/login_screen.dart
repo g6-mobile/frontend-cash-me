@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
-import 'package:pocket_swap_fisi/domain/usecases/auth_usecase.dart';
+import 'package:pocket_swap_fisi/providers/auth_provider.dart';
 import 'package:pocket_swap_fisi/screen/home/home_screen.dart';
 import 'package:pocket_swap_fisi/screen/register/register_screen.dart';
 import 'package:pocket_swap_fisi/widget/button.dart';
 import 'package:pocket_swap_fisi/widget/text.dart';
 import 'package:pocket_swap_fisi/widget/text_field.dart';
+import 'package:provider/provider.dart';
 
 import '../../generated/l10n.dart';
 import '../passwords/forgot_password_screen.dart';
 
 class LoginScreen extends StatefulWidget {
-  final AuthUseCase authUseCase;
-  const LoginScreen({Key? key, required this.authUseCase}) : super(key: key);
+  const LoginScreen({Key? key}) : super(key: key);
 
   @override
   _LoginScreenState createState() => _LoginScreenState();
@@ -52,6 +52,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final authProvider = Provider.of<AuthProvider>(context);
     return Scaffold(
       body: SafeArea(
           child: Stack(children: [
@@ -129,12 +130,14 @@ class _LoginScreenState extends State<LoginScreen> {
                     text: S.current.LoginButton,
                     onPressed: () async {
                       try {
-                        //final user = await widget.authUseCase.login(_emailController.text, _passwordController.text);
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => HomeScreen(),
-                            ));
+                        await authProvider.login(_emailController.text,
+                            _passwordController.text, context);
+                        Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const HomeScreen()),
+                          (Route<dynamic> route) => false,
+                        );
                       } catch (e) {
                         print('Error: $e');
                       }

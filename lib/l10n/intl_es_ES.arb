@@ -24,6 +24,6 @@
   "RegisterButton": "Continuar",
   "EmailVerificationTitle": "Revisa tu correo institucional",
   "EmailVerificationDescription": "Esta acción requiere una verificación de correo, se pedirá que rellene el código.\nSe ha enviado un correo de verificación a:",
-  "ResendCode": "Reenviar código"
-
+  "ResendCode": "Reenviar código",
+  "SignOut": "Cerrar sesión",
 }
