@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:pocket_swap_fisi/domain/services/auth_service.dart';
+import 'package:pocket_swap_fisi/domain/services/user_service.dart';
 import 'package:pocket_swap_fisi/domain/usecases/auth_usecase.dart';
+import 'package:pocket_swap_fisi/domain/usecases/user_usecase.dart';
 import 'package:pocket_swap_fisi/providers/auth_provider.dart';
 import 'package:pocket_swap_fisi/providers/user_provider.dart';
 import 'package:provider/provider.dart';
@@ -12,6 +14,6 @@ List<ChangeNotifierProvider> providers = [
     create: (_) => AuthProvider(AuthUseCase(AuthService(dio))),
   ),
   ChangeNotifierProvider(
-    create: (_) => UserProvider(),
+    create: (_) => UserProvider(AuthUseCase(AuthService(dio)), UserUseCase(UserService(dio))),
   ),  
 ];

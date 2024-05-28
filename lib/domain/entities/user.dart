@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 class User {
   final String firstName;
   final String lastName;
@@ -42,21 +44,23 @@ class User {
     );
   }
 
-  Map<String, dynamic> toJson() {
-    return {
-      'firstName': firstName,
-      'lastName': lastName,
-      'email': email,
-      'studentCode': studentCode,
-      'faculty': faculty,
-      'major': major,
-      'userPhoto': userPhoto,
-      'password': password,
-      'role': role.toString().split('.').last,
-      'googleId': googleId,
-      'refreshToken': refreshToken,
-    };
-  }
+  static Map<String, dynamic> toJson(User model) => <String, dynamic>{
+        'firstName': model.firstName,
+        'lastName': model.lastName,
+        'email': model.email,
+        'studentCode': model.studentCode,
+        'faculty': model.faculty,
+        'major': model.major,
+        'userPhoto': model.userPhoto,
+        'password': model.password,
+        'role': model.role.toString().split('.').last,
+        'googleId': model.googleId,
+        'refreshToken': model.refreshToken,
+      };
+
+  static String serialize(User model) => json.encode(User.toJson(model));
+
+  static User deserialize(String json) => User.fromJson(jsonDecode(json));
 }
 
 enum UserRole { admin, user }

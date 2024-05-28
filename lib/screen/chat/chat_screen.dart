@@ -25,27 +25,15 @@ class _ChatScreenState extends State<ChatScreen> with ChatScreenManager {
   @override
   Widget build(BuildContext context) {
     final userProvider = Provider.of<UserProvider>(context);
-    return FutureBuilder(
-      future: userProvider.getUser(),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return CircularProgressIndicator();
-        } else if (snapshot.hasError) {
-          return Text('Error: ${snapshot.error}');
-        } else {
-          final user = snapshot.data;
-          return Scaffold(
+    final user = userProvider.user; 
+    return Scaffold(
             appBar: AppBar(),
             body: Column(
               children: <Widget>[
-                Expanded(child: buildMessages(user!.firstName)),
-                buildInput(user.firstName),
+                Expanded(child: buildMessages(user!.firstName)), buildInput(user.firstName),
               ],
             ),
           );
-        }
-      },
-    );
   }
 
   Widget buildMessages(String name) {

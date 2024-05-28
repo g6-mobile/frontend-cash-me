@@ -18,4 +18,8 @@ class AuthUseCase {
   Future<bool> hasToken() async {
     return await _authService.hasToken();
   }
+
+  Future<String?> getAccessToken() async {
+    return await _authService.getAccessToken();
+  }
 }

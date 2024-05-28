@@ -2,7 +2,9 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:pocket_swap_fisi/domain/services/auth_service.dart';
+import 'package:pocket_swap_fisi/domain/services/user_service.dart';
 import 'package:pocket_swap_fisi/domain/usecases/auth_usecase.dart';
+import 'package:pocket_swap_fisi/domain/usecases/user_usecase.dart';
 import 'package:pocket_swap_fisi/providers/auth_provider.dart';
 import 'package:pocket_swap_fisi/providers/user_provider.dart';
 import 'package:pocket_swap_fisi/screen/splash_screen.dart';
@@ -32,8 +34,8 @@ class MyApp extends StatelessWidget {
             create: (_) => AuthProvider(AuthUseCase(AuthService(dio))),
           ),
           ChangeNotifierProvider(
-            create: (_) => UserProvider(),
-          ),
+            create: (_) => UserProvider(AuthUseCase(AuthService(dio)),UserUseCase(UserService(dio))),
+          ),          
         ],
         child: MaterialApp(
           localizationsDelegates: const [
