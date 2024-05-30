@@ -77,15 +77,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 //Map Screen
                 const MapSample(),
 
-                Card(
-                  shadowColor: Colors.transparent,
-                  margin: const EdgeInsets.all(8.0),
-                  child: SizedBox.expand(
-                    child: Center(
-                      child: MapSample(),
-                    ),
-                  ),
-                ),
+               // Chat Screen
+               const ChatScreen(),
 
                 // ProfileScreen
                 const ProfileScreen(),
