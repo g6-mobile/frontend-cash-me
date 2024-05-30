@@ -1,8 +1,12 @@
+import 'dart:async';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:pocket_swap_fisi/domain/entities/user.dart';
 import 'package:pocket_swap_fisi/utils/constants/api_constants.dart';
+
+import '../entities/user.dart';
 
 class AuthService {
   final Dio dio;
@@ -31,9 +35,9 @@ class AuthService {
       if(user.statusCode != 200) {
         throw Exception('Failed to get user data');
       }
-      
-      final userData = User.fromJson(user.data['data']);      
-           
+
+      final userData = User.fromJson(user.data['data']);
+
       await storage.write(key: 'user', value: User.serialize(userData));
       //SecureStorage().writeSecureData('user', User.serialize(userData));
     } catch (e) {
@@ -60,12 +64,40 @@ class AuthService {
   }
 
   Future<bool> hasToken() async {
-    try {      
+    try {
       const storage = FlutterSecureStorage();
-      final accessToken = await storage.read(key: 'accessToken');      
+      final accessToken = await storage.read(key: 'accessToken');
       // final refreshToken = await storage.read(key: 'refreshToken');
 
       return accessToken != null;
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
+
+  Future<User> register(String name, String lastName, String studentCode, String email, String password) async {
+    try {
+      final response = await dio.post('${ApiConstants.baseURL}/auth/register',
+          data: {
+            'firstName': name,
+            'lastName': lastName,
+            'email': email,
+            'password': password,
+            'studentCode': studentCode,
+          });
+
+      if (response.statusCode != 201) {
+        throw Exception('Failed to register');
+      }
+
+      final data = response.data['data'];
+
+      print(data);
+
+      final user = User.fromJson(data);
+      return user;
+
     } catch (e) {
       throw Exception(e);
     }

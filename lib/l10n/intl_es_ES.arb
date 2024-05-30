@@ -25,5 +25,10 @@
   "EmailVerificationTitle": "Revisa tu correo institucional",
   "EmailVerificationDescription": "Esta acción requiere una verificación de correo, se pedirá que rellene el código.\nSe ha enviado un correo de verificación a:",
   "ResendCode": "Reenviar código",
-  "SignOut": "Cerrar sesión",
+  "NavBarBottomTransaction": "Historial",
+  "NavBarBottomHome": "Principal",
+  "NavBarBottomGiftShop": "Tienda",
+  "NavBarBottomMessage": "Mensajes",
+  "NavBarBottomProfile": "Perfil",
+  "SignOut": "Cerrar sesión"
 }

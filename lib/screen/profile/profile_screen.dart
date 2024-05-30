@@ -7,9 +7,9 @@ import 'package:pocket_swap_fisi/screen/auth/login_screen.dart';
 import 'package:pocket_swap_fisi/widget/button.dart';
 import 'package:pocket_swap_fisi/widget/text.dart'; //subtittleText
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
 import '../../generated/l10n.dart'; //S
+import 'package:pocket_swap_fisi/widget/bottom_sheet.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -39,7 +39,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
               padding:
                   const EdgeInsets.symmetric(horizontal: 30.0, vertical: 10.0),
               child: Center(
-                child: Card.outlined(
+                child: Card(
+                  elevation: 5,
                   child: ListTile(
                     leading: ConstrainedBox(
                       constraints: const BoxConstraints(
@@ -63,7 +64,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
             ),
 
-            /*
+          /*
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 10.0),
               child: Center(
@@ -143,7 +144,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         showModalBottomSheet(
                           context: context,
                           builder: (context) {
-                            return const SwitchBottomSheet();
+                            return SwitchBottomSheet();
                           },
                         );
                       },
@@ -212,67 +213,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return const Scaffold(
       body: Center(
         child: CircularProgressIndicator(),
-      ),
-    );
-  }
-}
-
-/*  */
-class SwitchBottomSheet extends StatefulWidget {
-  const SwitchBottomSheet({Key? key}) : super(key: key);
-  @override
-  _SwitchBottomSheetState createState() => _SwitchBottomSheetState();
-}
-
-class _SwitchBottomSheetState extends State<SwitchBottomSheet> {
-  bool _isSwitched = false;
-
-  @override
-  void initState() {
-    super.initState();
-    _loadSwitchState();
-  }
-
-  _loadSwitchState() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    setState(() {
-      _isSwitched = prefs.getBool('switchState') ?? false;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      height: 250,
-      padding: const EdgeInsets.all(10.0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center, // Centra verticalmente
-        crossAxisAlignment: CrossAxisAlignment.center, // Centra horizontalmente
-        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Image.asset(
-            _isSwitched
-                ? 'assets/images/eeuu_english.png'
-                : 'assets/images/peru_spanish.png',
-            width: 100,
-            height: 100,
-          ),
-          const SizedBox(height: 10),
-          Text(_isSwitched ? 'English' : 'Español'),
-          const SizedBox(height: 2),
-          CupertinoSwitch(
-            value: _isSwitched,
-            activeColor: const Color.fromARGB(255, 217, 217, 217),
-            onChanged: (bool value) async {
-              SharedPreferences prefs = await SharedPreferences.getInstance();
-              setState(() {
-                _isSwitched = value;
-                prefs.setBool('switchState', value);
-              });
-            },
-          ),
-        ],
       ),
     );
   }

@@ -19,4 +19,9 @@ class AuthProvider extends ChangeNotifier {
   Future<bool> hasToken() async {
     return await _authUseCase.hasToken();
   }
+
+  Future<void> register(String name, String lastname, String studentCode, String email, String password) async {
+    await _authUseCase.register(name, lastname, studentCode, email, password);
+    notifyListeners();
+  }
 }
