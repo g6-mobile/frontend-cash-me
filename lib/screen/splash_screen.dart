@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:pocket_swap_fisi/providers/auth_provider.dart';
-import 'package:pocket_swap_fisi/providers/user_provider.dart';
 import 'package:pocket_swap_fisi/screen/auth/login_screen.dart';
 import 'package:pocket_swap_fisi/screen/home/home_screen.dart';
 import 'package:provider/provider.dart';
@@ -29,11 +28,10 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   void navigate() {
-    final authProvider = Provider.of<AuthProvider>(context, listen: false);
-    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);    
     authProvider.hasToken().then((hasToken) {
       if (hasToken) {
-        userProvider.loadUser();
+        authProvider.loadUser();
         Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (context) => const HomeScreen()));
       } else {

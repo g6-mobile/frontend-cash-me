@@ -1,5 +1,6 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:pocket_swap_fisi/domain/entities/user.dart';
 import 'package:pocket_swap_fisi/utils/constants/api_constants.dart';
@@ -9,7 +10,7 @@ class AuthService {
 
   AuthService(this.dio);
 
-  Future<void> login(String email, String password, BuildContext context) async {    
+  Future<void> login(String email, String password) async {    
     try {
       final response = await  dio.post('${ApiConstants.baseURL}/auth/login',
           data: {'email': email, 'password': password});
@@ -34,8 +35,7 @@ class AuthService {
       
       final userData = User.fromJson(user.data['data']);      
            
-      await storage.write(key: 'user', value: User.serialize(userData));
-      //SecureStorage().writeSecureData('user', User.serialize(userData));
+      await storage.write(key: 'user', value: User.serialize(userData));      
     } catch (e) {
       throw Exception(e);
     }
@@ -54,6 +54,7 @@ class AuthService {
       const storage = FlutterSecureStorage();
       await storage.delete(key: 'accessToken');
       await storage.delete(key: 'refreshToken');
+      await storage.delete(key: 'user');
     } catch (e) {
       throw Exception(e);
     }
@@ -74,5 +75,14 @@ class AuthService {
   Future<String?> getAccessToken() async {
     const storage = FlutterSecureStorage();
     return await storage.read(key: 'accessToken');
+  }
+
+  Future<User?> loadUser() async {    
+    const storage = FlutterSecureStorage();
+    String? userJson = await storage.read(key: 'user');    
+    if(userJson != null){
+      return User.fromJson(json.decode(userJson));
+    }
+    return null;
   }
 }
