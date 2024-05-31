@@ -34,7 +34,7 @@ class AuthProvider extends ChangeNotifier {
     notifyListeners();
     const storage = FlutterSecureStorage();
     await storage.write(key: 'user', value: User.serialize(user));
-    await storage.write(key: 'accessToken', value: token);    
+    await storage.write(key: 'accessToken', value: token);
   }
 
   Future<void> clearUser() async {
@@ -43,7 +43,7 @@ class AuthProvider extends ChangeNotifier {
     notifyListeners();
     const storage = FlutterSecureStorage();
     await storage.delete(key: 'user');
-    await storage.delete(key: 'accessToken');    
+    await storage.delete(key: 'accessToken');
   }
 
   Future<void> loadUser() async {
@@ -52,5 +52,11 @@ class AuthProvider extends ChangeNotifier {
       _user = await _authUseCase.loadUser();
       notifyListeners();
     }
+  }
+
+  Future<void> register(String name, String lastname, String studentCode,
+      String email, String password) async {
+    await _authUseCase.register(name, lastname, studentCode, email, password);
+    notifyListeners();
   }
 }

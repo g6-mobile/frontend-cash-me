@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:pocket_swap_fisi/widget/text.dart';
 import 'package:pocket_swap_fisi/widget/text_field.dart';
+import 'package:pocket_swap_fisi/providers/auth_provider.dart';
+import 'package:provider/provider.dart';
+
 import 'package:url_launcher/url_launcher.dart';
 import '../../generated/l10n.dart';
 import '../../widget/button.dart';
@@ -60,6 +63,7 @@ class _RegisterScreenState extends State<RegisterScreen>{
 
   @override
   Widget build(BuildContext context) {
+    final authProvider = Provider.of<AuthProvider>(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.background,
@@ -164,7 +168,15 @@ class _RegisterScreenState extends State<RegisterScreen>{
                         const SizedBox(height: 20),
                         BaseElevatedButton(
                             text: S.current.RegisterButton,
-                            onPressed: (){}
+                            onPressed: () async {
+                              await authProvider.register(
+                                _nameController.text,
+                                _lastNameController.text,
+                                _studentCodeController.text,
+                                _emailController.text,
+                                _passwordController.text,
+                              );
+                            }
                         ),
                       ],
                     )

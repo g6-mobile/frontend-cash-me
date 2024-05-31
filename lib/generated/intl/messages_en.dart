@@ -24,6 +24,7 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "AcceptTerms": MessageLookupByLibrary.simpleMessage(
             "Accept the terms and conditions."),
+        "Account": MessageLookupByLibrary.simpleMessage("Account"),
         "EmailAddress": MessageLookupByLibrary.simpleMessage("Email Address"),
         "EmailVerificationDescription": MessageLookupByLibrary.simpleMessage(
             "This action requires email verification, you will be asked to fill out the code. A verification email has been sent to:"),
@@ -45,6 +46,13 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Or sign in with your email"),
         "LoginGoogle":
             MessageLookupByLibrary.simpleMessage("Login with Google"),
+        "NavBarBottomGiftShop":
+            MessageLookupByLibrary.simpleMessage("Gift Shop"),
+        "NavBarBottomHome": MessageLookupByLibrary.simpleMessage("Home"),
+        "NavBarBottomMessage": MessageLookupByLibrary.simpleMessage("Messages"),
+        "NavBarBottomProfile": MessageLookupByLibrary.simpleMessage("Profile"),
+        "NavBarBottomTransaction":
+            MessageLookupByLibrary.simpleMessage("History"),
         "QuestionSignUp":
             MessageLookupByLibrary.simpleMessage("Don\'t have an account? "),
         "Register": MessageLookupByLibrary.simpleMessage("Register"),
@@ -59,6 +67,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Student Code"),
         "ResendCode": MessageLookupByLibrary.simpleMessage("Resend code"),
         "SendButton": MessageLookupByLibrary.simpleMessage("Send"),
+        "SignOut": MessageLookupByLibrary.simpleMessage("Sign Out"),
         "SignUp": MessageLookupByLibrary.simpleMessage("Sign Up")
       };
 }

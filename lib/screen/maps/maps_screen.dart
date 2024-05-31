@@ -4,6 +4,8 @@ import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 
+import '../../widget/bottom_sheet.dart';
+
 class MapSample extends StatefulWidget {
   const MapSample({super.key});
 
@@ -72,30 +74,41 @@ class MapSampleState extends State<MapSample> {
 
   @override
   Widget build(BuildContext context) {
-    return AnnotatedRegion(
-      value: SystemUiOverlayStyle.light.copyWith(
-        statusBarColor: Colors.transparent,
-      ),
-      child: Scaffold(
+    return Scaffold(
         extendBodyBehindAppBar: true,
         body: _initialCameraPosition == null
             ? Center(child: CircularProgressIndicator())
-            : GoogleMap(
-          mapType: MapType.normal,
-          initialCameraPosition: _initialCameraPosition ?? _fisiAno,
-          onMapCreated: (GoogleMapController controller) {
-            _controller.complete(controller);
-            controller.setMapStyle(_darkMapStyle);
-          },
-          markers: _markers,
+            : Stack(
+          children: [
+            GoogleMap(
+              mapType: MapType.normal,
+              initialCameraPosition: _initialCameraPosition ?? _fisiAno,
+              onMapCreated: (GoogleMapController controller) {
+                _controller.complete(controller);
+                if (MediaQuery.of(context).platformBrightness == Brightness.dark) {
+                  controller.setMapStyle(_darkMapStyle);
+                } else {
+                  controller.setMapStyle(null);
+                }
+              },
+              markers: _markers,
+            ),
+            Positioned(
+              bottom: 10,
+              left: 0,
+              right: 0,
+              child: Center(
+                child: FloatingActionButton(
+                  onPressed: () {
+                    showCustomBottomSheet(context);
+                  },
+                  child: Icon(Icons.currency_exchange), // Icono del botón
+                ),
+              ),
+            ),
+          ],
         ),
-        floatingActionButton: FloatingActionButton.extended(
-          onPressed: _goToTheLake,
-          label: const Text('To the lake!'),
-          icon: const Icon(Icons.directions_boat),
-        ),
-      ),
-    );
+      );
   }
 
   Future<void> _goToTheLake() async {

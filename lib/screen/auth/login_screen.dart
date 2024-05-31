@@ -54,7 +54,6 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     final authProvider = Provider.of<AuthProvider>(context);
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
       body: SafeArea(
           child: Stack(children: [
         Positioned(
@@ -131,8 +130,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     text: S.current.LoginButton,
                     onPressed: () async {
                       try {
-                        await authProvider.login(_emailController.text,
-                            _passwordController.text);
+                        await authProvider.login(
+                            _emailController.text, _passwordController.text);
                         Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(

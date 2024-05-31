@@ -7,7 +7,7 @@ class AuthUseCase {
   AuthUseCase(this._authService);
 
   Future<void> login(String email, String password) async {
-    final user = await _authService.login(email, password);    
+    final user = await _authService.login(email, password);
     return user;
   }
 
@@ -25,5 +25,12 @@ class AuthUseCase {
 
   Future<User?> loadUser() async {
     return await _authService.loadUser();
+  }
+
+  Future<User> register(String name, String lastName, String studentCode,
+      String email, String password) async {
+    final user = await _authService.register(
+        name, lastName, studentCode, email, password);
+    return user;
   }
 }

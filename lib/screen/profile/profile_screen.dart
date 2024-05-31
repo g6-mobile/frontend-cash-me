@@ -37,7 +37,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
             padding:
                 const EdgeInsets.symmetric(horizontal: 30.0, vertical: 10.0),
             child: Center(
-              child: Card.outlined(
+              child: Card(
+                elevation: 5,
                 child: user != null
                     ? ListTile(
                         leading: ConstrainedBox(

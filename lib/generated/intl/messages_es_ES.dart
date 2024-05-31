@@ -24,6 +24,7 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "AcceptTerms": MessageLookupByLibrary.simpleMessage(
             "Aceptar los términos y condiciones."),
+        "Account": MessageLookupByLibrary.simpleMessage("Cuenta"),
         "EmailAddress":
             MessageLookupByLibrary.simpleMessage("Correo Electrónico"),
         "EmailVerificationDescription": MessageLookupByLibrary.simpleMessage(
@@ -46,6 +47,12 @@ class MessageLookup extends MessageLookupByLibrary {
             "O ingresa con tu correo electrónico"),
         "LoginGoogle":
             MessageLookupByLibrary.simpleMessage("Iniciar sesión con Google"),
+        "NavBarBottomGiftShop": MessageLookupByLibrary.simpleMessage("Tienda"),
+        "NavBarBottomHome": MessageLookupByLibrary.simpleMessage("Principal"),
+        "NavBarBottomMessage": MessageLookupByLibrary.simpleMessage("Mensajes"),
+        "NavBarBottomProfile": MessageLookupByLibrary.simpleMessage("Perfil"),
+        "NavBarBottomTransaction":
+            MessageLookupByLibrary.simpleMessage("Historial"),
         "QuestionSignUp":
             MessageLookupByLibrary.simpleMessage("¿No tienes una cuenta? "),
         "Register": MessageLookupByLibrary.simpleMessage("Registrarse"),
@@ -60,6 +67,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Código de alumno"),
         "ResendCode": MessageLookupByLibrary.simpleMessage("Reenviar código"),
         "SendButton": MessageLookupByLibrary.simpleMessage("Enviar"),
+        "SignOut": MessageLookupByLibrary.simpleMessage("Cerrar sesión"),
         "SignUp": MessageLookupByLibrary.simpleMessage("Crear cuenta")
       };
 }
