@@ -1,15 +1,13 @@
-import 'package:flutter/material.dart';
+import 'package:pocket_swap_fisi/domain/entities/user.dart';
 import 'package:pocket_swap_fisi/domain/services/auth_service.dart';
-
-import '../entities/user.dart';
 
 class AuthUseCase {
   final AuthService _authService;
 
   AuthUseCase(this._authService);
 
-  Future<void> login(String email, String password, BuildContext context) async {
-    final user = await _authService.login(email, password, context);    
+  Future<void> login(String email, String password) async {
+    final user = await _authService.login(email, password);
     return user;
   }
 
@@ -25,10 +23,14 @@ class AuthUseCase {
     return await _authService.getAccessToken();
   }
 
-  Future<User> register(String name, String lastName, String studentCode, String email, String password) async {
-    final user = await _authService.register(name, lastName, studentCode, email, password);
-    //PRINT INT CONSOLE
-    print(user);
+  Future<User?> loadUser() async {
+    return await _authService.loadUser();
+  }
+
+  Future<User> register(String name, String lastName, String studentCode,
+      String email, String password) async {
+    final user = await _authService.register(
+        name, lastName, studentCode, email, password);
     return user;
   }
 }

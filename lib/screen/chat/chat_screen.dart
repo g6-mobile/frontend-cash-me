@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pocket_swap_fisi/domain/usecases/websocket_usecase.dart';
-import 'package:pocket_swap_fisi/providers/user_provider.dart';
+import 'package:pocket_swap_fisi/providers/auth_provider.dart';
 import 'package:pocket_swap_fisi/screen/chat/chat_screen_manager.dart';
 import 'package:provider/provider.dart';
 
@@ -24,8 +24,8 @@ class _ChatScreenState extends State<ChatScreen> with ChatScreenManager {
 
   @override
   Widget build(BuildContext context) {
-    final userProvider = Provider.of<UserProvider>(context);
-    final user = userProvider.user; 
+    final authProvider = Provider.of<AuthProvider>(context);
+    final user = authProvider.user; 
     return Scaffold(
             appBar: AppBar(),
             body: Column(

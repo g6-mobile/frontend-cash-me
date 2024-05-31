@@ -130,8 +130,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     text: S.current.LoginButton,
                     onPressed: () async {
                       try {
-                        await authProvider.login(_emailController.text,
-                            _passwordController.text, context);
+                        await authProvider.login(
+                            _emailController.text, _passwordController.text);
                         Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(

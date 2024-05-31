@@ -2,12 +2,11 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:pocket_swap_fisi/screen/gift_shop/gift_shop_screen.dart';
-import 'package:pocket_swap_fisi/providers/user_provider.dart';
 import 'package:pocket_swap_fisi/screen/chat/chat_screen.dart';
+import 'package:pocket_swap_fisi/screen/gift_shop/gift_shop_screen.dart';
 import 'package:pocket_swap_fisi/screen/maps/maps_screen.dart';
 import 'package:pocket_swap_fisi/screen/profile/profile_screen.dart';
-import 'package:provider/provider.dart';
+
 import '../../dummy_data.dart';
 import '../../generated/l10n.dart';
 import '../history/transaction_history_screen.dart';
