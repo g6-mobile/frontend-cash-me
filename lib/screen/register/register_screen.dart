@@ -4,7 +4,7 @@ import 'package:pocket_swap_fisi/widget/text.dart';
 import 'package:pocket_swap_fisi/widget/text_field.dart';
 import 'package:pocket_swap_fisi/providers/auth_provider.dart';
 import 'package:provider/provider.dart';
-
+import 'package:pocket_swap_fisi/screen/auth/email_verification_screen.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../generated/l10n.dart';
 import '../../widget/button.dart';
@@ -21,6 +21,8 @@ class RegisterScreen extends StatefulWidget {
 class _RegisterScreenState extends State<RegisterScreen>{
   bool _obscureText = true;
   bool _isKeyboardVisible = false;
+  bool _isPasswordInvalid = false;
+  bool _isAcceptTerms = false;
   late TextEditingController _nameController;
   late TextEditingController _lastNameController;
   late TextEditingController _studentCodeController;
@@ -68,7 +70,7 @@ class _RegisterScreenState extends State<RegisterScreen>{
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.background,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios),
+          icon: const Icon(Icons.arrow_back_ios),
           onPressed: (){
             Navigator.pop(context);
           },
@@ -128,20 +130,26 @@ class _RegisterScreenState extends State<RegisterScreen>{
                           ],
                         ),
                         const SizedBox(height: 5),
-                        Padding(
-                            padding:
-                            const EdgeInsets.symmetric(horizontal: 10),
+                        Visibility(
+                          visible: _isPasswordInvalid,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
                             child: HelperText(
                               text: S.current.RegisterPasswordRequired,
                             ),
+                          ),
                         ),
                         const SizedBox(height: 25),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children:[
                             Checkbox(
-                                value: true,
-                                onChanged: null
+                                value: _isAcceptTerms,
+                                onChanged: (bool? value){
+                                  setState(() {
+                                    _isAcceptTerms = value!;
+                                  });
+                                }
                             ),
                             SizedBox(width: 3),
                             GestureDetector(
@@ -169,13 +177,34 @@ class _RegisterScreenState extends State<RegisterScreen>{
                         BaseElevatedButton(
                             text: S.current.RegisterButton,
                             onPressed: () async {
-                              await authProvider.register(
-                                _nameController.text,
-                                _lastNameController.text,
-                                _studentCodeController.text,
-                                _emailController.text,
-                                _passwordController.text,
-                              );
+
+                              if(isValidPassword(_passwordController.text)
+                                  && _isAcceptTerms
+                                  && isValidEmail(
+                                      _emailController.text,
+                                      context))
+                              {
+                                setState(() {
+                                  _isPasswordInvalid = false;
+                                });
+
+                                var register = await authProvider.register(
+                                  _nameController.text,
+                                  _lastNameController.text,
+                                  _studentCodeController.text,
+                                  _emailController.text,
+                                  _passwordController.text,
+                                );
+                                registerStatus(
+                                    register!,
+                                    context,
+                                    _emailController
+                                );
+                              }else{
+                                setState(() {
+                                  _isPasswordInvalid = true;
+                                });
+                              }
                             }
                         ),
                       ],
@@ -188,5 +217,54 @@ class _RegisterScreenState extends State<RegisterScreen>{
         )
       ),
     );
+  }
+}
+
+void registerStatus(int response, BuildContext context, TextEditingController emailController){
+  switch (response) {
+    case 201:
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => EmailVerificationScreen(email: emailController.text),
+        ),
+      );
+      break;
+    case 404:
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(S.current.RegisterInvalidCodeSnackBar),
+        ),
+      );
+      break;
+    default:
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(S.current.DefaultErrorStatusCode),
+        ),
+      );
+      break;
+  }
+}
+
+bool isValidPassword(String password) {
+  final RegExp passwordRegExp = RegExp(
+    r'^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_+=|<>?{}[\].~-])(?=.*[a-z]).{8,}$',
+  );
+  print("isValidPassword: ${passwordRegExp.hasMatch(password)}");
+  return passwordRegExp.hasMatch(password);
+}
+
+bool isValidEmail(String email, BuildContext context) {
+  if (email.isEmpty || !email.endsWith('@unmsm.edu.pe')) {
+    print("isValidEmail: false");
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(S.current.ForgotPasswordSnackBar),
+      ),
+    );
+    return false;
+  }else{
+    return true;
   }
 }

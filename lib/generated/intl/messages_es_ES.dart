@@ -25,6 +25,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "AcceptTerms": MessageLookupByLibrary.simpleMessage(
             "Aceptar los términos y condiciones."),
         "Account": MessageLookupByLibrary.simpleMessage("Cuenta"),
+        "DefaultErrorStatusCode": MessageLookupByLibrary.simpleMessage(
+            "Ha ocurrido un error, por favor intente más tarde."),
         "EmailAddress":
             MessageLookupByLibrary.simpleMessage("Correo Electrónico"),
         "EmailVerificationDescription": MessageLookupByLibrary.simpleMessage(
@@ -59,6 +61,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "RegisterButton": MessageLookupByLibrary.simpleMessage("Continuar"),
         "RegisterInstitutionalEmail":
             MessageLookupByLibrary.simpleMessage("Correo institucional"),
+        "RegisterInvalidCodeSnackBar": MessageLookupByLibrary.simpleMessage(
+            "Por favor, ingresa un código de alumno válido."),
         "RegisterLastName": MessageLookupByLibrary.simpleMessage("Apellido"),
         "RegisterName": MessageLookupByLibrary.simpleMessage("Nombre"),
         "RegisterPasswordRequired": MessageLookupByLibrary.simpleMessage(

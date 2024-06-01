@@ -27,7 +27,7 @@ class AuthUseCase {
     return await _authService.loadUser();
   }
 
-  Future<User> register(String name, String lastName, String studentCode,
+  Future<int?> register(String name, String lastName, String studentCode,
       String email, String password) async {
     final user = await _authService.register(
         name, lastName, studentCode, email, password);

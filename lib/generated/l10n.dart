@@ -270,6 +270,16 @@ class S {
     );
   }
 
+  /// `Please enter a valid student code`
+  String get RegisterInvalidCodeSnackBar {
+    return Intl.message(
+      'Please enter a valid student code',
+      name: 'RegisterInvalidCodeSnackBar',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Continue`
   String get RegisterButton {
     return Intl.message(
@@ -365,6 +375,16 @@ class S {
     return Intl.message(
       'Sign Out',
       name: 'SignOut',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `An error occurred, please try again later`
+  String get DefaultErrorStatusCode {
+    return Intl.message(
+      'An error occurred, please try again later',
+      name: 'DefaultErrorStatusCode',
       desc: '',
       args: [],
     );

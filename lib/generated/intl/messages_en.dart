@@ -25,6 +25,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "AcceptTerms": MessageLookupByLibrary.simpleMessage(
             "Accept the terms and conditions."),
         "Account": MessageLookupByLibrary.simpleMessage("Account"),
+        "DefaultErrorStatusCode": MessageLookupByLibrary.simpleMessage(
+            "An error occurred, please try again later"),
         "EmailAddress": MessageLookupByLibrary.simpleMessage("Email Address"),
         "EmailVerificationDescription": MessageLookupByLibrary.simpleMessage(
             "This action requires email verification, you will be asked to fill out the code. A verification email has been sent to:"),
@@ -59,6 +61,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "RegisterButton": MessageLookupByLibrary.simpleMessage("Continue"),
         "RegisterInstitutionalEmail":
             MessageLookupByLibrary.simpleMessage("Institutional Email"),
+        "RegisterInvalidCodeSnackBar": MessageLookupByLibrary.simpleMessage(
+            "Please enter a valid student code"),
         "RegisterLastName": MessageLookupByLibrary.simpleMessage("Last Name"),
         "RegisterName": MessageLookupByLibrary.simpleMessage("Name"),
         "RegisterPasswordRequired": MessageLookupByLibrary.simpleMessage(

@@ -21,6 +21,7 @@
   "RegisterInstitutionalEmail": "Institutional Email",
   "RegisterPasswordRequired": "It must have at least 8 characters, a capital letter, a number and a special character.",
   "AcceptTerms": "Accept the terms and conditions.",
+  "RegisterInvalidCodeSnackBar": "Please enter a valid student code",
   "RegisterButton": "Continue",
   "EmailVerificationTitle": "Check your institutional email",
   "EmailVerificationDescription": "This action requires email verification, you will be asked to fill out the code. A verification email has been sent to:",
@@ -31,5 +32,6 @@
   "NavBarBottomMessage": "Messages",
   "NavBarBottomProfile": "Profile",
   "ResendCode": "Resend code",
-  "SignOut": "Sign Out"
+  "SignOut": "Sign Out",
+  "DefaultErrorStatusCode": "An error occurred, please try again later"
 }

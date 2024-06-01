@@ -21,6 +21,7 @@
   "RegisterInstitutionalEmail": "Correo institucional",
   "RegisterPasswordRequired": "Debe tener al menos 8 caracteres, una mayúscula, un número y un caracter especial.",
   "AcceptTerms": "Aceptar los términos y condiciones.",
+  "RegisterInvalidCodeSnackBar": "Por favor, ingresa un código de alumno válido.",
   "RegisterButton": "Continuar",
   "EmailVerificationTitle": "Revisa tu correo institucional",
   "EmailVerificationDescription": "Esta acción requiere una verificación de correo, se pedirá que rellene el código.\nSe ha enviado un correo de verificación a:",
@@ -30,5 +31,6 @@
   "NavBarBottomGiftShop": "Tienda",
   "NavBarBottomMessage": "Mensajes",
   "NavBarBottomProfile": "Perfil",
-  "SignOut": "Cerrar sesión"
+  "SignOut": "Cerrar sesión",
+  "DefaultErrorStatusCode": "Ha ocurrido un error, por favor intente más tarde."
 }

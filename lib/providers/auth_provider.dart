@@ -54,9 +54,10 @@ class AuthProvider extends ChangeNotifier {
     }
   }
 
-  Future<void> register(String name, String lastname, String studentCode,
+  Future<int?> register(String name, String lastname, String studentCode,
       String email, String password) async {
-    await _authUseCase.register(name, lastname, studentCode, email, password);
+    final register = await _authUseCase.register(name, lastname, studentCode, email, password);
     notifyListeners();
+    return register;
   }
 }

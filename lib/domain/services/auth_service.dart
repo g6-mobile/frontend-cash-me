@@ -73,11 +73,12 @@ class AuthService {
     }
   }
 
-  Future<User> register(String name, String lastName, String studentCode,
+  Future<int> register(String name, String lastName, String studentCode,
       String email, String password) async {
+    int statusCode;
     try {
       final response =
-          await dio.post('${ApiConstants.baseURL}/auth/register', data: {
+      await dio.post('${ApiConstants.baseURL}/auth/register', data: {
         'firstName': name,
         'lastName': lastName,
         'email': email,
@@ -85,19 +86,14 @@ class AuthService {
         'studentCode': studentCode,
       });
 
-      if (response.statusCode != 201) {
-        throw Exception('Failed to register');
-      }
-
-      final data = response.data['data'];
-
-      print(data);
-
-      final user = User.fromJson(data);
-      return user;
-    } catch (e) {
-      throw Exception(e);
+      statusCode = response.statusCode ?? 500;
+    } on DioError catch (e) {
+      // Si hay un error en la solicitud, obtenemos el código de estado de la respuesta
+      statusCode = e.response?.statusCode ?? 500;
     }
+
+    print("statusCode: $statusCode");
+    return statusCode;
   }
 
   Future<String?> getAccessToken() async {
