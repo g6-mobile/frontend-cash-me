@@ -42,7 +42,9 @@ class AuthService {
     }
   }
 
-  Future<void> logout(String? accessToken) async {
+  Future<void> logout() async {
+    const storage = FlutterSecureStorage();
+    final accessToken = await storage.read(key: 'accessToken');
     try {
       final response = await dio.get('${ApiConstants.baseURL}/auth/logout',
           options: Options(headers: {'Authorization': 'Bearer $accessToken'}));
