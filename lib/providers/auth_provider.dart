@@ -19,8 +19,8 @@ class AuthProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> logout(String? accessToken) async {
-    await _authUseCase.logout(accessToken);
+  Future<void> logout() async {
+    await _authUseCase.logout();
     clearUser();
   }
 
