@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
 
-class BaseElevatedButton extends StatelessWidget{
+class BaseElevatedButton extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;
+  final bool isLoading;
 
   const BaseElevatedButton({
     Key? key,
     required this.text,
     required this.onPressed,
+    this.isLoading = false,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: onPressed,
+      onPressed: isLoading ? null : onPressed,
       style: ElevatedButton.styleFrom(
         backgroundColor: Theme.of(context).colorScheme.primary,
         minimumSize: const Size(double.infinity, 50),
@@ -21,19 +23,31 @@ class BaseElevatedButton extends StatelessWidget{
           borderRadius: BorderRadius.circular(8),
         ),
       ),
-      child: Text(
-        text,
-        style: TextStyle(
-          color: Theme.of(context).colorScheme.onPrimaryContainer,
-          fontSize: 18,
-          fontFamily: 'Poppins',
-        ),
-      ),
+      child: isLoading
+          ? const Row(
+              mainAxisAlignment: MainAxisAlignment.center,              
+              children: [                
+                SizedBox(
+                  width: 8,
+                ),
+                CircularProgressIndicator(
+                  color: Colors.white,
+                ),
+              ],
+            )
+          : Text(
+              text,
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.onPrimaryContainer,
+                fontSize: 18,
+                fontFamily: 'Poppins',
+              ),
+            ),
     );
   }
 }
 
-class BaseAssetOutlinedButton extends StatelessWidget{
+class BaseAssetOutlinedButton extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;
   final String asset;
@@ -52,7 +66,8 @@ class BaseAssetOutlinedButton extends StatelessWidget{
         asset,
         height: 23,
         width: 23,
-      ),      onPressed: onPressed,
+      ),
+      onPressed: onPressed,
       style: OutlinedButton.styleFrom(
         backgroundColor: Theme.of(context).colorScheme.background,
         minimumSize: const Size(double.infinity, 50),

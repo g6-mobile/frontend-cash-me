@@ -21,6 +21,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   bool _obscureText = true;
   bool _isKeyboardVisible = false;
+  bool _isLoading = false;
   late TextEditingController _emailController;
   late TextEditingController _passwordController;
 
@@ -128,7 +129,11 @@ class _LoginScreenState extends State<LoginScreen> {
                 const SizedBox(height: 20),
                 BaseElevatedButton(
                     text: S.current.LoginButton,
+                    isLoading: _isLoading,
                     onPressed: () async {
+                      setState(() {
+                        _isLoading = true;
+                      });
                       try {
                         await authProvider.login(
                             _emailController.text, _passwordController.text);
@@ -140,6 +145,10 @@ class _LoginScreenState extends State<LoginScreen> {
                         );
                       } catch (e) {
                         print('Error: $e');
+                      } finally {
+                        setState(() {
+                          _isLoading = false;
+                        });
                       }
                     })
               ])),
@@ -164,13 +173,13 @@ class _LoginScreenState extends State<LoginScreen> {
                   text: S.current.QuestionSignUp,
                   style: TextStyle(
                     fontSize: 16,
-                    color: Theme.of(context).colorScheme.onBackground,
+                    color: Theme.of(context).colorScheme.onSurface,
                     fontFamily: 'Poppins',
                   ),
                   children: [
                     TextSpan(
                       text: S.current.SignUp,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 16,
                         color: Color(0xFF1F878E), // Color del enlace
                         fontFamily: 'Poppins',

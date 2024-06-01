@@ -11,8 +11,8 @@ class AuthUseCase {
     return user;
   }
 
-  Future<void> logout(String? accessToken) async {
-    await _authService.logout(accessToken);
+  Future<void> logout() async {
+    await _authService.logout();
   }
 
   Future<bool> hasToken() async {

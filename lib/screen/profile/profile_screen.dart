@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:pocket_swap_fisi/providers/auth_provider.dart';
 import 'package:pocket_swap_fisi/screen/auth/login_screen.dart';
 import 'package:pocket_swap_fisi/widget/button.dart';
@@ -19,6 +18,7 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  bool _isLoading = false;
   @override
   Widget build(BuildContext context) {
     final authProvider = Provider.of<AuthProvider>(context);
@@ -210,12 +210,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     )),
                 const SizedBox(height: 90),
                 BaseElevatedButton(
+                    isLoading: _isLoading,
                     text: "Cerrar sesión",
                     onPressed: () async {
-                      const storage = FlutterSecureStorage();
-                      final accessToken =
-                          await storage.read(key: 'accessToken');
-                      await authProvider.logout(accessToken);
+                      setState(() {
+                        _isLoading = true;
+                      });
+                      try {
+                        await authProvider.logout();
+                      } catch (e) {
+                        print('Error: $e');
+                      } finally {
+                        setState(() {
+                          _isLoading = false;
+                        });
+                      }
 
                       Navigator.pushAndRemoveUntil(
                         context,
