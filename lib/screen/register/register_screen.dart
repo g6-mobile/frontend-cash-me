@@ -22,6 +22,7 @@ class _RegisterScreenState extends State<RegisterScreen>{
   bool _obscureText = true;
   bool _isKeyboardVisible = false;
   bool _isPasswordInvalid = false;
+  bool _isLoading = false;
   bool _isAcceptTerms = false;
   late TextEditingController _nameController;
   late TextEditingController _lastNameController;
@@ -176,8 +177,11 @@ class _RegisterScreenState extends State<RegisterScreen>{
                         const SizedBox(height: 20),
                         BaseElevatedButton(
                             text: S.current.RegisterButton,
+                            isLoading: _isLoading,
                             onPressed: () async {
-
+                              setState(() {
+                                _isLoading = true;
+                              });
                               if(isValidPassword(_passwordController.text)
                                   && _isAcceptTerms
                                   && isValidEmail(
@@ -205,6 +209,9 @@ class _RegisterScreenState extends State<RegisterScreen>{
                                   _isPasswordInvalid = true;
                                 });
                               }
+                              setState(() {
+                                _isLoading = false;
+                              });
                             }
                         ),
                       ],
