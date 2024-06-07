@@ -26,19 +26,19 @@ class BaseTextField extends StatelessWidget{
       decoration: InputDecoration(
         hintText: hintText,
         hintStyle: TextStyle(
-          color: Color(0xFFC8C8C8),
+          color: Theme.of(context).colorScheme.secondary,
           fontSize: 16,
           fontFamily: 'Poppins',
         ),
         enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Color(0xFFC8C8C8)),
+          borderSide: BorderSide(color: Theme.of(context).colorScheme.secondary),
           borderRadius: BorderRadius.circular(8),
         ),
         focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.black),
+          borderSide: BorderSide(color: Theme.of(context).colorScheme.secondary),
           borderRadius: BorderRadius.circular(8),
         ),
-        contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+        contentPadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
       ),
     );
   }

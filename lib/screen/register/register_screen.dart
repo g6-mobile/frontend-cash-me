@@ -151,6 +151,7 @@ class _RegisterScreenState extends State<RegisterScreen>{
                                     _isAcceptTerms = value!;
                                   });
                                 }
+                                ,checkColor: Colors.white,
                             ),
                             SizedBox(width: 3),
                             GestureDetector(
@@ -183,15 +184,11 @@ class _RegisterScreenState extends State<RegisterScreen>{
                                 _isLoading = true;
                               });
                               if(isValidPassword(_passwordController.text)
-                                  && _isAcceptTerms
+                                  && isAcceptTerms(_isAcceptTerms)
                                   && isValidEmail(
                                       _emailController.text,
                                       context))
                               {
-                                setState(() {
-                                  _isPasswordInvalid = false;
-                                });
-
                                 var register = await authProvider.register(
                                   _nameController.text,
                                   _lastNameController.text,
@@ -204,10 +201,6 @@ class _RegisterScreenState extends State<RegisterScreen>{
                                     context,
                                     _emailController
                                 );
-                              }else{
-                                setState(() {
-                                  _isPasswordInvalid = true;
-                                });
                               }
                               setState(() {
                                 _isLoading = false;
@@ -224,6 +217,30 @@ class _RegisterScreenState extends State<RegisterScreen>{
         )
       ),
     );
+  }
+
+  bool isValidPassword(String password) {
+    final RegExp passwordRegExp = RegExp(
+      r'^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_+=|<>?{}[\].~-])(?=.*[a-z]).{8,}$',
+    );
+    print("isValidPassword: ${passwordRegExp.hasMatch(password)}");
+
+    setState(() {
+      _isPasswordInvalid = !passwordRegExp.hasMatch(password);
+    });
+
+    return passwordRegExp.hasMatch(password);
+  }
+
+  bool isAcceptTerms(bool isAcceptTerms){
+    if(!isAcceptTerms){
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(S.current.RegisterTermsSnackBar),
+        ),
+      );
+    }
+    return isAcceptTerms;
   }
 }
 
@@ -244,6 +261,13 @@ void registerStatus(int response, BuildContext context, TextEditingController em
         ),
       );
       break;
+    case 409:
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(S.current.RegisterUserExistsSnackBar),
+        ),
+      );
+      break;
     default:
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -252,14 +276,7 @@ void registerStatus(int response, BuildContext context, TextEditingController em
       );
       break;
   }
-}
 
-bool isValidPassword(String password) {
-  final RegExp passwordRegExp = RegExp(
-    r'^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_+=|<>?{}[\].~-])(?=.*[a-z]).{8,}$',
-  );
-  print("isValidPassword: ${passwordRegExp.hasMatch(password)}");
-  return passwordRegExp.hasMatch(password);
 }
 
 bool isValidEmail(String email, BuildContext context) {

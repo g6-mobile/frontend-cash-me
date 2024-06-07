@@ -280,11 +280,51 @@ class S {
     );
   }
 
+  /// `The email is already registered`
+  String get RegisterUserExistsSnackBar {
+    return Intl.message(
+      'The email is already registered',
+      name: 'RegisterUserExistsSnackBar',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter a valid email with the domain @unmsm.edu.pe`
+  String get RegisterInvalidEmailSnackBar {
+    return Intl.message(
+      'Please enter a valid email with the domain @unmsm.edu.pe',
+      name: 'RegisterInvalidEmailSnackBar',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You must accept the terms and conditions`
+  String get RegisterTermsSnackBar {
+    return Intl.message(
+      'You must accept the terms and conditions',
+      name: 'RegisterTermsSnackBar',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Continue`
   String get RegisterButton {
     return Intl.message(
       'Continue',
       name: 'RegisterButton',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Back`
+  String get RegisterBack {
+    return Intl.message(
+      'Back',
+      name: 'RegisterBack',
       desc: '',
       args: [],
     );

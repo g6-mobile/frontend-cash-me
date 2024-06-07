@@ -58,17 +58,24 @@ class MessageLookup extends MessageLookupByLibrary {
         "QuestionSignUp":
             MessageLookupByLibrary.simpleMessage("¿No tienes una cuenta? "),
         "Register": MessageLookupByLibrary.simpleMessage("Registrarse"),
+        "RegisterBack": MessageLookupByLibrary.simpleMessage("Volver"),
         "RegisterButton": MessageLookupByLibrary.simpleMessage("Continuar"),
         "RegisterInstitutionalEmail":
             MessageLookupByLibrary.simpleMessage("Correo institucional"),
         "RegisterInvalidCodeSnackBar": MessageLookupByLibrary.simpleMessage(
             "Por favor, ingresa un código de alumno válido."),
+        "RegisterInvalidEmailSnackBar": MessageLookupByLibrary.simpleMessage(
+            "Por favor, ingresa un correo institucional válido."),
         "RegisterLastName": MessageLookupByLibrary.simpleMessage("Apellido"),
         "RegisterName": MessageLookupByLibrary.simpleMessage("Nombre"),
         "RegisterPasswordRequired": MessageLookupByLibrary.simpleMessage(
             "Debe tener al menos 8 caracteres, una mayúscula, un número y un caracter especial."),
         "RegisterStudentCode":
             MessageLookupByLibrary.simpleMessage("Código de alumno"),
+        "RegisterTermsSnackBar": MessageLookupByLibrary.simpleMessage(
+            "Por favor, acepte los términos y condiciones."),
+        "RegisterUserExistsSnackBar": MessageLookupByLibrary.simpleMessage(
+            "El correo ya ha sido registrado."),
         "ResendCode": MessageLookupByLibrary.simpleMessage("Reenviar código"),
         "SendButton": MessageLookupByLibrary.simpleMessage("Enviar"),
         "SignOut": MessageLookupByLibrary.simpleMessage("Cerrar sesión"),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:pocket_swap_fisi/providers/auth_provider.dart';
 import 'package:pocket_swap_fisi/screen/home/home_screen.dart';
+import 'package:pocket_swap_fisi/screen/register/multi_step_register_screen.dart';
 import 'package:pocket_swap_fisi/screen/register/register_screen.dart';
 import 'package:pocket_swap_fisi/widget/button.dart';
 import 'package:pocket_swap_fisi/widget/text.dart';
@@ -162,7 +163,7 @@ class _LoginScreenState extends State<LoginScreen> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const RegisterScreen(),
+                    builder: (context) => const MultiStepRegisterScreen(),
                   ));
             },
             child: Container(

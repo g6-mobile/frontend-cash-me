@@ -58,17 +58,24 @@ class MessageLookup extends MessageLookupByLibrary {
         "QuestionSignUp":
             MessageLookupByLibrary.simpleMessage("Don\'t have an account? "),
         "Register": MessageLookupByLibrary.simpleMessage("Register"),
+        "RegisterBack": MessageLookupByLibrary.simpleMessage("Back"),
         "RegisterButton": MessageLookupByLibrary.simpleMessage("Continue"),
         "RegisterInstitutionalEmail":
             MessageLookupByLibrary.simpleMessage("Institutional Email"),
         "RegisterInvalidCodeSnackBar": MessageLookupByLibrary.simpleMessage(
             "Please enter a valid student code"),
+        "RegisterInvalidEmailSnackBar": MessageLookupByLibrary.simpleMessage(
+            "Please enter a valid email with the domain @unmsm.edu.pe"),
         "RegisterLastName": MessageLookupByLibrary.simpleMessage("Last Name"),
         "RegisterName": MessageLookupByLibrary.simpleMessage("Name"),
         "RegisterPasswordRequired": MessageLookupByLibrary.simpleMessage(
             "It must have at least 8 characters, a capital letter, a number and a special character."),
         "RegisterStudentCode":
             MessageLookupByLibrary.simpleMessage("Student Code"),
+        "RegisterTermsSnackBar": MessageLookupByLibrary.simpleMessage(
+            "You must accept the terms and conditions"),
+        "RegisterUserExistsSnackBar": MessageLookupByLibrary.simpleMessage(
+            "The email is already registered"),
         "ResendCode": MessageLookupByLibrary.simpleMessage("Resend code"),
         "SendButton": MessageLookupByLibrary.simpleMessage("Send"),
         "SignOut": MessageLookupByLibrary.simpleMessage("Sign Out"),
