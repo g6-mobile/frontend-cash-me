@@ -1,16 +1,56 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pocket_swap_fisi/providers/auth_provider.dart';
-import 'package:pocket_swap_fisi/screen/auth/login_screen.dart';
-import 'package:pocket_swap_fisi/screen/profile/edit_profile_screen.dart';
-import 'package:pocket_swap_fisi/widget/button.dart';
+//import 'package:pocket_swap_fisi/providers/auth_provider.dart';
+//import 'package:pocket_swap_fisi/screen/auth/login_screen.dart';
+//import 'package:pocket_swap_fisi/widget/button.dart';
 import 'package:pocket_swap_fisi/widget/text.dart'; //subtittleText
-import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:shimmer/shimmer.dart';
+//import 'package:provider/provider.dart';
+//import 'package:shared_preferences/shared_preferences.dart';
+//import 'package:shimmer/shimmer.dart';
 
 import '../../generated/l10n.dart'; //S
 
+
+
+class EditProfileScreen extends StatefulWidget {
+  const EditProfileScreen({super.key});
+
+  @override
+  State<EditProfileScreen> createState() => _EditProfileScreenState();
+}
+
+class _EditProfileScreenState extends State<EditProfileScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title:
+            SubtitleText(text: S.current.Account, fontWeight: FontWeight.w500),
+        centerTitle: true,
+      ),
+      body: SafeArea(
+        child: Column(
+          children: [
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 30.0),
+              child: Column(
+                children: [
+                  Text('data',
+                        textAlign: TextAlign.center,)
+                ],
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+
+  }
+}
+
+
+
+/*
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
 
@@ -101,43 +141,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
             ),
           ),
-          /*
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 10.0),
-              child: Center(
-                child: Card(
-                  shadowColor: Colors.transparent,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10), // if you need this
-                    side: BorderSide(
-                      color: Colors.grey.withOpacity(0.2),
-                      width: 1,
-                    ),
-                  ),
-                  child: ListTile(
-                    leading: ConstrainedBox(
-                      constraints: BoxConstraints(
-                        minWidth: 44,
-                        minHeight: 44,
-                        maxWidth: 64,
-                        maxHeight: 64,
-                      ),
-                      child: Image.asset('assets/images/img_profile_user.png', fit: BoxFit.cover),
-                    ),
-                    title: Text(
-                      'Diego Chavala',
-                      style: TextStyle(
-                        fontSize: 18.0,
-                        fontWeight: FontWeight.bold
-                      ),
-                    ),
-                    subtitle: Text('Ing. de Software\n#20203513'),
-                  ),
-                )
-              ),
-            ),
-            */
-
+      
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 30.0),
             child: Column(
@@ -147,9 +151,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
                           EdgeInsets.zero), // Establece el padding a cero
                     ),
-                    onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => EditProfileScreen()));
-                    },
+                    onPressed: () {},
                     child: const ListTile(
                       leading: Icon(Icons.person_2_outlined),
                       title: Text('Edit profile'),
@@ -321,3 +323,4 @@ class _SwitchBottomSheetState extends State<SwitchBottomSheet> {
     );
   }
 }
+*/
