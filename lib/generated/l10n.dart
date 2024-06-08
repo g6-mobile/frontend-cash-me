@@ -60,6 +60,16 @@ class S {
     );
   }
 
+  /// `Edit Profile`
+  String get EditProfile {
+    return Intl.message(
+      'Edit Profile',
+      name: 'EditProfile',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Login`
   String get Login {
     return Intl.message(

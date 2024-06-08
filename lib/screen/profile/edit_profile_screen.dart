@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 //import 'package:pocket_swap_fisi/screen/auth/login_screen.dart';
 //import 'package:pocket_swap_fisi/widget/button.dart';
 import 'package:pocket_swap_fisi/widget/text.dart'; //subtittleText
+import 'package:pocket_swap_fisi/widget/text_field.dart';
 //import 'package:provider/provider.dart';
 //import 'package:shared_preferences/shared_preferences.dart';
 //import 'package:shimmer/shimmer.dart';
@@ -25,21 +26,64 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     return Scaffold(
       appBar: AppBar(
         title:
-            SubtitleText(text: S.current.Account, fontWeight: FontWeight.w500),
+            SubtitleText(text: S.current.EditProfile, fontWeight: FontWeight.w500),
         centerTitle: true,
       ),
-      body: SafeArea(
-        child: Column(
+      body: Container(
+        child: ListView(
           children: [
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 30.0),
-              child: Column(
+            const SizedBox(height: 20),
+            Center(
+              child: Stack(
                 children: [
-                  Text('data',
-                        textAlign: TextAlign.center,)
+                  Container(
+                    child: ClipOval(
+                      // child: Image.network('src'),
+                      child: Image.asset(
+                        'assets/images/img_profile_user.png',
+                        width: 130,
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    bottom: 0,
+                    right: 0,
+                    child: Container(
+                      height: 28,
+                      width: 28,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Color(0xFFFFE7E7),
+                      ),
+                      child: Icon(
+                        Icons.edit, 
+                        color: Color(0xFF762B2B),
+                        size: 16,
+                      ),
+                    ),
+                  ),
                 ],
               ),
-            )
+            ),
+            const SizedBox(height: 10),
+            Center(
+              child: Text(
+                'Diego Zavala',
+                style: TextStyle(
+                  fontSize: 19.0,
+                  fontWeight: FontWeight.w600,
+                  color: Color(0xFF762B2B),
+                  fontFamily: 'Poppins',
+                ),
+              ),
+            ),
+            /*
+            BaseTextField(
+              hintText: S.current.HintEmail,
+              controller: _emailController,
+              keyboardType: TextInputType.emailAddress,
+            ),
+            */
           ],
         ),
       ),
