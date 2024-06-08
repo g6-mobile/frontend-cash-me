@@ -110,6 +110,16 @@ class S {
     );
   }
 
+  /// `Confirm Password`
+  String get HintConfirmPassword {
+    return Intl.message(
+      'Confirm Password',
+      name: 'HintConfirmPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Forgot my password`
   String get ForgotPassword {
     return Intl.message(
@@ -250,6 +260,26 @@ class S {
     );
   }
 
+  /// `Phone Number`
+  String get RegisterPhoneNumber {
+    return Intl.message(
+      'Phone Number',
+      name: 'RegisterPhoneNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Email and Phone`
+  String get RegisterEmailAndPhoneTitle {
+    return Intl.message(
+      'Email and Phone',
+      name: 'RegisterEmailAndPhoneTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `It must have at least 8 characters, a capital letter, a number and a special character.`
   String get RegisterPasswordRequired {
     return Intl.message(
@@ -295,6 +325,16 @@ class S {
     return Intl.message(
       'Please enter a valid email with the domain @unmsm.edu.pe',
       name: 'RegisterInvalidEmailSnackBar',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter a valid phone number`
+  String get RegisterInvalidPhoneSnackBar {
+    return Intl.message(
+      'Please enter a valid phone number',
+      name: 'RegisterInvalidPhoneSnackBar',
       desc: '',
       args: [],
     );

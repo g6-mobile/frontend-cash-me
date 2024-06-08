@@ -41,6 +41,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Por favor, ingresa un correo electrónico válido con el dominio @unmsm.edu.pe"),
         "ForgotPasswordTitle":
             MessageLookupByLibrary.simpleMessage("Recuperar Contraseña"),
+        "HintConfirmPassword":
+            MessageLookupByLibrary.simpleMessage("Confirmar Contraseña"),
         "HintEmail": MessageLookupByLibrary.simpleMessage("Email"),
         "HintPassword": MessageLookupByLibrary.simpleMessage("Contraseña"),
         "Login": MessageLookupByLibrary.simpleMessage("Iniciar sesión"),
@@ -60,16 +62,22 @@ class MessageLookup extends MessageLookupByLibrary {
         "Register": MessageLookupByLibrary.simpleMessage("Registrarse"),
         "RegisterBack": MessageLookupByLibrary.simpleMessage("Volver"),
         "RegisterButton": MessageLookupByLibrary.simpleMessage("Continuar"),
+        "RegisterEmailAndPhoneTitle":
+            MessageLookupByLibrary.simpleMessage("Correo y teléfono"),
         "RegisterInstitutionalEmail":
             MessageLookupByLibrary.simpleMessage("Correo institucional"),
         "RegisterInvalidCodeSnackBar": MessageLookupByLibrary.simpleMessage(
             "Por favor, ingresa un código de alumno válido."),
         "RegisterInvalidEmailSnackBar": MessageLookupByLibrary.simpleMessage(
             "Por favor, ingresa un correo institucional válido."),
+        "RegisterInvalidPhoneSnackBar": MessageLookupByLibrary.simpleMessage(
+            "Por favor, ingresa un número de teléfono válido."),
         "RegisterLastName": MessageLookupByLibrary.simpleMessage("Apellido"),
         "RegisterName": MessageLookupByLibrary.simpleMessage("Nombre"),
         "RegisterPasswordRequired": MessageLookupByLibrary.simpleMessage(
             "Debe tener al menos 8 caracteres, una mayúscula, un número y un caracter especial."),
+        "RegisterPhoneNumber":
+            MessageLookupByLibrary.simpleMessage("Número de teléfono"),
         "RegisterStudentCode":
             MessageLookupByLibrary.simpleMessage("Código de alumno"),
         "RegisterTermsSnackBar": MessageLookupByLibrary.simpleMessage(

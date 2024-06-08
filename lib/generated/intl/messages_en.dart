@@ -40,6 +40,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Please enter a valid email with the domain @unmsm.edu.pe"),
         "ForgotPasswordTitle":
             MessageLookupByLibrary.simpleMessage("Forgot Password"),
+        "HintConfirmPassword":
+            MessageLookupByLibrary.simpleMessage("Confirm Password"),
         "HintEmail": MessageLookupByLibrary.simpleMessage("Email"),
         "HintPassword": MessageLookupByLibrary.simpleMessage("Password"),
         "Login": MessageLookupByLibrary.simpleMessage("Login"),
@@ -60,16 +62,22 @@ class MessageLookup extends MessageLookupByLibrary {
         "Register": MessageLookupByLibrary.simpleMessage("Register"),
         "RegisterBack": MessageLookupByLibrary.simpleMessage("Back"),
         "RegisterButton": MessageLookupByLibrary.simpleMessage("Continue"),
+        "RegisterEmailAndPhoneTitle":
+            MessageLookupByLibrary.simpleMessage("Email and Phone"),
         "RegisterInstitutionalEmail":
             MessageLookupByLibrary.simpleMessage("Institutional Email"),
         "RegisterInvalidCodeSnackBar": MessageLookupByLibrary.simpleMessage(
             "Please enter a valid student code"),
         "RegisterInvalidEmailSnackBar": MessageLookupByLibrary.simpleMessage(
             "Please enter a valid email with the domain @unmsm.edu.pe"),
+        "RegisterInvalidPhoneSnackBar": MessageLookupByLibrary.simpleMessage(
+            "Please enter a valid phone number"),
         "RegisterLastName": MessageLookupByLibrary.simpleMessage("Last Name"),
         "RegisterName": MessageLookupByLibrary.simpleMessage("Name"),
         "RegisterPasswordRequired": MessageLookupByLibrary.simpleMessage(
             "It must have at least 8 characters, a capital letter, a number and a special character."),
+        "RegisterPhoneNumber":
+            MessageLookupByLibrary.simpleMessage("Phone Number"),
         "RegisterStudentCode":
             MessageLookupByLibrary.simpleMessage("Student Code"),
         "RegisterTermsSnackBar": MessageLookupByLibrary.simpleMessage(
