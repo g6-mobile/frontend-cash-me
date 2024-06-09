@@ -64,6 +64,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "RegisterButton": MessageLookupByLibrary.simpleMessage("Continuar"),
         "RegisterEmailAndPhoneTitle":
             MessageLookupByLibrary.simpleMessage("Correo y teléfono"),
+        "RegisterEmailNotFoundSnackBar": MessageLookupByLibrary.simpleMessage(
+            "El correo no pertenece a la universidad."),
         "RegisterInstitutionalEmail":
             MessageLookupByLibrary.simpleMessage("Correo institucional"),
         "RegisterInvalidCodeSnackBar": MessageLookupByLibrary.simpleMessage(

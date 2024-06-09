@@ -330,6 +330,16 @@ class S {
     );
   }
 
+  /// `The email is not registered in the university`
+  String get RegisterEmailNotFoundSnackBar {
+    return Intl.message(
+      'The email is not registered in the university',
+      name: 'RegisterEmailNotFoundSnackBar',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Please enter a valid phone number`
   String get RegisterInvalidPhoneSnackBar {
     return Intl.message(

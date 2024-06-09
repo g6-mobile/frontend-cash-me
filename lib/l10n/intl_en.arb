@@ -27,6 +27,7 @@
   "RegisterInvalidCodeSnackBar": "Please enter a valid student code",
   "RegisterUserExistsSnackBar": "The email is already registered",
   "RegisterInvalidEmailSnackBar": "Please enter a valid email with the domain @unmsm.edu.pe",
+  "RegisterEmailNotFoundSnackBar": "The email is not registered in the university",
   "RegisterInvalidPhoneSnackBar": "Please enter a valid phone number",
   "RegisterTermsSnackBar": "You must accept the terms and conditions",
   "RegisterButton": "Continue",

@@ -1,6 +1,8 @@
 import 'package:pocket_swap_fisi/domain/entities/user.dart';
 import 'package:pocket_swap_fisi/domain/services/auth_service.dart';
 
+import '../entities/studentByCode.dart';
+
 class AuthUseCase {
   final AuthService _authService;
 
@@ -32,5 +34,15 @@ class AuthUseCase {
     final user = await _authService.register(
         name, lastName, studentCode, email, password);
     return user;
+  }
+
+  Future<StudentByCode> studentByCode(String studentCode) async {
+    final student = await _authService.studentDataByCode(studentCode);
+    return student;
+  }
+
+  Future<int?> validateEmail(String email) async {
+    final response = await _authService.validateEmail(email);
+    return response;
   }
 }

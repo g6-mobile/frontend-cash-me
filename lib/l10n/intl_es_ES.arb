@@ -27,6 +27,7 @@
   "RegisterInvalidCodeSnackBar": "Por favor, ingresa un código de alumno válido.",
   "RegisterUserExistsSnackBar": "El correo ya ha sido registrado.",
   "RegisterInvalidEmailSnackBar": "Por favor, ingresa un correo institucional válido.",
+  "RegisterEmailNotFoundSnackBar": "El correo no pertenece a la universidad.",
   "RegisterInvalidPhoneSnackBar": "Por favor, ingresa un número de teléfono válido.",
   "RegisterTermsSnackBar": "Por favor, acepte los términos y condiciones.",
   "RegisterButton": "Continuar",

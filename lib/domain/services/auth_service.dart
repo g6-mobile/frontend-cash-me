@@ -1,7 +1,9 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:pocket_swap_fisi/domain/entities/studentByCode.dart';
 import 'package:pocket_swap_fisi/domain/entities/user.dart';
 import 'package:pocket_swap_fisi/utils/constants/api_constants.dart';
 
@@ -63,6 +65,51 @@ class AuthService {
     }
   }
 
+  Future<StudentByCode> studentDataByCode(String studentCode) async {
+    Response response = Response(requestOptions: RequestOptions(path: ''));
+    try {
+      response = await dio.post('${ApiConstants.baseURL}/students/verify-code',
+          data: {'code': studentCode}).timeout(
+          const Duration(seconds: 10), onTimeout: () {
+        throw TimeoutException('Time out');
+      });
+
+      return StudentByCode.fromJson(response.data['data']);
+    } on DioException catch (_) {
+      if (response.statusCode != 500) {
+        return StudentByCode(
+            faculty: 'notFound', major: '', name: '', userPhoto: '');
+      }
+
+      return StudentByCode(
+          faculty: 'error', major: '', name: '', userPhoto: '');
+    } on TimeoutException catch (_) {
+      return StudentByCode(
+          faculty: 'error', major: '', name: '', userPhoto: '');
+    }
+  }
+
+  Future<int?> validateEmail(String email) async {
+    Response response = Response(requestOptions: RequestOptions(path: ''));
+    try {
+      print("email: $email");
+      response = await dio.post('${ApiConstants.baseURL}/students/verify-email', data: {
+        'email': email,
+      }).timeout(
+          const Duration(seconds: 10), onTimeout: () {
+        throw TimeoutException('Time out');
+      });
+
+      return response.statusCode;
+    } on DioException catch (e) {
+      print("error: ${e.response?.statusCode ?? 500}");
+
+      return e.response?.statusCode ?? 500;
+    } on TimeoutException catch (_) {
+      return 500;
+    }
+  }
+
   Future<bool> hasToken() async {
     try {
       const storage = FlutterSecureStorage();
@@ -80,7 +127,7 @@ class AuthService {
     int statusCode;
     try {
       final response =
-      await dio.post('${ApiConstants.baseURL}/auth/register', data: {
+          await dio.post('${ApiConstants.baseURL}/auth/register', data: {
         'firstName': name,
         'lastName': lastName,
         'email': email,

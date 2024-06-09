@@ -3,6 +3,8 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:pocket_swap_fisi/domain/entities/user.dart';
 import 'package:pocket_swap_fisi/domain/usecases/auth_usecase.dart';
 
+import '../domain/entities/studentByCode.dart';
+
 class AuthProvider extends ChangeNotifier {
   User? _user;
   String? _token;
@@ -59,5 +61,17 @@ class AuthProvider extends ChangeNotifier {
     final register = await _authUseCase.register(name, lastname, studentCode, email, password);
     notifyListeners();
     return register;
+  }
+
+  Future <StudentByCode> studentByCode(String studentCode) async {
+    final student = await _authUseCase.studentByCode(studentCode);
+    notifyListeners();
+    return student;
+  }
+
+  Future<int?> validateEmail(String email) async {
+    final response = await _authUseCase.validateEmail(email);
+    notifyListeners();
+    return response;
   }
 }

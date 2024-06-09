@@ -48,6 +48,53 @@ class BaseElevatedButton extends StatelessWidget {
 }
 
 
+class RegisterMultiStepButton extends StatelessWidget {
+  final String text;
+  final VoidCallback onPressed;
+  final bool isLoading;
+  final Color? color;
+
+  const RegisterMultiStepButton({
+    Key? key,
+    required this.text,
+    required this.onPressed,
+    this.isLoading = false,
+    this.color,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final buttonColor = color ?? Theme.of(context).colorScheme.primary;
+    return ElevatedButton(
+      onPressed: isLoading ? null : onPressed,
+      style: ElevatedButton.styleFrom(
+        backgroundColor: buttonColor,
+      ),
+      child: isLoading
+          ? const Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(
+                  width: 8,
+                ),
+                CircularProgressIndicator(
+                  color: Colors.white,
+                ),
+              ],
+            )
+          : Text(
+              text,
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.onPrimaryContainer,
+                fontSize: 18,
+                fontFamily: 'Poppins',
+              ),
+            ),
+    );
+  }
+}
+
+
 
 class BaseAssetOutlinedButton extends StatelessWidget {
   final String text;
