@@ -14,10 +14,12 @@ class MapSample extends StatefulWidget {
 }
 
 class MapSampleState extends State<MapSample> {
-  final Completer<GoogleMapController> _controller = Completer<GoogleMapController>();
+  final Completer<GoogleMapController> _controller =
+      Completer<GoogleMapController>();
   late String _darkMapStyle;
   CameraPosition? _initialCameraPosition;
   Set<Marker> _markers = {};
+  Timer? _locationUpdateTimer;
 
   Future<Position> determinePosition() async {
     LocationPermission permission;
@@ -31,9 +33,18 @@ class MapSampleState extends State<MapSample> {
     return await Geolocator.getCurrentPosition();
   }
 
+  Future<Uint8List> _readImageBytes(String path) async {
+    final byteData = await rootBundle.load(path);
+    return byteData.buffer.asUint8List();
+  }
+
   Future<void> getCurrentLocation() async {
     try {
       Position position = await determinePosition();
+      final Uint8List markerIconBytes =
+          await _readImageBytes('assets/images/current_location.png');
+      final BitmapDescriptor markerIcon =
+          BitmapDescriptor.fromBytes(markerIconBytes);
       setState(() {
         _initialCameraPosition = CameraPosition(
           target: LatLng(position.latitude, position.longitude),
@@ -44,7 +55,7 @@ class MapSampleState extends State<MapSample> {
             markerId: MarkerId('current_position'),
             position: LatLng(position.latitude, position.longitude),
             infoWindow: InfoWindow(title: 'Current Position'),
-            icon: BitmapDescriptor.defaultMarker,
+            icon: markerIcon,
           ),
         );
       });
@@ -53,11 +64,24 @@ class MapSampleState extends State<MapSample> {
     }
   }
 
+  void _startLocationUpdateTimer() {
+    _locationUpdateTimer = Timer.periodic(Duration(seconds: 5), (timer) {
+      getCurrentLocation();
+    });
+  }
+
   @override
   void initState() {
     super.initState();
     _loadMapStyles();
-    getCurrentLocation();  // Obtener la ubicación actual al iniciar el widget
+    getCurrentLocation(); // Obtener la ubicación actual al iniciar el widget
+    _startLocationUpdateTimer();
+  }
+
+  @override
+  void dispose() {
+    _locationUpdateTimer?.cancel();
+    super.dispose();
   }
 
   static const CameraPosition _fisiAno = CameraPosition(
@@ -75,40 +99,41 @@ class MapSampleState extends State<MapSample> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        extendBodyBehindAppBar: true,
-        body: _initialCameraPosition == null
-            ? Center(child: CircularProgressIndicator())
-            : Stack(
-          children: [
-            GoogleMap(
-              mapType: MapType.normal,
-              initialCameraPosition: _initialCameraPosition ?? _fisiAno,
-              onMapCreated: (GoogleMapController controller) {
-                _controller.complete(controller);
-                if (MediaQuery.of(context).platformBrightness == Brightness.dark) {
-                  controller.setMapStyle(_darkMapStyle);
-                } else {
-                  controller.setMapStyle(null);
-                }
-              },
-              markers: _markers,
-            ),
-            Positioned(
-              bottom: 10,
-              left: 0,
-              right: 0,
-              child: Center(
-                child: FloatingActionButton(
-                  onPressed: () {
-                    showCustomBottomSheet(context);
+      extendBodyBehindAppBar: true,
+      body: _initialCameraPosition == null
+          ? Center(child: CircularProgressIndicator())
+          : Stack(
+              children: [
+                GoogleMap(
+                  mapType: MapType.normal,
+                  initialCameraPosition: _initialCameraPosition ?? _fisiAno,
+                  onMapCreated: (GoogleMapController controller) {
+                    _controller.complete(controller);
+                    if (MediaQuery.of(context).platformBrightness ==
+                        Brightness.dark) {
+                      controller.setMapStyle(_darkMapStyle);
+                    } else {
+                      controller.setMapStyle(null);
+                    }
                   },
-                  child: Icon(Icons.currency_exchange), // Icono del botón
+                  markers: _markers,
                 ),
-              ),
+                Positioned(
+                  bottom: 10,
+                  left: 0,
+                  right: 0,
+                  child: Center(
+                    child: FloatingActionButton(
+                      onPressed: () {
+                        showCustomBottomSheet(context);
+                      },
+                      child: Icon(Icons.currency_exchange), // Icono del botón
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ],
-        ),
-      );
+    );
   }
 
   Future<void> _goToTheLake() async {
@@ -117,6 +142,7 @@ class MapSampleState extends State<MapSample> {
   }
 
   Future _loadMapStyles() async {
-    _darkMapStyle = await rootBundle.loadString('assets/map/dark_theme_map.json');
+    _darkMapStyle =
+        await rootBundle.loadString('assets/map/dark_theme_map.json');
   }
 }
