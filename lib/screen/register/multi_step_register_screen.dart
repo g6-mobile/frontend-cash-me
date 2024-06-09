@@ -256,8 +256,8 @@ class _MultiStepRegisterScreenState extends State<MultiStepRegisterScreen> {
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                   content: Text(S.current.RegisterInvalidCodeSnackBar)));
             } else {
-              studentByCode =
-                  (await authProvider.studentByCode(_studentCodeController.text));
+              studentByCode = (await authProvider
+                  .studentByCode(_studentCodeController.text));
               switch (studentByCode.faculty) {
                 case 'notFound':
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -301,7 +301,7 @@ class _MultiStepRegisterScreenState extends State<MultiStepRegisterScreen> {
             RegisterMultiStepButton(
                 text: S.current.RegisterButton,
                 isLoading: isLoading,
-                onPressed: () async{
+                onPressed: () async {
                   setState(() {
                     isLoading = true;
                   });
@@ -309,22 +309,26 @@ class _MultiStepRegisterScreenState extends State<MultiStepRegisterScreen> {
                       _emailController.text.endsWith('@unmsm.edu.pe')) {
                     if (_phoneController.text.isNotEmpty &&
                         isValidPeruvianPhoneNumber(_phoneController.text)) {
-                      int? response = await authProvider.validateEmail(_emailController.text);                      switch (response) {
+                      int? response = await authProvider
+                          .validateEmail(_emailController.text);
+                      switch (response) {
                         case 201:
                           details.onStepContinue?.call();
                           break;
                         case 404:
                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                              content: Text(S.current.RegisterEmailNotFoundSnackBar)));
+                              content: Text(
+                                  S.current.RegisterEmailNotFoundSnackBar)));
                           break;
                         case 409:
                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                              content: Text(S.current.RegisterUserExistsSnackBar)));
+                              content:
+                                  Text(S.current.RegisterUserExistsSnackBar)));
                           break;
                         default:
                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                               content: Text(S.current.DefaultErrorStatusCode)));
-                          }
+                      }
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                           content:
@@ -368,7 +372,8 @@ class _MultiStepRegisterScreenState extends State<MultiStepRegisterScreen> {
                           context,
                           MaterialPageRoute(
                             builder: (context) => EmailVerificationScreen(
-                                email: _emailController.text, userRegister: userRegister),
+                                email: _emailController.text,
+                                userRegister: userRegister),
                           ),
                         );
                       } else {
