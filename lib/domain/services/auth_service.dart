@@ -160,25 +160,6 @@ class AuthService {
     }
   }
 
-  Future<void> checkToken() async {
-    const storage = FlutterSecureStorage();
-    final accessToken = await storage.read(key: 'accessToken');
-    try {
-      final response = await dio.get('${ApiConstants.baseURL}/auth/check',
-          options: Options(headers: {'Authorization ': 'Bearer $accessToken'}));
-
-      if (response.statusCode != 200) {
-        throw Exception('Failed to check token');
-      }
-    } catch (e) {
-      try {
-        await refreshToken();
-      } catch (e) {
-        await logout();
-      }
-    }
-  }
-
   Future<String?> getAccessToken() async {
     const storage = FlutterSecureStorage();
     return await storage.read(key: 'accessToken');
