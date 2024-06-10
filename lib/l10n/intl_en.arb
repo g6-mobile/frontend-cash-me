@@ -40,7 +40,7 @@
   "NavBarBottomGiftShop": "Gift Shop",
   "NavBarBottomMessage": "Messages",
   "NavBarBottomProfile": "Profile",
-  "ResendCode": "Resend code",
+  "ResponseCashback": "Accept",
   "SignOut": "Sign Out",
   "DefaultErrorStatusCode": "An error occurred, please try again later"
 }

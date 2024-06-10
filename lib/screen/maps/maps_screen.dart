@@ -4,7 +4,10 @@ import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 
+import '../../dummy_data_maps.dart';
+import '../../generated/l10n.dart';
 import '../../widget/bottom_sheet.dart';
+import '../../widget/button.dart';
 
 class MapSample extends StatefulWidget {
   const MapSample({super.key});
@@ -20,6 +23,95 @@ class MapSampleState extends State<MapSample> {
   CameraPosition? _initialCameraPosition;
   Set<Marker> _markers = {};
   Timer? _locationUpdateTimer;
+
+  void _showBottomSheet(MarkerData data) {
+    showModalBottomSheet(
+      showDragHandle: true,
+      context: context,
+      barrierColor: Colors.transparent,
+      backgroundColor: Theme.of(context).colorScheme.background,
+      isDismissible: true,
+      builder: (context) {
+        return Container(
+          height: (MediaQuery.of(context).size.height) * 0.4,
+          width: MediaQuery.of(context).size.width,
+          padding: const EdgeInsets.symmetric(horizontal: 35, vertical: 20),
+          child: Center(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Card(
+                  color: Theme.of(context).colorScheme.secondaryContainer,
+                  elevation: 5,
+                  child: Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        ListTile(
+                          leading: ConstrainedBox(
+                            constraints: const BoxConstraints(
+                              minWidth: 44,
+                              minHeight: 44,
+                              maxWidth: 64,
+                              maxHeight: 64,
+                            ),
+                            child: ClipOval(
+                              child: Image.asset('assets/images/img_profile_user.png', fit: BoxFit.cover),
+                            ),
+                          ),
+                          title: Text(
+                            data.name,
+                            style: const TextStyle(
+                                fontSize: 18.0, fontWeight: FontWeight.bold),
+                          ),
+                          subtitle: Text('Ing. de Software\n#${data.studentCode}'),
+                        )
+                      ],
+                    )
+                  )
+                ),
+                const SizedBox(height: 20),
+                Text(
+                  "PEN",
+                  style: const TextStyle(
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.w300,
+                  ),
+                ),
+                Text(
+                  data.amount.toString(),
+                  style: const TextStyle(
+                    fontSize: 40.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Text(data.cashType),
+                const SizedBox(height: 20),
+                BaseElevatedButton(text: S.current.ResponseCashback, onPressed: () {})
+                // Agrega más campos aquí si es necesario
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  void _addMarkersFromData(List<MarkerData> data) {
+    for (var item in data) {
+      final marker = Marker(
+        markerId: MarkerId(item.studentCode),
+        position: item.coordinates,
+        onTap: () {
+          _showBottomSheet(item);
+        },
+      );
+      setState(() {
+        _markers.add(marker);
+      });
+    }
+  }
 
   Future<Position> determinePosition() async {
     LocationPermission permission;
@@ -42,13 +134,13 @@ class MapSampleState extends State<MapSample> {
     try {
       Position position = await determinePosition();
       final Uint8List markerIconBytes =
-          await _readImageBytes('assets/images/current_location.png');
+      await _readImageBytes('assets/images/current_location.png');
       final BitmapDescriptor markerIcon =
-          BitmapDescriptor.fromBytes(markerIconBytes);
+      BitmapDescriptor.fromBytes(markerIconBytes);
       setState(() {
         _initialCameraPosition = CameraPosition(
           target: LatLng(position.latitude, position.longitude),
-          zoom: 14.4746,
+          zoom: 16.4746,
         );
         _markers.add(
           Marker(
@@ -59,13 +151,15 @@ class MapSampleState extends State<MapSample> {
           ),
         );
       });
+      final GoogleMapController controller = await _controller.future;
+      controller.animateCamera(CameraUpdate.newCameraPosition(_initialCameraPosition!));
     } catch (e) {
       print('Could not get the location: $e');
     }
   }
 
   void _startLocationUpdateTimer() {
-    _locationUpdateTimer = Timer.periodic(Duration(seconds: 5), (timer) {
+    _locationUpdateTimer = Timer.periodic(const Duration(seconds: 10), (timer) {
       getCurrentLocation();
     });
   }
@@ -75,7 +169,7 @@ class MapSampleState extends State<MapSample> {
     super.initState();
     _loadMapStyles();
     getCurrentLocation(); // Obtener la ubicación actual al iniciar el widget
-    _startLocationUpdateTimer();
+    _addMarkersFromData(dummyData);
   }
 
   @override
@@ -89,13 +183,6 @@ class MapSampleState extends State<MapSample> {
     zoom: 19.151926040649414,
   );
 
-  static const CameraPosition _kLake = CameraPosition(
-    bearing: 192.8334901395799,
-    target: LatLng(-12.059630621905079, -77.07792673597197),
-    tilt: 59.440717697143555,
-    zoom: 19.151926040649414,
-  );
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -103,42 +190,49 @@ class MapSampleState extends State<MapSample> {
       body: _initialCameraPosition == null
           ? Center(child: CircularProgressIndicator())
           : Stack(
-              children: [
-                GoogleMap(
-                  mapType: MapType.normal,
-                  initialCameraPosition: _initialCameraPosition ?? _fisiAno,
-                  onMapCreated: (GoogleMapController controller) {
-                    _controller.complete(controller);
-                    if (MediaQuery.of(context).platformBrightness ==
-                        Brightness.dark) {
-                      controller.setMapStyle(_darkMapStyle);
-                    } else {
-                      controller.setMapStyle(null);
-                    }
-                  },
-                  markers: _markers,
-                ),
-                Positioned(
-                  bottom: 10,
-                  left: 0,
-                  right: 0,
-                  child: Center(
-                    child: FloatingActionButton(
-                      onPressed: () {
-                        showCustomBottomSheet(context);
-                      },
-                      child: Icon(Icons.currency_exchange), // Icono del botón
-                    ),
-                  ),
-                ),
-              ],
+        children: [
+          GoogleMap(
+            mapType: MapType.normal,
+            initialCameraPosition: _initialCameraPosition ?? _fisiAno,
+            onMapCreated: (GoogleMapController controller) {
+              _controller.complete(controller);
+              if (MediaQuery.of(context).platformBrightness ==
+                  Brightness.dark) {
+                controller.setMapStyle(_darkMapStyle);
+              } else {
+                controller.setMapStyle(null);
+              }
+            },
+            markers: _markers,
+            zoomControlsEnabled: false,
+            mapToolbarEnabled: false,
+          ),
+          Positioned(
+            bottom: 10,
+            left: 0,
+            right: 0,
+            child: Center(
+              child: FloatingActionButton(
+                onPressed: () {
+                  showCustomBottomSheet(context);
+                },
+                child: Icon(Icons.currency_exchange), // Icono del botón
+              ),
             ),
+          ),
+          Positioned(
+            bottom: 70,
+            right: 10,
+            child: FloatingActionButton(
+              onPressed: () {
+                getCurrentLocation();
+              },
+              child: Icon(Icons.my_location), // Icono del botón
+            ),
+          ),
+        ],
+      ),
     );
-  }
-
-  Future<void> _goToTheLake() async {
-    final GoogleMapController controller = await _controller.future;
-    controller.animateCamera(CameraUpdate.newCameraPosition(_kLake));
   }
 
   Future _loadMapStyles() async {

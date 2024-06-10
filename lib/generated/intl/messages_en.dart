@@ -87,6 +87,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "RegisterUserExistsSnackBar": MessageLookupByLibrary.simpleMessage(
             "The email is already registered"),
         "ResendCode": MessageLookupByLibrary.simpleMessage("Resend code"),
+        "ResponseCashback": MessageLookupByLibrary.simpleMessage("Accept"),
         "SendButton": MessageLookupByLibrary.simpleMessage("Send"),
         "SignOut": MessageLookupByLibrary.simpleMessage("Sign Out"),
         "SignUp": MessageLookupByLibrary.simpleMessage("Sign Up")

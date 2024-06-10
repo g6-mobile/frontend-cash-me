@@ -460,6 +460,16 @@ class S {
     );
   }
 
+  /// `Accept`
+  String get ResponseCashback {
+    return Intl.message(
+      'Accept',
+      name: 'ResponseCashback',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Sign Out`
   String get SignOut {
     return Intl.message(
