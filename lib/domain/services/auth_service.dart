@@ -4,11 +4,12 @@ import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:pocket_swap_fisi/domain/entities/user.dart';
 import 'package:pocket_swap_fisi/utils/constants/api_constants.dart';
+import 'package:pocket_swap_fisi/utils/providers/dio_provider.dart';
 
 class AuthService {
   final Dio dio;
 
-  AuthService(this.dio);
+  AuthService() : dio = createDio();
 
   Future<void> login(String email, String password) async {
     try {
@@ -52,12 +53,6 @@ class AuthService {
       if (response.statusCode != 200) {
         throw Exception('Failed to logout');
       }
-
-      // Eliminar el token del almacenamiento seguro
-      const storage = FlutterSecureStorage();
-      await storage.delete(key: 'accessToken');
-      await storage.delete(key: 'refreshToken');
-      await storage.delete(key: 'user');
     } catch (e) {
       throw Exception(e);
     }
@@ -99,6 +94,45 @@ class AuthService {
       return user;
     } catch (e) {
       throw Exception(e);
+    }
+  }
+
+  Future<void> refreshToken() async {
+    const storage = FlutterSecureStorage();
+    final refreshToken = await storage.read(key: 'refreshToken');
+    try {
+      final response = await dio.get('${ApiConstants.baseURL}/auth/refresh',
+          options: Options(headers: {'Authorization': 'Bearer $refreshToken'}));
+
+      if (response.statusCode != 200) {
+        throw Exception('Failed to refresh token');
+      }
+
+      final data = response.data['data'];
+
+      await storage.write(key: 'accessToken', value: data['accessToken']);
+      await storage.write(key: 'refreshToken', value: data['refreshToken']);
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
+  Future<void> checkToken() async {
+    const storage = FlutterSecureStorage();
+    final accessToken = await storage.read(key: 'accessToken');
+    try {
+      final response = await dio.get('${ApiConstants.baseURL}/auth/check',
+          options: Options(headers: {'Authorization ': 'Bearer $accessToken'}));
+
+      if (response.statusCode != 200) {
+        throw Exception('Failed to check token');
+      }
+    } catch (e) {
+      try {
+        await refreshToken();
+      } catch (e) {
+        await logout();
+      }
     }
   }
 

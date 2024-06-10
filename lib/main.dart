@@ -1,6 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:pocket_swap_fisi/domain/services/auth_service.dart';
 import 'package:pocket_swap_fisi/domain/services/user_service.dart';
@@ -8,7 +7,7 @@ import 'package:pocket_swap_fisi/domain/usecases/auth_usecase.dart';
 import 'package:pocket_swap_fisi/domain/usecases/user_usecase.dart';
 import 'package:pocket_swap_fisi/providers/auth_provider.dart';
 import 'package:pocket_swap_fisi/providers/user_provider.dart';
-import 'package:pocket_swap_fisi/screen/splash_screen.dart';
+import 'package:pocket_swap_fisi/routes/app_router.dart';
 import 'package:pocket_swap_fisi/theme/dark_theme.dart';
 import 'package:pocket_swap_fisi/theme/light_theme.dart';
 import 'package:pocket_swap_fisi/utils/constants/api_constants.dart';
@@ -24,6 +23,7 @@ class MyApp extends StatelessWidget {
   MyApp({Key? key}) : super(key: key);
 
   final Dio dio = Dio();
+  final _appRouter = AppRouter();
 
   @override
   Widget build(BuildContext context) {
@@ -32,13 +32,13 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
         providers: [
           ChangeNotifierProvider(
-            create: (_) => AuthProvider(AuthUseCase(AuthService(dio))),
+            create: (_) => AuthProvider(AuthUseCase(AuthService())),
           ),
           ChangeNotifierProvider(
             create: (_) => UserProvider(UserUseCase(UserService(dio))),
           ),
         ],
-        child: MaterialApp(
+        child: MaterialApp.router(          
           localizationsDelegates: const [
             S.delegate,
             GlobalMaterialLocalizations.delegate,
@@ -49,7 +49,8 @@ class MyApp extends StatelessWidget {
           title: 'Flutter Demo',
           theme: lightTheme,
           darkTheme: darkTheme,
-          home: const SplashScreen(),
+          routerConfig: _appRouter.config(),          
+          // home: const SplashScreen(),
         ));
   }
 }

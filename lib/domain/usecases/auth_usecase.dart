@@ -33,4 +33,8 @@ class AuthUseCase {
         name, lastName, studentCode, email, password);
     return user;
   }
+
+  Future<void> refreshToken() async {
+    await _authService.refreshToken();
+  }
 }

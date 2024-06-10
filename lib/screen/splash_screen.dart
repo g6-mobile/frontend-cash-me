@@ -30,14 +30,14 @@ class _SplashScreenState extends State<SplashScreen> {
   void navigate() {
     final authProvider = Provider.of<AuthProvider>(context, listen: false);    
     authProvider.hasToken().then((hasToken) {
-      if (hasToken) {
-        authProvider.loadUser();
-        Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => const HomeScreen()));
-      } else {
-        Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => const LoginScreen()));
-      }
+      // if (hasToken) {
+      //   authProvider.loadUser();
+      //   Navigator.pushReplacement(
+      //       context, MaterialPageRoute(builder: (context) => const HomeScreen()));
+      // } else {
+      //   Navigator.pushReplacement(
+      //       context, MaterialPageRoute(builder: (context) => const LoginScreen()));
+      // }
     });
   }
 }
