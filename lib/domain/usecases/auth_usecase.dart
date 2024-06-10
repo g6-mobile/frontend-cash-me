@@ -45,4 +45,8 @@ class AuthUseCase {
     final response = await _authService.validateEmail(email);
     return response;
   }
+
+  Future<void> refreshToken() async {
+    await _authService.refreshToken();
+  }
 }

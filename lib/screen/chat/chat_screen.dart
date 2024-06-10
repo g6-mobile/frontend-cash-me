@@ -1,10 +1,12 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:pocket_swap_fisi/domain/usecases/websocket_usecase.dart';
 import 'package:pocket_swap_fisi/providers/auth_provider.dart';
 import 'package:pocket_swap_fisi/screen/chat/chat_screen_manager.dart';
 import 'package:provider/provider.dart';
 
-class ChatScreen extends StatefulWidget {  
+@RoutePage()
+class ChatScreen extends StatefulWidget {
   const ChatScreen({Key? key}) : super(key: key);
 
   @override
@@ -25,15 +27,19 @@ class _ChatScreenState extends State<ChatScreen> with ChatScreenManager {
   @override
   Widget build(BuildContext context) {
     final authProvider = Provider.of<AuthProvider>(context);
-    final user = authProvider.user; 
+    final user = authProvider.user;
     return Scaffold(
-            appBar: AppBar(),
-            body: Column(
-              children: <Widget>[
-                Expanded(child: buildMessages(user!.firstName)), buildInput(user.firstName),
-              ],
-            ),
-          );
+      appBar: AppBar(),
+      body: Column(
+          children: user != null
+              ? <Widget>[
+                  Expanded(child: buildMessages(user.firstName)),
+                  buildInput(user.firstName),
+                ]
+              : <Widget>[
+                  const Center(child: Text("User not found")),
+                ]),
+    );
   }
 
   Widget buildMessages(String name) {
