@@ -1,9 +1,8 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:pocket_swap_fisi/providers/auth_provider.dart';
-import 'package:pocket_swap_fisi/screen/home/home_screen.dart';
 import 'package:pocket_swap_fisi/screen/register/multi_step_register_screen.dart';
-import 'package:pocket_swap_fisi/screen/register/register_screen.dart';
 import 'package:pocket_swap_fisi/widget/button.dart';
 import 'package:pocket_swap_fisi/widget/text.dart';
 import 'package:pocket_swap_fisi/widget/text_field.dart';
@@ -12,8 +11,10 @@ import 'package:provider/provider.dart';
 import '../../generated/l10n.dart';
 import '../passwords/forgot_password_screen.dart';
 
+@RoutePage()
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+  final Function(bool?) onResult;
+  const LoginScreen({Key? key, required this.onResult}) : super(key: key);
 
   @override
   _LoginScreenState createState() => _LoginScreenState();
@@ -137,13 +138,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       });
                       try {
                         await authProvider.login(
-                            _emailController.text, _passwordController.text);
-                        Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const HomeScreen()),
-                          (Route<dynamic> route) => false,
-                        );
+                            _emailController.text, _passwordController.text);                       
+                        widget.onResult.call(true);
                       } catch (e) {
                         print('Error: $e');
                       } finally {

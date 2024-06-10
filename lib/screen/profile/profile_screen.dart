@@ -1,7 +1,8 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pocket_swap_fisi/providers/auth_provider.dart';
-import 'package:pocket_swap_fisi/screen/auth/login_screen.dart';
+import 'package:pocket_swap_fisi/routes/app_router.gr.dart';
 import 'package:pocket_swap_fisi/widget/button.dart';
 import 'package:pocket_swap_fisi/widget/text.dart'; //subtittleText
 import 'package:provider/provider.dart';
@@ -10,6 +11,7 @@ import 'package:shimmer/shimmer.dart';
 
 import '../../generated/l10n.dart'; //S
 
+@RoutePage()
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
 
@@ -218,6 +220,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       });
                       try {
                         await authProvider.logout();
+                        //Uncomment this line to solve the context warning
+                        // if (!context.mounted) return;
+
+                        AutoRouter.of(context)
+                            .replace(LoginRoute(onResult: (result) {}));
                       } catch (e) {
                         print('Error: $e');
                       } finally {
@@ -225,13 +232,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           _isLoading = false;
                         });
                       }
-
-                      Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const LoginScreen()),
-                        (Route<dynamic> route) => false,
-                      );
                     })
               ],
             ),

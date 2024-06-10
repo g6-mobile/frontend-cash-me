@@ -11,7 +11,7 @@ final Dio dio = Dio();
 
 List<ChangeNotifierProvider> providers = [
   ChangeNotifierProvider(
-    create: (_) => AuthProvider(AuthUseCase(AuthService(dio))),
+    create: (_) => AuthProvider(AuthUseCase(AuthService())),
   ),
   ChangeNotifierProvider(
     create: (_) => UserProvider(UserUseCase(UserService(dio))),

@@ -44,8 +44,7 @@ class AuthProvider extends ChangeNotifier {
     _token = null;
     notifyListeners();
     const storage = FlutterSecureStorage();
-    await storage.delete(key: 'user');
-    await storage.delete(key: 'accessToken');
+    await storage.deleteAll();    
   }
 
   Future<void> loadUser() async {

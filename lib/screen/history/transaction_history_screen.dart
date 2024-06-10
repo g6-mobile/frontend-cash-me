@@ -1,7 +1,9 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import '../../domain/entities/transaction.dart'; // Importa el modelo de datos
 import 'package:intl/intl.dart'; // Importa intl para formatear la fecha y hora
 
+@RoutePage()
 class TransactionsList extends StatelessWidget {
   final List<Transaction> transactions;
 
