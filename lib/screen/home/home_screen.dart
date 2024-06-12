@@ -15,6 +15,16 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  late TabsRouter tabsRouter;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      tabsRouter.setActiveIndex(2); // Añade esta línea
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return AutoTabsRouter(
@@ -26,7 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
           const ProfileRoute(),
         ],
         builder: (context, child) {
-          final tabsRouter = AutoTabsRouter.of(context);
+          tabsRouter = AutoTabsRouter.of(context);
           return AnnotatedRegion(
               value: SystemUiOverlayStyle.light.copyWith(
                   statusBarColor: Colors.transparent,
