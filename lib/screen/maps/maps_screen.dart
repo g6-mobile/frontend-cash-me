@@ -22,6 +22,7 @@ class MapSampleState extends State<MapSample> {
   late String _darkMapStyle;
   CameraPosition? _initialCameraPosition;
   Set<Marker> _markers = {};
+  late Position position;
   Timer? _locationUpdateTimer;
 
   void _showBottomSheet(MarkerData data) {
@@ -132,24 +133,13 @@ class MapSampleState extends State<MapSample> {
 
   Future<void> getCurrentLocation() async {
     try {
-      Position position = await determinePosition();
-      final Uint8List markerIconBytes =
-      await _readImageBytes('assets/images/current_location.png');
-      final BitmapDescriptor markerIcon =
-      BitmapDescriptor.fromBytes(markerIconBytes);
+      position = await determinePosition();
       setState(() {
         _initialCameraPosition = CameraPosition(
           target: LatLng(position.latitude, position.longitude),
           zoom: 16.4746,
         );
-        _markers.add(
-          Marker(
-            markerId: MarkerId('current_position'),
-            position: LatLng(position.latitude, position.longitude),
-            infoWindow: InfoWindow(title: 'Current Position'),
-            icon: markerIcon,
-          ),
-        );
+        updateMakerPosition();
       });
       final GoogleMapController controller = await _controller.future;
       controller.animateCamera(CameraUpdate.newCameraPosition(_initialCameraPosition!));
@@ -158,9 +148,27 @@ class MapSampleState extends State<MapSample> {
     }
   }
 
+  Future<void> updateMakerPosition() async {
+    print("Updating marker position");
+    final Uint8List markerIconBytes =
+        await _readImageBytes('assets/images/current_location.png');
+    final BitmapDescriptor markerIcon =
+    BitmapDescriptor.fromBytes(markerIconBytes);
+    setState(() {
+      _markers.add(
+        Marker(
+          markerId: MarkerId('current_position'),
+          position: LatLng(position.latitude, position.longitude),
+          infoWindow: InfoWindow(title: 'Current Position'),
+          icon: markerIcon,
+        ),
+      );
+    });
+  }
+
   void _startLocationUpdateTimer() {
-    _locationUpdateTimer = Timer.periodic(const Duration(seconds: 10), (timer) {
-      getCurrentLocation();
+    _locationUpdateTimer = Timer.periodic(const Duration(seconds: 10), (timer) async {
+      updateMakerPosition();
     });
   }
 
@@ -168,7 +176,8 @@ class MapSampleState extends State<MapSample> {
   void initState() {
     super.initState();
     _loadMapStyles();
-    getCurrentLocation(); // Obtener la ubicación actual al iniciar el widget
+    getCurrentLocation();
+    _startLocationUpdateTimer();
     _addMarkersFromData(dummyData);
   }
 
@@ -214,7 +223,7 @@ class MapSampleState extends State<MapSample> {
             child: Center(
               child: FloatingActionButton(
                 onPressed: () {
-                  showCustomBottomSheet(context);
+                  showCustomBottomSheet(context, position);
                 },
                 child: Icon(Icons.currency_exchange), // Icono del botón
               ),

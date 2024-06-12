@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:pocket_swap_fisi/widget/button.dart';
 import 'package:pocket_swap_fisi/widget/text.dart';
 import 'package:provider/provider.dart';
@@ -9,7 +10,7 @@ import 'package:shimmer/shimmer.dart';
 import '../providers/auth_provider.dart';
 import 'drop_down_menu.dart';
 
-void showCustomBottomSheet(BuildContext context) {
+void showCustomBottomSheet(BuildContext context, Position position) {
   final authProvider = Provider.of<AuthProvider>(context, listen: false);
   authProvider.loadUser();
   final user = authProvider.user;
@@ -25,8 +26,7 @@ void showCustomBottomSheet(BuildContext context) {
     isScrollControlled: true,
     builder: (context) {
       return Container(
-        height: (MediaQuery.of(context).size.height) *
-            0.8,
+        height: (MediaQuery.of(context).size.height) * 0.8,
         width: MediaQuery.of(context).size.width,
         padding: const EdgeInsets.symmetric(horizontal: 35, vertical: 20),
         child: Center(
@@ -41,8 +41,8 @@ void showCustomBottomSheet(BuildContext context) {
                           maxHeight: 64,
                         ),
                         child: ClipOval(
-                          child: Image.network(user.userPhoto,
-                              fit: BoxFit.cover),
+                          child:
+                              Image.network(user.userPhoto, fit: BoxFit.cover),
                         ),
                       ),
                       const SizedBox(height: 10),
@@ -83,13 +83,15 @@ void showCustomBottomSheet(BuildContext context) {
                         list: list,
                       ),
                       const SizedBox(height: 40),
-                      BaseElevatedButton(text: 'Publicar', onPressed: () {}),
+                      BaseElevatedButton(text: 'Publicar', onPressed: () {
+                        print('Posicion:${position.latitude} - ${position.longitude}');
+                      }),
                       // Agrega más widgets aquí según tus necesidades
                     ],
                   )
                 : Shimmer.fromColors(
                     baseColor: Colors.grey[300]!,
-              highlightColor: Colors.grey[100]!,
+                    highlightColor: Colors.grey[100]!,
                     child: Column(
                       children: <Widget>[
                         ConstrainedBox(
@@ -126,8 +128,7 @@ void showCustomBottomSheet(BuildContext context) {
                         ),
                       ],
                     ),
-            )
-        ),
+                  )),
       );
     },
   );
