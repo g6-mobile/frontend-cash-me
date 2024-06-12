@@ -22,13 +22,16 @@ class _DropdownMenuExampleState extends State<DropdownMenuExample> {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 10.0),
       decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.secondaryContainer,
         border: Border.all(color: Colors.black),
         borderRadius: BorderRadius.circular(8.0),
       ),
       child: DropdownButtonHideUnderline(
         child: DropdownButton<String>(
+          dropdownColor: Theme.of(context).colorScheme.secondaryContainer,
           isExpanded: true,
           value: dropdownValue,
+          borderRadius: BorderRadius.circular(8.0),
           onChanged: (String? value) {
             setState(() {
               dropdownValue = value!;

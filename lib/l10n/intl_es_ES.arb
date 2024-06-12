@@ -40,6 +40,7 @@
   "NavBarBottomGiftShop": "Tienda",
   "NavBarBottomMessage": "Mensajes",
   "NavBarBottomProfile": "Perfil",
+  "ResponseCashback": "Aceptar",
   "SignOut": "Cerrar sesión",
   "DefaultErrorStatusCode": "Ha ocurrido un error, por favor intente más tarde."
 }
