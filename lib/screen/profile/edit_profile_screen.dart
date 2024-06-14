@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
+import 'package:pocket_swap_fisi/screen/update/update_phone_number.dart';
 import 'package:pocket_swap_fisi/widget/button.dart';
 //import 'package:pocket_swap_fisi/providers/auth_provider.dart';
 //import 'package:pocket_swap_fisi/screen/auth/login_screen.dart';
@@ -11,13 +12,7 @@ import 'package:pocket_swap_fisi/widget/text_field.dart';
 //import 'package:shared_preferences/shared_preferences.dart';
 //import 'package:shimmer/shimmer.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
-
-
 import '../../generated/l10n.dart'; //S
-
-
-
-
 
 
 class EditProfileScreen extends StatefulWidget {
@@ -28,6 +23,7 @@ class EditProfileScreen extends StatefulWidget {
 }
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
+  /*
   bool _obscureText = true;
   bool _isKeyboardVisible = false;
   late TextEditingController _nameController;
@@ -58,9 +54,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       _obscureText = !_obscureText;
     });
   }
-
+  */
   
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -111,19 +106,20 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             // Nombre de usuario
             Center(
               child: Text(
-                'Diego Zavala',
+                'Estiven Salvador\nHurtado Santos',
                 style: TextStyle(
-                  fontSize: 19.0,
+                  fontSize: 18.0,
                   fontWeight: FontWeight.w600,
                   color: Color(0xFF762B2B),
                   fontFamily: 'Poppins',
                 ),
+                textAlign: TextAlign.center,
               ),
             ),
 
             // Text nombre
             const SizedBox(height: 20),
-            Text('Nombre(s)'),
+            Text(S.current.RegisterName),
             const SizedBox(height: 5),
             // TextField para Nombre(s)
             TextField(
@@ -145,7 +141,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
             // Text Apellidos
             const SizedBox(height: 10),
-            Text('Apellidos'),
+            Text(S.current.RegisterLastName),
             const SizedBox(height: 5),
             // TextField Apellidos
             TextField(
@@ -167,7 +163,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
             // Text Codigo universitario
             const SizedBox(height: 10),
-            Text('Código'),
+            Text(S.current.RegisterStudentCode),
             const SizedBox(height: 5),
             // TextField de codigo
             TextField(
@@ -189,10 +185,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
             // lo que si se puede cambiar es la comtraseña y el phone number
             const SizedBox(height: 10),
-            Text('Número'),
+            Text('Phone Number'),
             const SizedBox(height: 5),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => UpdatePhoneNumber()));
+              },
               style: ElevatedButton.styleFrom(
                 padding: EdgeInsets.symmetric(horizontal: 10),
                 backgroundColor: Color(0xFFFFE7E7),
@@ -206,10 +204,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Cambiar numero',
+                    'Update phone number',
                     style: TextStyle(
                       color: Color(0xFF2A2A2A),
-                      fontSize: 16,
+                      fontSize: 15,
                       fontFamily: 'Poppins',
                     ),
                   ),
@@ -222,7 +220,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             ),
 
             const SizedBox(height: 10),
-            Text('Contraseña'),
+            Text(S.current.HintPassword),
             const SizedBox(height: 5),
             ElevatedButton(
               onPressed: () {},
@@ -239,10 +237,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Cambiar Contraseña',
+                    'Update password',
                     style: TextStyle(
                       color: Color(0xFF2A2A2A),
-                      fontSize: 16,
+                      fontSize: 15,
                       fontFamily: 'Poppins',
                     ),
                   ),
