@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:injectable/injectable.dart';
+import 'package:pocket_swap_fisi/widget/button.dart';
 //import 'package:pocket_swap_fisi/providers/auth_provider.dart';
 //import 'package:pocket_swap_fisi/screen/auth/login_screen.dart';
 //import 'package:pocket_swap_fisi/widget/button.dart';
@@ -8,8 +10,13 @@ import 'package:pocket_swap_fisi/widget/text_field.dart';
 //import 'package:provider/provider.dart';
 //import 'package:shared_preferences/shared_preferences.dart';
 //import 'package:shimmer/shimmer.dart';
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
+
 
 import '../../generated/l10n.dart'; //S
+
+
+
 
 
 
@@ -21,6 +28,39 @@ class EditProfileScreen extends StatefulWidget {
 }
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
+  bool _obscureText = true;
+  bool _isKeyboardVisible = false;
+  late TextEditingController _nameController;
+  late TextEditingController _lastNameController;
+
+  @override
+  void initState() {
+    super.initState();
+    _nameController = TextEditingController();
+    _lastNameController = TextEditingController();
+
+    KeyboardVisibilityController().onChange.listen((bool visible) {
+      setState(() {
+        _isKeyboardVisible = visible;
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _lastNameController.dispose();
+    super.dispose();
+  }
+
+  void _togglePasswordVisibility() {
+    setState(() {
+      _obscureText = !_obscureText;
+    });
+  }
+
+  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,8 +71,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       ),
       body: Container(
         child: ListView(
+          padding: const EdgeInsets.symmetric(horizontal: 35),
           children: [
-            const SizedBox(height: 20),
+            const SizedBox(height: 10),
+            // imagen de perfil e icons.edit
             Center(
               child: Stack(
                 children: [
@@ -41,7 +83,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       // child: Image.network('src'),
                       child: Image.asset(
                         'assets/images/img_profile_user.png',
-                        width: 130,
+                        width: 120,
                       ),
                     ),
                   ),
@@ -66,6 +108,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               ),
             ),
             const SizedBox(height: 10),
+            // Nombre de usuario
             Center(
               child: Text(
                 'Diego Zavala',
@@ -77,13 +120,141 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 ),
               ),
             ),
-            /*
-            BaseTextField(
-              hintText: S.current.HintEmail,
-              controller: _emailController,
-              keyboardType: TextInputType.emailAddress,
+
+            // Text nombre
+            const SizedBox(height: 20),
+            Text('Nombre(s)'),
+            const SizedBox(height: 5),
+            // TextField para Nombre(s)
+            TextField(
+              enabled: false,
+              decoration: InputDecoration(
+                hintText: 'Estiven Salvador',
+                hintStyle: TextStyle(
+                  color: Color(0xFFC8C8C8),
+                  fontSize: 16,
+                  fontFamily: 'Poppins',
+                ),
+                disabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Color(0xFFC8C8C8)),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+              ),
             ),
-            */
+
+            // Text Apellidos
+            const SizedBox(height: 10),
+            Text('Apellidos'),
+            const SizedBox(height: 5),
+            // TextField Apellidos
+            TextField(
+              enabled: false,
+              decoration: InputDecoration(
+                hintText: 'Hurtado Santos',
+                hintStyle: TextStyle(
+                  color: Color(0xFFC8C8C8),
+                  fontSize: 16,
+                  fontFamily: 'Poppins',
+                ),
+                disabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Color(0xFFC8C8C8)),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+              ),
+            ),
+
+            // Text Codigo universitario
+            const SizedBox(height: 10),
+            Text('Código'),
+            const SizedBox(height: 5),
+            // TextField de codigo
+            TextField(
+              enabled: false,
+              decoration: InputDecoration(
+                hintText: '20200284',
+                hintStyle: TextStyle(
+                  color: Color(0xFFC8C8C8),
+                  fontSize: 16,
+                  fontFamily: 'Poppins',
+                ),
+                disabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Color(0xFFC8C8C8)),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+              ),
+            ),
+
+            // lo que si se puede cambiar es la comtraseña y el phone number
+            const SizedBox(height: 10),
+            Text('Número'),
+            const SizedBox(height: 5),
+            ElevatedButton(
+              onPressed: () {},
+              style: ElevatedButton.styleFrom(
+                padding: EdgeInsets.symmetric(horizontal: 10),
+                backgroundColor: Color(0xFFFFE7E7),
+                minimumSize: const Size(double.infinity, 50),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                  side: BorderSide(color: Color(0xFFC8C8C8)),
+                ),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Cambiar numero',
+                    style: TextStyle(
+                      color: Color(0xFF2A2A2A),
+                      fontSize: 16,
+                      fontFamily: 'Poppins',
+                    ),
+                  ),
+                  Icon(
+                    Icons.arrow_forward_ios_rounded,
+                    color: Colors.black,
+                  )
+                ],
+              ),
+            ),
+
+            const SizedBox(height: 10),
+            Text('Contraseña'),
+            const SizedBox(height: 5),
+            ElevatedButton(
+              onPressed: () {},
+              style: ElevatedButton.styleFrom(
+                padding: EdgeInsets.symmetric(horizontal: 10),
+                backgroundColor: Color(0xFFFFE7E7),
+                minimumSize: const Size(double.infinity, 50),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                  side: BorderSide(color: Color(0xFFC8C8C8)),
+                ),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Cambiar Contraseña',
+                    style: TextStyle(
+                      color: Color(0xFF2A2A2A),
+                      fontSize: 16,
+                      fontFamily: 'Poppins',
+                    ),
+                  ),
+                  Icon(
+                    Icons.arrow_forward_ios_rounded,
+                    color: Colors.black,
+                  )
+                ],
+              ),
+            ),
+            
+            
           ],
         ),
       ),
