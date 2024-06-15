@@ -1,5 +1,6 @@
 {
   "Account": "Account",
+  "EditProfile" : "Edit Profile",
   "Login": "Login",
   "LoginGoogle": "Login with Google",
   "LoginEmail": "Or sign in with your email",
