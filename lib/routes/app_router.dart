@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:pocket_swap_fisi/screen/profile/profile_screen.dart';
 
 import 'app_router.gr.dart';
 
@@ -27,7 +28,10 @@ class AppRouter extends $AppRouter implements AutoRouteGuard {
           AutoRoute(path: 'chat', page: ChatRoute.page),
           AutoRoute(path: 'gift-shop', page: GiftShopRoute.page),
           AutoRoute(path: 'maps', page: MapSample.page),
-          AutoRoute(path: 'profile', page: ProfileRoute.page),
+          AutoRoute(path: 'profile', page: ProfileNavigationRoute.page, children: [
+            AutoRoute(path: 'profile', page: ProfileRoute.page, initial: true),
+            AutoRoute(path: 'profile', page: EditProfileRoute.page)
+          ]),
           AutoRoute(path: 'transaction-history', page: TransactionsList.page),
         ]),
       ];

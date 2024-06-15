@@ -151,7 +151,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           EdgeInsets.zero), // Establece el padding a cero
                     ),
                     onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => EditProfileScreen()));
+                      AutoRouter.of(context).push(const EditProfileRoute());
+                      // Navigator.push(context, MaterialPageRoute(builder: (context) => EditProfileScreen()));
                     },
                     child: const ListTile(
                       leading: Icon(Icons.person_2_outlined),
