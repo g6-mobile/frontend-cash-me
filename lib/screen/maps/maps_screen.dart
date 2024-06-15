@@ -18,7 +18,7 @@ class MapSample extends StatefulWidget {
   State<MapSample> createState() => MapSampleState();
 }
 
-class MapSampleState extends State<MapSample> {
+class MapSampleState extends State<MapSample> with WidgetsBindingObserver{
   final Completer<GoogleMapController> _controller =
       Completer<GoogleMapController>();
   late String _darkMapStyle;
@@ -26,6 +26,9 @@ class MapSampleState extends State<MapSample> {
   Set<Marker> _markers = {};
   late Position position;
   Timer? _locationUpdateTimer;
+  ValueNotifier<Brightness> brightnessNotifier = ValueNotifier(WidgetsBinding.instance!.window.platformBrightness);
+
+
 
   void _showBottomSheet(MarkerData data) {
     showModalBottomSheet(
@@ -177,6 +180,7 @@ class MapSampleState extends State<MapSample> {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     _loadMapStyles();
     getCurrentLocation();
     _startLocationUpdateTimer();
@@ -187,6 +191,14 @@ class MapSampleState extends State<MapSample> {
   void dispose() {
     _locationUpdateTimer?.cancel();
     super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      brightnessNotifier.value = WidgetsBinding.instance!.window.platformBrightness;
+    }
+    super.didChangeAppLifecycleState(state);
   }
 
   static const CameraPosition _fisiAno = CameraPosition(
@@ -202,21 +214,25 @@ class MapSampleState extends State<MapSample> {
           ? Center(child: CircularProgressIndicator())
           : Stack(
         children: [
-          GoogleMap(
-            mapType: MapType.normal,
-            initialCameraPosition: _initialCameraPosition ?? _fisiAno,
-            onMapCreated: (GoogleMapController controller) {
-              _controller.complete(controller);
-              if (MediaQuery.of(context).platformBrightness ==
-                  Brightness.dark) {
-                controller.setMapStyle(_darkMapStyle);
-              } else {
-                controller.setMapStyle(null);
-              }
+          ValueListenableBuilder(
+            valueListenable: brightnessNotifier,
+            builder: (context, value, child) {
+              return GoogleMap(
+                mapType: MapType.normal,
+                initialCameraPosition: _initialCameraPosition ?? _fisiAno,
+                onMapCreated: (GoogleMapController controller) {
+                  _controller.complete(controller);
+                  if (brightnessNotifier.value == Brightness.dark) {
+                    controller.setMapStyle(_darkMapStyle);
+                  } else {
+                    controller.setMapStyle(null);
+                  }
+                },
+                markers: _markers,
+                zoomControlsEnabled: false,
+                mapToolbarEnabled: false,
+              );
             },
-            markers: _markers,
-            zoomControlsEnabled: false,
-            mapToolbarEnabled: false,
           ),
           Positioned(
             bottom: 10,
