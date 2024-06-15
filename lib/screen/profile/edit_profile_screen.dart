@@ -1,19 +1,269 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pocket_swap_fisi/providers/auth_provider.dart';
-import 'package:pocket_swap_fisi/routes/app_router.gr.dart';
-import 'package:pocket_swap_fisi/screen/auth/login_screen.dart';
-import 'package:pocket_swap_fisi/screen/profile/edit_profile_screen.dart';
+import 'package:injectable/injectable.dart';
+import 'package:pocket_swap_fisi/screen/update/update_phone_number.dart';
 import 'package:pocket_swap_fisi/widget/button.dart';
+//import 'package:pocket_swap_fisi/providers/auth_provider.dart';
+//import 'package:pocket_swap_fisi/screen/auth/login_screen.dart';
+//import 'package:pocket_swap_fisi/widget/button.dart';
 import 'package:pocket_swap_fisi/widget/text.dart'; //subtittleText
-import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:shimmer/shimmer.dart';
-
+import 'package:pocket_swap_fisi/widget/text_field.dart';
+//import 'package:provider/provider.dart';
+//import 'package:shared_preferences/shared_preferences.dart';
+//import 'package:shimmer/shimmer.dart';
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import '../../generated/l10n.dart'; //S
 
-@RoutePage()
+
+class EditProfileScreen extends StatefulWidget {
+  const EditProfileScreen({super.key});
+
+  @override
+  State<EditProfileScreen> createState() => _EditProfileScreenState();
+}
+
+class _EditProfileScreenState extends State<EditProfileScreen> {
+  /*
+  bool _obscureText = true;
+  bool _isKeyboardVisible = false;
+  late TextEditingController _nameController;
+  late TextEditingController _lastNameController;
+
+  @override
+  void initState() {
+    super.initState();
+    _nameController = TextEditingController();
+    _lastNameController = TextEditingController();
+
+    KeyboardVisibilityController().onChange.listen((bool visible) {
+      setState(() {
+        _isKeyboardVisible = visible;
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _lastNameController.dispose();
+    super.dispose();
+  }
+
+  void _togglePasswordVisibility() {
+    setState(() {
+      _obscureText = !_obscureText;
+    });
+  }
+  */
+  
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title:
+            SubtitleText(text: S.current.EditProfile, fontWeight: FontWeight.w500),
+        centerTitle: true,
+      ),
+      body: Container(
+        child: ListView(
+          padding: const EdgeInsets.symmetric(horizontal: 35),
+          children: [
+            const SizedBox(height: 10),
+            // imagen de perfil e icons.edit
+            Center(
+              child: Stack(
+                children: [
+                  Container(
+                    child: ClipOval(
+                      // child: Image.network('src'),
+                      child: Image.asset(
+                        'assets/images/img_profile_user.png',
+                        width: 120,
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    bottom: 0,
+                    right: 0,
+                    child: Container(
+                      height: 28,
+                      width: 28,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Color(0xFFFFE7E7),
+                      ),
+                      child: Icon(
+                        Icons.edit, 
+                        color: Color(0xFF762B2B),
+                        size: 16,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 10),
+            // Nombre de usuario
+            Center(
+              child: Text(
+                'Estiven Salvador\nHurtado Santos',
+                style: TextStyle(
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.w600,
+                  color: Color(0xFF762B2B),
+                  fontFamily: 'Poppins',
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ),
+
+            // Text nombre
+            const SizedBox(height: 20),
+            Text(S.current.RegisterName),
+            const SizedBox(height: 5),
+            // TextField para Nombre(s)
+            TextField(
+              enabled: false,
+              decoration: InputDecoration(
+                hintText: 'Estiven Salvador',
+                hintStyle: TextStyle(
+                  color: Color(0xFFC8C8C8),
+                  fontSize: 16,
+                  fontFamily: 'Poppins',
+                ),
+                disabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Color(0xFFC8C8C8)),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+              ),
+            ),
+
+            // Text Apellidos
+            const SizedBox(height: 10),
+            Text(S.current.RegisterLastName),
+            const SizedBox(height: 5),
+            // TextField Apellidos
+            TextField(
+              enabled: false,
+              decoration: InputDecoration(
+                hintText: 'Hurtado Santos',
+                hintStyle: TextStyle(
+                  color: Color(0xFFC8C8C8),
+                  fontSize: 16,
+                  fontFamily: 'Poppins',
+                ),
+                disabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Color(0xFFC8C8C8)),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+              ),
+            ),
+
+            // Text Codigo universitario
+            const SizedBox(height: 10),
+            Text(S.current.RegisterStudentCode),
+            const SizedBox(height: 5),
+            // TextField de codigo
+            TextField(
+              enabled: false,
+              decoration: InputDecoration(
+                hintText: '20200284',
+                hintStyle: TextStyle(
+                  color: Color(0xFFC8C8C8),
+                  fontSize: 16,
+                  fontFamily: 'Poppins',
+                ),
+                disabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Color(0xFFC8C8C8)),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+              ),
+            ),
+
+            // lo que si se puede cambiar es la comtraseña y el phone number
+            const SizedBox(height: 10),
+            Text('Phone Number'),
+            const SizedBox(height: 5),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => UpdatePhoneNumber()));
+              },
+              style: ElevatedButton.styleFrom(
+                padding: EdgeInsets.symmetric(horizontal: 10),
+                backgroundColor: Color(0xFFFFE7E7),
+                minimumSize: const Size(double.infinity, 50),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                  side: BorderSide(color: Color(0xFFC8C8C8)),
+                ),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Update phone number',
+                    style: TextStyle(
+                      color: Color(0xFF2A2A2A),
+                      fontSize: 15,
+                      fontFamily: 'Poppins',
+                    ),
+                  ),
+                  Icon(
+                    Icons.arrow_forward_ios_rounded,
+                    color: Colors.black,
+                  )
+                ],
+              ),
+            ),
+
+            const SizedBox(height: 10),
+            Text(S.current.HintPassword),
+            const SizedBox(height: 5),
+            ElevatedButton(
+              onPressed: () {},
+              style: ElevatedButton.styleFrom(
+                padding: EdgeInsets.symmetric(horizontal: 10),
+                backgroundColor: Color(0xFFFFE7E7),
+                minimumSize: const Size(double.infinity, 50),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                  side: BorderSide(color: Color(0xFFC8C8C8)),
+                ),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Update password',
+                    style: TextStyle(
+                      color: Color(0xFF2A2A2A),
+                      fontSize: 15,
+                      fontFamily: 'Poppins',
+                    ),
+                  ),
+                  Icon(
+                    Icons.arrow_forward_ios_rounded,
+                    color: Colors.black,
+                  )
+                ],
+              ),
+            ),
+            
+            
+          ],
+        ),
+      ),
+    );
+
+  }
+}
+
+
+
+/*
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
 
@@ -104,43 +354,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
             ),
           ),
-          /*
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 10.0),
-              child: Center(
-                child: Card(
-                  shadowColor: Colors.transparent,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10), // if you need this
-                    side: BorderSide(
-                      color: Colors.grey.withOpacity(0.2),
-                      width: 1,
-                    ),
-                  ),
-                  child: ListTile(
-                    leading: ConstrainedBox(
-                      constraints: BoxConstraints(
-                        minWidth: 44,
-                        minHeight: 44,
-                        maxWidth: 64,
-                        maxHeight: 64,
-                      ),
-                      child: Image.asset('assets/images/img_profile_user.png', fit: BoxFit.cover),
-                    ),
-                    title: Text(
-                      'Diego Chavala',
-                      style: TextStyle(
-                        fontSize: 18.0,
-                        fontWeight: FontWeight.bold
-                      ),
-                    ),
-                    subtitle: Text('Ing. de Software\n#20203513'),
-                  ),
-                )
-              ),
-            ),
-            */
-
+      
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 30.0),
             child: Column(
@@ -150,9 +364,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
                           EdgeInsets.zero), // Establece el padding a cero
                     ),
-                    onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => EditProfileScreen()));
-                    },
+                    onPressed: () {},
                     child: const ListTile(
                       leading: Icon(Icons.person_2_outlined),
                       title: Text('Edit profile'),
@@ -224,11 +436,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       });
                       try {
                         await authProvider.logout();
-                        //Uncomment this line to solve the context warning
-                        // if (!context.mounted) return;
-
-                        AutoRouter.of(context)
-                            .replace(LoginRoute(onResult: (result) {}));
                       } catch (e) {
                         print('Error: $e');
                       } finally {
@@ -236,6 +443,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           _isLoading = false;
                         });
                       }
+
+                      Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const LoginScreen()),
+                        (Route<dynamic> route) => false,
+                      );
                     })
               ],
             ),
@@ -322,3 +536,4 @@ class _SwitchBottomSheetState extends State<SwitchBottomSheet> {
     );
   }
 }
+*/
