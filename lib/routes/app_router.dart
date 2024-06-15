@@ -1,11 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:pocket_swap_fisi/screen/profile/profile_screen.dart';
 
 import 'app_router.gr.dart';
 
 @AutoRouterConfig()
-class AppRouter extends $AppRouter implements AutoRouteGuard {  
+class AppRouter extends $AppRouter implements AutoRouteGuard {
   @override
   void onNavigation(NavigationResolver resolver, StackRouter router) async {
     const storage = FlutterSecureStorage();
@@ -25,7 +24,13 @@ class AppRouter extends $AppRouter implements AutoRouteGuard {
   List<AutoRoute> get routes => [
         AutoRoute(path: '/login', page: LoginRoute.page),
         AutoRoute(path: '/', page: HomeRoute.page, children: [
-          AutoRoute(path: 'chat', page: ChatRoute.page),
+          AutoRoute(
+              path: 'chat-list',
+              page: ChatNavigationRoute.page,
+              children: [
+                AutoRoute(path: 'chat-list', page: ChatListRoute.page, initial: true),
+                AutoRoute(path: 'chat', page: ChatRoute.page),
+              ]),
           AutoRoute(path: 'gift-shop', page: GiftShopRoute.page),
           AutoRoute(path: 'maps', page: MapSample.page),
           AutoRoute(path: 'profile', page: ProfileNavigationRoute.page, children: [

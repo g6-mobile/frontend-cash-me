@@ -3,8 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pocket_swap_fisi/providers/auth_provider.dart';
 import 'package:pocket_swap_fisi/routes/app_router.gr.dart';
-import 'package:pocket_swap_fisi/screen/auth/login_screen.dart';
-import 'package:pocket_swap_fisi/screen/profile/edit_profile_screen.dart';
 import 'package:pocket_swap_fisi/widget/button.dart';
 import 'package:pocket_swap_fisi/widget/text.dart'; //subtittleText
 import 'package:provider/provider.dart';
