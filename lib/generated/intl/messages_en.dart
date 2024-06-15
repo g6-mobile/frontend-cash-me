@@ -25,8 +25,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "AcceptTerms": MessageLookupByLibrary.simpleMessage(
             "Accept the terms and conditions."),
         "Account": MessageLookupByLibrary.simpleMessage("Account"),
+        "ChatListTitle": MessageLookupByLibrary.simpleMessage("Chats"),
         "DefaultErrorStatusCode": MessageLookupByLibrary.simpleMessage(
             "An error occurred, please try again later"),
+        "EditProfile": MessageLookupByLibrary.simpleMessage("Edit Profile"),
         "EmailAddress": MessageLookupByLibrary.simpleMessage("Email Address"),
         "EmailVerificationDescription": MessageLookupByLibrary.simpleMessage(
             "This action requires email verification, you will be asked to fill out the code. A verification email has been sent to:"),

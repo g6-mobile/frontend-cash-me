@@ -43,5 +43,6 @@
   "NavBarBottomProfile": "Profile",
   "ResponseCashback": "Accept",
   "SignOut": "Sign Out",
-  "DefaultErrorStatusCode": "An error occurred, please try again later"
+  "DefaultErrorStatusCode": "An error occurred, please try again later",
+  "ChatListTitle": "Chats"
 }

@@ -32,7 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
           TransactionsList(transactions: transactions),
           const GiftShopRoute(),
           const MapSample(),
-          const ChatRoute(),
+          const ChatListRoute(),
           const ProfileRoute(),
         ],
         builder: (context, child) {
