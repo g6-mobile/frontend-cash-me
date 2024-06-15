@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:pocket_swap_fisi/domain/services/auth_service.dart';
 import 'package:pocket_swap_fisi/domain/services/user_service.dart';
@@ -38,7 +39,7 @@ class MyApp extends StatelessWidget {
             create: (_) => UserProvider(UserUseCase(UserService(dio))),
           ),
         ],
-        child: MaterialApp.router(          
+        child: MaterialApp.router(
           localizationsDelegates: const [
             S.delegate,
             GlobalMaterialLocalizations.delegate,
@@ -46,11 +47,20 @@ class MyApp extends StatelessWidget {
             GlobalWidgetsLocalizations.delegate,
           ],
           supportedLocales: S.delegate.supportedLocales,
-          title: 'Flutter Demo',
           theme: lightTheme,
           darkTheme: darkTheme,
-          routerConfig: _appRouter.config(),          
-          // home: const SplashScreen(),
+          routerConfig: _appRouter.config(),
+          builder: (context, child) {
+            final isDarkMode = MediaQuery.of(context).platformBrightness == Brightness.dark;
+
+            return AnnotatedRegion<SystemUiOverlayStyle>(
+              value: SystemUiOverlayStyle(
+                statusBarColor: Colors.transparent,
+                statusBarIconBrightness: isDarkMode ? Brightness.light : Brightness.dark,
+              ),
+              child: child!,
+            );
+          },
         ));
   }
 }

@@ -1,25 +1,25 @@
+import 'package:dio/dio.dart';
+
+import '../../utils/constants/api_constants.dart';
+
 class TransactionService {
-  // final TransactionRepository transactionRepository;
+  final Dio dio;
 
-  // TransactionService(this.transactionRepository);
+  TransactionService() : dio = Dio();
 
-  // Future<Transaction> createTransaction(Transaction transaction) async {
-  //   return await transactionRepository.createTransaction(transaction);
-  // }
+  Future<int> createTransaction(String studentCode, String amount, String typeOperation, double latitude, double longitude) async {
+    try {
+      final response = await dio.post('${ApiConstants.baseURL}/auth/login',
+          data: {'email': email, 'password': password});
 
-  // Future<List<Transaction>> getTransactions() async {
-  //   return await transactionRepository.getTransactions();
-  // }
 
-  // Future<Transaction> getTransaction(String id) async {
-  //   return await transactionRepository.getTransaction(id);
-  // }
+      if (response.statusCode != 201) {
+        throw Exception('Failed to create transaction');
+      }
 
-  // Future<Transaction> updateTransaction(Transaction transaction) async {
-  //   return await transactionRepository.updateTransaction(transaction);
-  // }
-
-  // Future<void> deleteTransaction(String id) async {
-  //   return await transactionRepository.deleteTransaction(id);
-  // }
+      return response.statusCode;
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
 }

@@ -37,11 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
         builder: (context, child) {
           tabsRouter = AutoTabsRouter.of(context);
-          return AnnotatedRegion(
-              value: SystemUiOverlayStyle.light.copyWith(
-                  statusBarColor: Colors.transparent,
-                  statusBarIconBrightness: Brightness.dark),
-              child: Scaffold(
+          return Scaffold(
                 body: child,
                 bottomNavigationBar: BottomNavigationBar(
                   unselectedItemColor: Theme.of(context).colorScheme.onPrimary,
@@ -79,7 +75,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ],
                 ),
-              ));
+              );
         });
   }
 }
