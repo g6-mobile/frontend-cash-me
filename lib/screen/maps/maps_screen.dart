@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:pocket_swap_fisi/providers/transaction_provider.dart';
+import 'package:provider/provider.dart';
 
 import '../../dummy_data_maps.dart';
 import '../../generated/l10n.dart';
@@ -27,7 +29,6 @@ class MapSampleState extends State<MapSample> with WidgetsBindingObserver{
   late Position position;
   Timer? _locationUpdateTimer;
   ValueNotifier<Brightness> brightnessNotifier = ValueNotifier(WidgetsBinding.instance!.window.platformBrightness);
-
 
 
   void _showBottomSheet(MarkerData data) {
@@ -94,7 +95,9 @@ class MapSampleState extends State<MapSample> with WidgetsBindingObserver{
                 ),
                 Text(data.cashType),
                 const SizedBox(height: 20),
-                BaseElevatedButton(text: S.current.ResponseCashback, onPressed: () {})
+                BaseElevatedButton(text: S.current.ResponseCashback, onPressed: () {
+                  Navigator.pop(context);
+                })
                 // Agrega más campos aquí si es necesario
               ],
             ),

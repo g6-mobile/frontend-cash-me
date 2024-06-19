@@ -7,6 +7,7 @@ import 'package:pocket_swap_fisi/domain/services/user_service.dart';
 import 'package:pocket_swap_fisi/domain/usecases/auth_usecase.dart';
 import 'package:pocket_swap_fisi/domain/usecases/user_usecase.dart';
 import 'package:pocket_swap_fisi/providers/auth_provider.dart';
+import 'package:pocket_swap_fisi/providers/transaction_provider.dart';
 import 'package:pocket_swap_fisi/providers/user_provider.dart';
 import 'package:pocket_swap_fisi/routes/app_router.dart';
 import 'package:pocket_swap_fisi/theme/dark_theme.dart';
@@ -14,6 +15,8 @@ import 'package:pocket_swap_fisi/theme/light_theme.dart';
 import 'package:pocket_swap_fisi/utils/constants/api_constants.dart';
 import 'package:provider/provider.dart';
 
+import 'domain/services/transaction_service.dart';
+import 'domain/usecases/transaction_usecase.dart';
 import 'generated/l10n.dart';
 
 void main() {
@@ -38,6 +41,10 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider(
             create: (_) => UserProvider(UserUseCase(UserService(dio))),
           ),
+          ChangeNotifierProvider(
+              create: (_) =>
+                  TransactionProvider(TransactionUseCase(TransactionService()))
+          )
         ],
         child: MaterialApp.router(
           localizationsDelegates: const [

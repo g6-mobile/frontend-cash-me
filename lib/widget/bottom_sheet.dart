@@ -8,13 +8,17 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../providers/auth_provider.dart';
+import '../providers/transaction_provider.dart';
 import 'drop_down_menu.dart';
 
 void showCustomBottomSheet(BuildContext context, Position position) {
   final authProvider = Provider.of<AuthProvider>(context, listen: false);
+  int selectedValue = 0;
+  final transactionProvider =
+      Provider.of<TransactionProvider>(context, listen: false);
   authProvider.loadUser();
   final user = authProvider.user;
-  TextEditingController _controller = TextEditingController(text: null);
+  TextEditingController amountController = TextEditingController(text: null);
   const List<String> list = <String>[
     'Digital a efectivo',
     'Efectivo a digital'
@@ -61,7 +65,7 @@ void showCustomBottomSheet(BuildContext context, Position position) {
                         fontWeight: FontWeight.bold,
                       ),
                       TextField(
-                        controller: _controller,
+                        controller: amountController,
                         keyboardType: TextInputType.number,
                         textAlign: TextAlign.center,
                         style: const TextStyle(
@@ -81,11 +85,33 @@ void showCustomBottomSheet(BuildContext context, Position position) {
                       const SizedBox(height: 20),
                       DropdownMenuExample(
                         list: list,
+                        onItemSelected: (index) {
+                          selectedValue = index;
+                          print(
+                              'El usuario seleccionó el índice: $selectedValue');
+                        },
                       ),
                       const SizedBox(height: 40),
-                      BaseElevatedButton(text: 'Publicar', onPressed: () {
-                        print('Posicion:${position.latitude} - ${position.longitude}');
-                      }),
+                      BaseElevatedButton(
+                          text: 'Publicar',
+                          onPressed: () async {
+                            print(
+                                'Posicion:${position.latitude} - ${position.longitude}');
+                            print(
+                                'El usuario seleccionó el índice: $selectedValue');
+                            var register = await transactionProvider.createTransaction(
+                                '${user.studentCode}',
+                                double.parse(amountController.text),
+                                selectedValue,
+                                position.latitude,
+                                position.longitude);
+                            print('register Cash request: $register');
+                            if(register == 201) {
+                              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                                  content: Text('Registro de solicitud de cash exitosa')));
+                              Navigator.pop(context);
+                            }
+                          }),
                       // Agrega más widgets aquí según tus necesidades
                     ],
                   )
