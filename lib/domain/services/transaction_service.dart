@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:dio/dio.dart';
 
 import '../../utils/constants/api_constants.dart';
@@ -7,19 +9,33 @@ class TransactionService {
 
   TransactionService() : dio = Dio();
 
-  Future<int> createTransaction(String studentCode, String amount, String typeOperation, double latitude, double longitude) async {
+  Future<int?> createTransaction(String studentCode, double amount,
+      int typeOperation, double latitude, double longitude) async {
+    Response response = Response(requestOptions: RequestOptions(path: ''));
+
     try {
-      final response = await dio.post('${ApiConstants.baseURL}/auth/login',
-          data: {'email': email, 'password': password});
+      print(
+          'Datos de la transaccion: $studentCode, $amount, $typeOperation, $latitude, $longitude');
 
 
-      if (response.statusCode != 201) {
-        throw Exception('Failed to create transaction');
-      }
+      response = await dio.post('${ApiConstants.baseURL}/transactions', data: {
+        'initiatorCode': int.parse(studentCode),
+        'amount': amount,
+        'status': 1,
+        'typeOperation': typeOperation,
+        'longitude': longitude,
+        'latitude': latitude
+      }).timeout(const Duration(seconds: 10), onTimeout: () {
+        throw TimeoutException('Time out');
+      });
+
+      print('Response: ${response.statusCode}');
 
       return response.statusCode;
-    } catch (e) {
-      throw Exception(e);
+    } on DioException catch (_) {
+      return response.statusCode;
+    } on TimeoutException catch (_) {
+      return 500;
     }
   }
 }

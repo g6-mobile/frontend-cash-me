@@ -2,19 +2,24 @@ import 'package:flutter/material.dart';
 
 class DropdownMenuExample extends StatefulWidget {
   final List<String> list;
-  const DropdownMenuExample({Key? key, required this.list}) : super(key: key);
+  final ValueChanged<int> onItemSelected;
+
+  const DropdownMenuExample({
+    required this.list,
+    required this.onItemSelected,
+  });
 
   @override
-  State<DropdownMenuExample> createState() => _DropdownMenuExampleState();
+  _DropdownMenuExampleState createState() => _DropdownMenuExampleState();
 }
 
 class _DropdownMenuExampleState extends State<DropdownMenuExample> {
-  late String dropdownValue;
+  int dropdownValue = 0;
 
   @override
   void initState() {
     super.initState();
-    dropdownValue = widget.list.first;
+    dropdownValue = 0;
   }
 
   @override
@@ -27,19 +32,22 @@ class _DropdownMenuExampleState extends State<DropdownMenuExample> {
         borderRadius: BorderRadius.circular(8.0),
       ),
       child: DropdownButtonHideUnderline(
-        child: DropdownButton<String>(
+        child: DropdownButton<int>(
           dropdownColor: Theme.of(context).colorScheme.secondaryContainer,
           isExpanded: true,
           value: dropdownValue,
           borderRadius: BorderRadius.circular(8.0),
-          onChanged: (String? value) {
+          onChanged: (int? value) {
             setState(() {
               dropdownValue = value!;
             });
+            widget.onItemSelected(value!);
           },
-          items: widget.list.map<DropdownMenuItem<String>>((String value) {
-            return DropdownMenuItem<String>(
-              value: value,
+          items: widget.list.asMap().entries.map<DropdownMenuItem<int>>((entry) {
+            int index = entry.key;
+            String value = entry.value;
+            return DropdownMenuItem<int>(
+              value: index,
               child: Text(value),
             );
           }).toList(),
