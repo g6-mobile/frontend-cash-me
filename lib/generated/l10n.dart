@@ -70,6 +70,76 @@ class S {
     );
   }
 
+  /// `Linked Devices`
+  String get LinkedDevices {
+    return Intl.message(
+      'Linked Devices',
+      name: 'LinkedDevices',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Theme` - Appearance
+  String get Theme {
+    return Intl.message(
+      'Theme',
+      name: 'Theme',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Language`
+  String get Language {
+    return Intl.message(
+      'Language',
+      name: 'Language',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Language`
+  String get Notifications {
+    return Intl.message(
+      'Notifications',
+      name: 'Notifications',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Report an error`
+  String get ReportAnError {
+    return Intl.message(
+      'Report an Error',
+      name: 'ReportAnError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Update Phone Number`
+  String get UpdatePhoneNumber {
+    return Intl.message(
+      'Update phone number',
+      name: 'UpdatePhoneNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Update Password`
+  String get UpdatePassword {
+    return Intl.message(
+      'Update password',
+      name: 'UpdatePassword',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Login`
   String get Login {
     return Intl.message(

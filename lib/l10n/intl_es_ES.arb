@@ -1,6 +1,13 @@
 {
   "Account": "Cuenta",
   "EditProfile": "Editar Perfil",
+  "Theme": "Tema",
+  "LinkedDevices": "Dispositivos Vinculados",
+  "Language": "Idioma",
+  "Notifications": "Notificaciones",
+  "ReportAnError": "Reportar un Error",
+  "UpdatePhoneNumber": "Actualizar numero de celular",
+  "UpdatePassword": "Actualizar contraseña",
   "Login": "Iniciar sesión",
   "LoginGoogle": "Iniciar sesión con Google",
   "LoginEmail": "O ingresa con tu correo electrónico",

@@ -152,9 +152,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       AutoRouter.of(context).push(const EditProfileRoute());
                       // Navigator.push(context, MaterialPageRoute(builder: (context) => EditProfileScreen()));
                     },
-                    child: const ListTile(
+                    child: ListTile(
                       leading: Icon(Icons.person_2_outlined),
-                      title: Text('Edit profile'),
+                      title: Text(S.current.EditProfile),
                     )),
                 TextButton(
                     style: ButtonStyle(
@@ -162,9 +162,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           EdgeInsets.zero), // Establece el padding a cero
                     ),
                     onPressed: () {},
-                    child: const ListTile(
+                    child: ListTile(
                       leading: Icon(Icons.phone_android),
-                      title: Text('Linked devices'),
+                      title: Text(S.current.LinkedDevices),
                     )),
                 TextButton(
                     style: ButtonStyle(
@@ -172,9 +172,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           EdgeInsets.zero), // Establece el padding a cero
                     ),
                     onPressed: () {},
-                    child: const ListTile(
+                    child: ListTile(
                       leading: Icon(Icons.wb_sunny_outlined),
-                      title: Text('Appearance'),
+                      title: Text(S.current.Theme),
                     )),
                 TextButton(
                     style: ButtonStyle(
@@ -189,9 +189,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         },
                       );
                     },
-                    child: const ListTile(
+                    child: ListTile(
                       leading: Icon(Icons.public_outlined),
-                      title: Text('Language'),
+                      title: Text(S.current.Language),
                     )),
                 TextButton(
                     style: ButtonStyle(
@@ -199,9 +199,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           EdgeInsets.zero), // Establece el padding a cero
                     ),
                     onPressed: () {},
-                    child: const ListTile(
+                    child: ListTile(
                       leading: Icon(Icons.notifications),
-                      title: Text('Notifications'),
+                      title: Text(S.current.Notifications),
                     )),
                 TextButton(
                     style: ButtonStyle(
@@ -209,14 +209,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           EdgeInsets.zero), // Establece el padding a cero
                     ),
                     onPressed: () {},
-                    child: const ListTile(
+                    child: ListTile(
                       leading: Icon(Icons.bug_report_outlined),
-                      title: Text('Report an error'),
+                      title: Text(S.current.ReportAnError),
                     )),
                 const SizedBox(height: 90),
                 BaseElevatedButton(
                     isLoading: _isLoading,
-                    text: "Cerrar sesión",
+                    text: S.current.SignOut,
                     onPressed: () async {
                       setState(() {
                         _isLoading = true;
@@ -239,21 +239,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ],
             ),
           ),
-
-          /*
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 30.0),
-              child: Positioned(
-                bottom: -420,
-                left: 0,
-                right: 0,
-                child: BaseElevatedButton(
-                    text: S.current.Login,
-                    onPressed: (){}
-                )
-              ),
-            ),
-            */
         ],
       )),
     );

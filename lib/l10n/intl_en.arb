@@ -1,6 +1,13 @@
 {
   "Account": "Account",
   "EditProfile" : "Edit Profile",
+  "LinkedDevices": "Linked Devices",
+  "Theme": "Theme",
+  "Language": "Language",
+  "Notifications": "Notifications",
+  "ReportAnError": "Report an Error",
+  "UpdatePhoneNumber": "Update phone number",
+  "UpdatePassword": "Update password",
   "Login": "Login",
   "LoginGoogle": "Login with Google",
   "LoginEmail": "Or sign in with your email",
