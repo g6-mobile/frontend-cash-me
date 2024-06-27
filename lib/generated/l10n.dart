@@ -100,7 +100,7 @@ class S {
     );
   }
 
-  /// `Language`
+  /// `Notifications`
   String get Notifications {
     return Intl.message(
       'Notifications',
@@ -135,6 +135,16 @@ class S {
     return Intl.message(
       'Update password',
       name: 'UpdatePassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Confirm`
+  String get ConfirmUpdate {
+    return Intl.message(
+      'Confirm',
+      name: 'ConfirmUpdate',
       desc: '',
       args: [],
     );

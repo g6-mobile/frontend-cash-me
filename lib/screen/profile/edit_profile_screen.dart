@@ -4,14 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:pocket_swap_fisi/screen/update/update_phone_number.dart';
 import 'package:pocket_swap_fisi/widget/button.dart';
-//import 'package:pocket_swap_fisi/providers/auth_provider.dart';
-//import 'package:pocket_swap_fisi/screen/auth/login_screen.dart';
-//import 'package:pocket_swap_fisi/widget/button.dart';
 import 'package:pocket_swap_fisi/widget/text.dart'; //subtittleText
 import 'package:pocket_swap_fisi/widget/text_field.dart';
-//import 'package:provider/provider.dart';
-//import 'package:shared_preferences/shared_preferences.dart';
-//import 'package:shimmer/shimmer.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import '../../generated/l10n.dart'; //S
 
@@ -190,7 +184,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             const SizedBox(height: 5),
             ElevatedButton(
               onPressed: () {
-                //Navigator.push(context, MaterialPageRoute(builder: (context) => UpdatePhoneNumber()));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => UpdatePhoneNumber()));
               },
               style: ElevatedButton.styleFrom(
                 padding: EdgeInsets.symmetric(horizontal: 10),
