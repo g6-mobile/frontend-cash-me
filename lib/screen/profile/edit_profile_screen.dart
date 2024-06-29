@@ -2,7 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
-import 'package:pocket_swap_fisi/screen/update/update_phone_number.dart';
+import 'package:pocket_swap_fisi/routes/app_router.gr.dart';
 import 'package:pocket_swap_fisi/widget/button.dart';
 import 'package:pocket_swap_fisi/widget/text.dart'; //subtittleText
 import 'package:pocket_swap_fisi/widget/text_field.dart';
@@ -184,7 +184,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             const SizedBox(height: 5),
             ElevatedButton(
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => UpdatePhoneNumber()));
+                //AutoRouter.of(context).replace(UpdatePhoneNumber())
+                AutoRouter.of(context).push(const UpdatePhoneNumber());
+                //Navigator.push(context, MaterialPageRoute(builder: (context) => UpdatePhoneNumber()));
               },
               style: ElevatedButton.styleFrom(
                 padding: EdgeInsets.symmetric(horizontal: 10),
