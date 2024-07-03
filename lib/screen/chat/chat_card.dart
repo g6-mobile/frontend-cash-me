@@ -26,7 +26,7 @@ class _ChatCardState extends State<ChatCard> {
     authProvider.loadUser();
     final loggedUser = authProvider.user;
 
-    roomProvider.getChats(widget.room.id, GetChat(limit: 1));
+    roomProvider.getChats(widget.room.id, GetChat());
     final chats = roomProvider.chats;
 
     final otherUser = widget.room.members
