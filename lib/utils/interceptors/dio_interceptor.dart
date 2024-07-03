@@ -49,7 +49,7 @@ class DioInterceptor extends Interceptor {
       await storage.write(key: 'accessToken', value: data['accessToken']);
       await storage.write(key: 'refreshToken', value: data['refreshToken']);
     } on DioException catch (e) {
-      if (e.response?.statusCode == 401) {
+      if (e.response?.statusCode == 401 || e.response?.statusCode == 403) {
         await storage.deleteAll();
         TokenExpiredException();
       }

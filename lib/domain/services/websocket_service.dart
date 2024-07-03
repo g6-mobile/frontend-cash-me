@@ -8,19 +8,21 @@ final class WebsocketService {
   String _fetchBaseUrl() {
     switch (kDebugMode) {
       case true:
-        return ApiConstants.baseURL;
+        return ApiConstants.socketURL;
       default:
         // Production host URL
         return "";
     }
   }
 
-  //Socket instance
-  IO.Socket get socket => IO.io(
-      _fetchBaseUrl(), IO.OptionBuilder().setTransports(['websocket']).build());
+  initializeSocketConnection(String? token) {
+    try {      
+      // Añade el token de autenticación en la conexión
+      socket = IO.io(
+          _fetchBaseUrl(),
+          IO.OptionBuilder().setTransports(['websocket']).setExtraHeaders(
+              {'Authorization': 'Bearer $token'}).build());
 
-  initializeSocketConnection() {
-    try {
       socket.connect();
       socket.onConnect((_) {
         debugPrint('Websocket connected');
@@ -29,6 +31,8 @@ final class WebsocketService {
       debugPrint('Error connecting to websocket: $e');
     }
   }
+
+  late IO.Socket socket;
 
   disconnectFromSocket() {
     socket.disconnect();

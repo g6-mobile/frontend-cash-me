@@ -9,8 +9,8 @@ final class WebsocketUseCase {
 
   static WebsocketUseCase get instance => _instance;
 
-  void initializeSocketConnection() {
-    _websocketService.initializeSocketConnection();
+  void initializeSocketConnection(String? token) {
+    _websocketService.initializeSocketConnection(token);
   }
 
   void disconnectFromSocket() {

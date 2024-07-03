@@ -46,7 +46,7 @@ void showCustomBottomSheet(BuildContext context, Position position) {
                         ),
                         child: ClipOval(
                           child:
-                              Image.network(user.userPhoto, fit: BoxFit.cover),
+                              Image.network(user.userPhoto ?? '', fit: BoxFit.cover),
                         ),
                       ),
                       const SizedBox(height: 10),
