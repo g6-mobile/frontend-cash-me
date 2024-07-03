@@ -3,10 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:pocket_swap_fisi/domain/services/auth_service.dart';
+import 'package:pocket_swap_fisi/domain/services/room_service.dart';
 import 'package:pocket_swap_fisi/domain/services/user_service.dart';
 import 'package:pocket_swap_fisi/domain/usecases/auth_usecase.dart';
+import 'package:pocket_swap_fisi/domain/usecases/room_usecase.dart';
 import 'package:pocket_swap_fisi/domain/usecases/user_usecase.dart';
 import 'package:pocket_swap_fisi/providers/auth_provider.dart';
+import 'package:pocket_swap_fisi/providers/message_provider.dart';
+import 'package:pocket_swap_fisi/providers/room_provider.dart';
 import 'package:pocket_swap_fisi/providers/transaction_provider.dart';
 import 'package:pocket_swap_fisi/providers/user_provider.dart';
 import 'package:pocket_swap_fisi/routes/app_router.dart';
@@ -39,12 +43,14 @@ class MyApp extends StatelessWidget {
             create: (_) => AuthProvider(AuthUseCase(AuthService())),
           ),
           ChangeNotifierProvider(
-            create: (_) => UserProvider(UserUseCase(UserService(dio))),
+            create: (_) => UserProvider(UserUseCase(UserService())),
           ),
           ChangeNotifierProvider(
               create: (_) =>
                   TransactionProvider(TransactionUseCase(TransactionService()))
-          )
+          ),
+          ChangeNotifierProvider(create: (_) => MessageProvider()),
+          ChangeNotifierProvider(create: (_) => RoomProvider(RoomUsecase(RoomService()))),
         ],
         child: MaterialApp.router(
           localizationsDelegates: const [

@@ -10,7 +10,8 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:auto_route/auto_route.dart' as _i12;
 import 'package:flutter/material.dart' as _i13;
-import 'package:pocket_swap_fisi/domain/entities/transaction.dart' as _i14;
+import 'package:pocket_swap_fisi/domain/entities/chat/room.dart' as _i14;
+import 'package:pocket_swap_fisi/domain/entities/transaction.dart' as _i15;
 import 'package:pocket_swap_fisi/screen/auth/login_screen.dart' as _i7;
 import 'package:pocket_swap_fisi/screen/chat/chat_list_screen.dart' as _i1;
 import 'package:pocket_swap_fisi/screen/chat/chat_navigation_screen.dart'
@@ -45,9 +46,13 @@ abstract class $AppRouter extends _i12.RootStackRouter {
       );
     },
     ChatRoute.name: (routeData) {
+      final args = routeData.argsAs<ChatRouteArgs>();
       return _i12.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i3.ChatScreen(),
+        child: _i3.ChatScreen(
+          key: args.key,
+          room: args.room,
+        ),
       );
     },
     EditProfileRoute.name: (routeData) {
@@ -136,16 +141,40 @@ class ChatNavigationRoute extends _i12.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i3.ChatScreen]
-class ChatRoute extends _i12.PageRouteInfo<void> {
-  const ChatRoute({List<_i12.PageRouteInfo>? children})
-      : super(
+class ChatRoute extends _i12.PageRouteInfo<ChatRouteArgs> {
+  ChatRoute({
+    _i13.Key? key,
+    required _i14.Room room,
+    List<_i12.PageRouteInfo>? children,
+  }) : super(
           ChatRoute.name,
+          args: ChatRouteArgs(
+            key: key,
+            room: room,
+          ),
           initialChildren: children,
         );
 
   static const String name = 'ChatRoute';
 
-  static const _i12.PageInfo<void> page = _i12.PageInfo<void>(name);
+  static const _i12.PageInfo<ChatRouteArgs> page =
+      _i12.PageInfo<ChatRouteArgs>(name);
+}
+
+class ChatRouteArgs {
+  const ChatRouteArgs({
+    this.key,
+    required this.room,
+  });
+
+  final _i13.Key? key;
+
+  final _i14.Room room;
+
+  @override
+  String toString() {
+    return 'ChatRouteArgs{key: $key, room: $room}';
+  }
 }
 
 /// generated route for
@@ -274,7 +303,7 @@ class ProfileRoute extends _i12.PageRouteInfo<void> {
 /// [_i11.TransactionsList]
 class TransactionsList extends _i12.PageRouteInfo<TransactionsListArgs> {
   TransactionsList({
-    required List<_i14.Transaction> transactions,
+    required List<_i15.Transaction> transactions,
     List<_i12.PageRouteInfo>? children,
   }) : super(
           TransactionsList.name,
@@ -291,7 +320,7 @@ class TransactionsList extends _i12.PageRouteInfo<TransactionsListArgs> {
 class TransactionsListArgs {
   const TransactionsListArgs({required this.transactions});
 
-  final List<_i14.Transaction> transactions;
+  final List<_i15.Transaction> transactions;
 
   @override
   String toString() {

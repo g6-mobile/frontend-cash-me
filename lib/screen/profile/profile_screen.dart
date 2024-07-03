@@ -51,7 +51,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             maxHeight: 64,
                           ),
                           child: ClipOval(
-                            child: Image.network(user.userPhoto,
+                            child: Image.network(user.userPhoto ?? '',
                                 fit: BoxFit.cover),
                           ),
                         ),

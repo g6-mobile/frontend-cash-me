@@ -1,3 +1,4 @@
+import 'package:pocket_swap_fisi/domain/entities/user.dart';
 import 'package:pocket_swap_fisi/domain/services/user_service.dart';
 
 class UserUseCase {
@@ -5,4 +6,7 @@ class UserUseCase {
 
   UserUseCase(this._userService);
 
+  Future<User?> getUserById(String id) async {
+    return await _userService.getUserById(id);
+  }
 }
