@@ -6,18 +6,17 @@ import 'package:pocket_swap_fisi/widget/text.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
-
+import '../../generated/l10n.dart';
 import '../providers/auth_provider.dart';
 import '../providers/transaction_provider.dart';
 import 'drop_down_menu.dart';
 
 void showCustomBottomSheet(BuildContext context, Position position) {
-  final authProvider = Provider.of<AuthProvider>(context, listen: false);
-  int selectedValue = 0;
+
+  int selectedValue = 1;
   final transactionProvider =
       Provider.of<TransactionProvider>(context, listen: false);
-  authProvider.loadUser();
-  final user = authProvider.user;
+
   TextEditingController amountController = TextEditingController(text: null);
   const List<String> list = <String>[
     'Digital a efectivo',
@@ -29,6 +28,74 @@ void showCustomBottomSheet(BuildContext context, Position position) {
     showDragHandle: true,
     isScrollControlled: true,
     builder: (context) {
+      bool isRequestCash = true;
+      if(isRequestCash){
+        return Container(
+          height: (MediaQuery.of(context).size.height) * 0.6,
+          width: MediaQuery.of(context).size.width,
+          padding: const EdgeInsets.symmetric(horizontal: 35, vertical: 20),
+          child: Column(
+            children: <Widget>[
+              const RegularText(
+                text: 'Tienes una transacción pendiente',
+                fontWeight: FontWeight.bold,
+                fontSize: 20.0,
+              ),
+              const SizedBox(height: 20),
+              Card(
+
+                child: Column(
+                  children: <Widget>[
+                    const RegularText(
+                      text: 'PEN',
+                      fontWeight: FontWeight.bold,
+                    ),
+                    const Text(
+                      '50.0',
+                      style: TextStyle(
+                        fontSize: 50.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text('Digital a efectivo'),
+                  ],
+                )
+              ),
+              const SizedBox(height: 20),
+              RegularText(
+                text: '¿Deseas cancelar la transacción?',
+                fontWeight: FontWeight.bold,
+                fontSize: 18.0,
+              ),
+              const SizedBox(height: 20),
+              BaseElevatedButton(
+                  text: 'Aceptar',
+                  onPressed: () async {
+                    print(
+                        'Posicion:${position.latitude} - ${position.longitude}');
+                    print(
+                        'El usuario seleccionó el índice: $selectedValue');
+                    var register = await transactionProvider.createTransaction(
+                        '201810026',
+                        50.0,
+                        1,
+                        position.latitude,
+                        position.longitude);
+                    print('register Cash request: $register');
+                    if(register == 201) {
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                          content: Text('Registro de solicitud de cash exitosa')));
+                      Navigator.pop(context);
+                    }
+                  }),
+            ],
+
+          ),
+        );
+      }
+      final authProvider = Provider.of<AuthProvider>(context);
+      authProvider.loadUser();
+      final user = authProvider.user;
       return Container(
         height: (MediaQuery.of(context).size.height) * 0.8,
         width: MediaQuery.of(context).size.width,
@@ -86,7 +153,7 @@ void showCustomBottomSheet(BuildContext context, Position position) {
                       DropdownMenuExample(
                         list: list,
                         onItemSelected: (index) {
-                          selectedValue = index;
+                          selectedValue = index + 1;
                           print(
                               'El usuario seleccionó el índice: $selectedValue');
                         },
@@ -154,7 +221,8 @@ void showCustomBottomSheet(BuildContext context, Position position) {
                         ),
                       ],
                     ),
-                  )),
+                  )
+        ),
       );
     },
   );

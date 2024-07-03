@@ -40,6 +40,8 @@
   "NavBarBottomGiftShop": "Gift Shop",
   "NavBarBottomMessage": "Messages",
   "NavBarBottomProfile": "Profile",
+  "PendingTransaction": "You have a pending transaction",
+  "QuestionCancelTransaction": "Do you want to cancel the transaction?",
   "ResponseCashback": "Accept",
   "SignOut": "Sign Out",
   "DefaultErrorStatusCode": "An error occurred, please try again later"

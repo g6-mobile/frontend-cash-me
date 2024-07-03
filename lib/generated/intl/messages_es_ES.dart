@@ -57,6 +57,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "NavBarBottomProfile": MessageLookupByLibrary.simpleMessage("Perfil"),
         "NavBarBottomTransaction":
             MessageLookupByLibrary.simpleMessage("Historial"),
+        "PendingTransaction": MessageLookupByLibrary.simpleMessage(
+            "Tienes una transacción pendiente"),
+        "QuestionCancelTransaction": MessageLookupByLibrary.simpleMessage(
+            "¿Desea cancelar la solicitud?"),
         "QuestionSignUp":
             MessageLookupByLibrary.simpleMessage("¿No tienes una cuenta? "),
         "Register": MessageLookupByLibrary.simpleMessage("Registrarse"),

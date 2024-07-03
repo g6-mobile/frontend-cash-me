@@ -32,9 +32,11 @@ class TransactionService {
       print('Response: ${response.statusCode}');
 
       return response.statusCode;
-    } on DioException catch (_) {
+    } on DioException catch (e) {
+      print('Error: ${e.message}');
       return response.statusCode;
-    } on TimeoutException catch (_) {
+    } on TimeoutException catch (e) {
+      print('Error: ${e.message}');
       return 500;
     }
   }

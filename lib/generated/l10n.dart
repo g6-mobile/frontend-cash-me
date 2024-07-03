@@ -460,6 +460,26 @@ class S {
     );
   }
 
+  /// `You have a pending transaction`
+  String get PendingTransaction {
+    return Intl.message(
+      'You have a pending transaction',
+      name: 'PendingTransaction',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Do you want to cancel the transaction?`
+  String get QuestionCancelTransaction {
+    return Intl.message(
+      'Do you want to cancel the transaction?',
+      name: 'QuestionCancelTransaction',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Accept`
   String get ResponseCashback {
     return Intl.message(
