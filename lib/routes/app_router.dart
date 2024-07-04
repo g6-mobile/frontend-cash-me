@@ -38,6 +38,7 @@ class AppRouter extends $AppRouter implements AutoRouteGuard {
             AutoRoute(path: 'edit-profile', page: NavigatorEditProfileRoute.page, children: [
               AutoRoute(path: 'profile', page: EditProfileRoute.page, initial: true),
               AutoRoute(path: 'update-phone-number', page: UpdatePhoneNumber.page),
+              AutoRoute(path: 'update-password', page: UpdatePassword.page),
             ]),
           ]),
           AutoRoute(path: 'transaction-history', page: TransactionsList.page),

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:pocket_swap_fisi/widget/text.dart'; //subtittleText
 import 'package:pocket_swap_fisi/widget/text_field.dart';
-import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:pocket_swap_fisi/widget/button.dart';
 import '../../generated/l10n.dart'; //S
 
@@ -37,6 +36,7 @@ class _UpdatePhoneNumberState extends State<UpdatePhoneNumber> {
         title: SubtitleText(text: S.current.UpdatePhoneNumber, fontWeight: FontWeight.w500),
         centerTitle: true,
       ),
+      
       body: Container(
         padding: const EdgeInsets.symmetric(horizontal: 35),
         child: ListView(

@@ -17,40 +17,7 @@ class EditProfileScreen extends StatefulWidget {
   State<EditProfileScreen> createState() => _EditProfileScreenState();
 }
 
-class _EditProfileScreenState extends State<EditProfileScreen> {
-  /*
-  bool _obscureText = true;
-  bool _isKeyboardVisible = false;
-  late TextEditingController _nameController;
-  late TextEditingController _lastNameController;
-
-  @override
-  void initState() {
-    super.initState();
-    _nameController = TextEditingController();
-    _lastNameController = TextEditingController();
-
-    KeyboardVisibilityController().onChange.listen((bool visible) {
-      setState(() {
-        _isKeyboardVisible = visible;
-      });
-    });
-  }
-
-  @override
-  void dispose() {
-    _nameController.dispose();
-    _lastNameController.dispose();
-    super.dispose();
-  }
-
-  void _togglePasswordVisibility() {
-    setState(() {
-      _obscureText = !_obscureText;
-    });
-  }
-  */
-  
+class _EditProfileScreenState extends State<EditProfileScreen> {  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -184,7 +151,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             const SizedBox(height: 5),
             ElevatedButton(
               onPressed: () {
-                //AutoRouter.of(context).replace(UpdatePhoneNumber())
                 AutoRouter.of(context).push(const UpdatePhoneNumber());
                 //Navigator.push(context, MaterialPageRoute(builder: (context) => UpdatePhoneNumber()));
               },
@@ -220,7 +186,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             Text(S.current.HintPassword),
             const SizedBox(height: 5),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                AutoRouter.of(context).push(const UpdatePassword());
+              },
               style: ElevatedButton.styleFrom(
                 padding: EdgeInsets.symmetric(horizontal: 10),
                 backgroundColor: Color(0xFFFFE7E7),
