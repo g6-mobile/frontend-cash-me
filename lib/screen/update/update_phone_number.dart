@@ -43,7 +43,7 @@ class _UpdatePhoneNumberState extends State<UpdatePhoneNumber> {
           children: [
             
             const SizedBox(height: 50),
-            Text("Actual Phone Number"),
+            Text(S.current.ActualPhoneNumber),
             const SizedBox(height: 10),
             
             TextField(
@@ -64,11 +64,11 @@ class _UpdatePhoneNumberState extends State<UpdatePhoneNumber> {
             ),
             
             const SizedBox(height: 30),
-            Text("New Phone Number"),
+            Text(S.current.NewPhoneNumber),
             const SizedBox(height: 10),
 
             BaseTextField(
-              hintText: 'New Phone Number', 
+              hintText: S.current.NewPhoneNumber, 
               controller: _phoneUpdateController,
               keyboardType: TextInputType.number,
             ),
@@ -97,14 +97,14 @@ class _UpdatePhoneNumberState extends State<UpdatePhoneNumber> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Confirm Update Phone Number'),
-          content: Text('Are you sure you want to update your phone number to ${_phoneUpdateController.text}?'),
+          title: Text(S.current.ConfirmUpdatePhoneNumber),
+          content: Text(S.current.AskUpdatePhoneNumber + ' ' + _phoneUpdateController.text + '?'),
           actions: <Widget>[
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop(); // Close the dialog
               },
-              child: Text('Cancel'),
+              child: Text(S.current.CancelUpdate),
             ),
             ElevatedButton(
               // en este boton va la logica para el back
@@ -116,7 +116,7 @@ class _UpdatePhoneNumberState extends State<UpdatePhoneNumber> {
                 backgroundColor: MaterialStateProperty.all<Color>(Color.fromRGBO(118, 43, 43, 1)), // Color RGB 762B2B
               ),
               child: Text(
-                'Confirm',
+                S.current.ConfirmUpdate,
                 style: TextStyle(
                   color: Colors.white,
                 ),
@@ -131,7 +131,7 @@ class _UpdatePhoneNumberState extends State<UpdatePhoneNumber> {
   void _performPhoneNumberChange() {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text('Phone number updated successfully to ${_phoneUpdateController.text}'),
+        content: Text(S.current.PhoneNumberUpdatedSuccessfullySnackBar + ' ' + _phoneUpdateController.text),
       ),
     );
     _phoneUpdateController.clear();

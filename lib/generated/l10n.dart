@@ -120,11 +120,111 @@ class S {
     );
   }
 
+  /// `Profile Name`
+  String get ProfileName {
+    return Intl.message(
+      'Name',
+      name: 'ProfileName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Profile Last Name`
+  String get ProfileLastName {
+    return Intl.message(
+      'Last Name',
+      name: 'ProfileLastName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Profile Student Code`
+  String get ProfileStudentCode {
+    return Intl.message(
+      'Student Code',
+      name: 'ProfileStudentCode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Profile Phone Number`
+  String get ProfilePhoneNumber {
+    return Intl.message(
+      'Phone Number',
+      name: 'ProfilePhoneNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Profile Password`
+  String get ProfilePassword {
+    return Intl.message(
+      'Password',
+      name: 'ProfilePassword',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Update Phone Number`
   String get UpdatePhoneNumber {
     return Intl.message(
       'Update phone number',
       name: 'UpdatePhoneNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Actual Phone Number`
+  String get ActualPhoneNumber {
+    return Intl.message(
+      'Actual phone number',
+      name: 'ActualPhoneNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `New Phone Number`
+  String get NewPhoneNumber {
+    return Intl.message(
+      'New phone number',
+      name: 'NewPhoneNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Confirm Update Phone Number`
+  String get ConfirmUpdatePhoneNumber {
+    return Intl.message(
+      'Confirm update phone number',
+      name: 'ConfirmUpdatePhoneNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Ask For Update Confirmation`
+  String get AskUpdatePhoneNumber {
+    return Intl.message(
+      'Are you sure you want to update your phone number to',
+      name: 'AskUpdatePhoneNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Ask For Update Confirmation`
+  String get PhoneNumberUpdatedSuccessfullySnackBar {
+    return Intl.message(
+      'Phone number updated successfully to',
+      name: 'PhoneNumberUpdatedSuccessfullySnackBar',
       desc: '',
       args: [],
     );
@@ -140,11 +240,21 @@ class S {
     );
   }
 
-  /// `Confirm`
+  /// `Confirm Update`
   String get ConfirmUpdate {
     return Intl.message(
       'Confirm',
       name: 'ConfirmUpdate',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cancel Update`
+  String get CancelUpdate {
+    return Intl.message(
+      'Cancel',
+      name: 'CancelUpdate',
       desc: '',
       args: [],
     );

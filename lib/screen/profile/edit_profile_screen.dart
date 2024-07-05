@@ -81,7 +81,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
             // Text nombre
             const SizedBox(height: 20),
-            Text(S.current.RegisterName),
+            Text(S.current.ProfileName),
             const SizedBox(height: 5),
             // TextField para Nombre(s)
             TextField(
@@ -103,7 +103,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
             // Text Apellidos
             const SizedBox(height: 10),
-            Text(S.current.RegisterLastName),
+            Text(S.current.ProfileLastName),
             const SizedBox(height: 5),
             // TextField Apellidos
             TextField(
@@ -125,7 +125,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
             // Text Codigo universitario
             const SizedBox(height: 10),
-            Text(S.current.RegisterStudentCode),
+            Text(S.current.ProfileStudentCode),
             const SizedBox(height: 5),
             // TextField de codigo
             TextField(
@@ -147,7 +147,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
             // lo que si se puede cambiar es la comtraseña y el phone number
             const SizedBox(height: 10),
-            Text(S.current.RegisterPhoneNumber),
+            Text(S.current.ProfilePhoneNumber),
             const SizedBox(height: 5),
             ElevatedButton(
               onPressed: () {
@@ -183,7 +183,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             ),
 
             const SizedBox(height: 10),
-            Text(S.current.HintPassword),
+            Text(S.current.ProfilePassword),
             const SizedBox(height: 5),
             ElevatedButton(
               onPressed: () {

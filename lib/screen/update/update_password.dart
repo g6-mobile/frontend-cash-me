@@ -30,8 +30,8 @@ class _UpdatePasswordState extends State<UpdatePassword> {
   @override
   void dispose() {
     _actualPasswordController.dispose();
-    _actualPasswordController.dispose();
-    _actualPasswordController.dispose();
+    _newPasswordController.dispose();
+    _confirmNewPasswordController.dispose();
     super.dispose();
   }
 
@@ -50,28 +50,25 @@ class _UpdatePasswordState extends State<UpdatePassword> {
             
             const SizedBox(height: 50),
             Text("Write Actual Password"),
-            const SizedBox(height: 10),
-            
+            const SizedBox(height: 5),
             BaseTextField(
               hintText: "Actual Password", 
               controller: _actualPasswordController,
               keyboardType: TextInputType.visiblePassword,
             ),
-            
-            const SizedBox(height: 30),
-            Text("Write New Password"),
-            const SizedBox(height: 10),
 
+            const SizedBox(height: 20),
+            Text("Write New Password"),
+            const SizedBox(height: 5),
             BaseTextField(
               hintText: 'New Password', 
               controller: _newPasswordController,
               keyboardType: TextInputType.visiblePassword,
             ),
-
-            const SizedBox(height: 30),
+          
+            const SizedBox(height: 20),
             Text("Confirm New Password"),
-            const SizedBox(height: 10),
-
+            const SizedBox(height: 5),
             BaseTextField(
               hintText: 'Confirm New Password', 
               controller: _confirmNewPasswordController,
@@ -79,14 +76,21 @@ class _UpdatePasswordState extends State<UpdatePassword> {
             ),
 
             const SizedBox(height: 50),
-
             BaseElevatedButton(
               text: S.current.ConfirmUpdate,
-              onPressed: () async {}
+              onPressed: () {},
             ),
+
           ],
         ),
       ),
     );
+  }
+
+  bool isValidActualPassword(String phoneNumber) {
+    final RegExp phoneNumberRegExp = RegExp(
+      r'^[9][0-9]{8}$',
+    );
+    return phoneNumberRegExp.hasMatch(phoneNumber);
   }
 }
