@@ -220,7 +220,7 @@ class S {
     );
   }
 
-  /// `Ask For Update Confirmation`
+  /// `message in the Snack Bar about update phone number`
   String get PhoneNumberUpdatedSuccessfullySnackBar {
     return Intl.message(
       'Phone number updated successfully to',
@@ -235,6 +235,56 @@ class S {
     return Intl.message(
       'Update password',
       name: 'UpdatePassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Write actual password`
+  String get WriteActualPassword {
+    return Intl.message(
+      'Write Actual Password',
+      name: 'WriteActualPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `actual password`
+  String get ActualPassword {
+    return Intl.message(
+      'Actual Password',
+      name: 'ActualPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Write new password`
+  String get WriteNewPassword {
+    return Intl.message(
+      'Write New Password',
+      name: 'WriteNewPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `New password`
+  String get NewPassword {
+    return Intl.message(
+      'New Password',
+      name: 'NewPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Confirm New password`
+  String get ConfirmNewPassword {
+    return Intl.message(
+      'Confirm New Password',
+      name: 'ConfirmNewPassword',
       desc: '',
       args: [],
     );

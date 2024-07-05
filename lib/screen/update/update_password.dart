@@ -15,6 +15,9 @@ class UpdatePassword extends StatefulWidget {
 }
 
 class _UpdatePasswordState extends State<UpdatePassword> {
+  bool _obscureTextActualPassword = true;
+  bool _obscureTextNewPassword = true;
+  bool _obscureTextConfirmNewPassword = true;
   late TextEditingController _actualPasswordController;
   late TextEditingController _newPasswordController;
   late TextEditingController _confirmNewPasswordController;
@@ -35,11 +38,27 @@ class _UpdatePasswordState extends State<UpdatePassword> {
     super.dispose();
   }
 
+  void _toggleVisibilityActualPassword() {
+    setState(() {
+      _obscureTextActualPassword = !_obscureTextActualPassword;
+    });
+  }
+  void _toggleVisibilityNewPassword() {
+    setState(() {
+      _obscureTextNewPassword = !_obscureTextNewPassword;
+    });
+  }
+  void _toggleVisibilityConfirmNewPassword() {
+    setState(() {
+      _obscureTextConfirmNewPassword = !_obscureTextConfirmNewPassword;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: SubtitleText(text: S.current.UpdatePhoneNumber, fontWeight: FontWeight.w500),
+        title: SubtitleText(text: S.current.UpdatePassword, fontWeight: FontWeight.w500),
         centerTitle: true,
       ),
 
@@ -49,48 +68,86 @@ class _UpdatePasswordState extends State<UpdatePassword> {
           children: [
             
             const SizedBox(height: 50),
-            Text("Write Actual Password"),
+            Text(S.current.WriteActualPassword),
             const SizedBox(height: 5),
-            BaseTextField(
-              hintText: "Actual Password", 
-              controller: _actualPasswordController,
-              keyboardType: TextInputType.visiblePassword,
+            Stack(
+              alignment: Alignment.centerRight,
+              children: [
+                BaseTextField(
+                  hintText: S.current.ActualPassword, 
+                  controller: _actualPasswordController,
+                  obscureText: _obscureTextActualPassword,
+                  keyboardType: TextInputType.visiblePassword,
+                ),
+                IconButton(
+                  icon: Icon(
+                    _obscureTextNewPassword ? Icons.visibility : Icons.visibility_off,
+                    color: Colors.grey,
+                  ),
+                  onPressed: _toggleVisibilityActualPassword,
+                ),
+              ],
             ),
 
+            
+
             const SizedBox(height: 20),
-            Text("Write New Password"),
+            Text(S.current.WriteNewPassword),
             const SizedBox(height: 5),
-            BaseTextField(
-              hintText: 'New Password', 
-              controller: _newPasswordController,
-              keyboardType: TextInputType.visiblePassword,
+            Stack(
+              alignment: Alignment.centerRight,
+              children: [
+                BaseTextField(
+                  hintText: S.current.NewPassword, 
+                  controller: _newPasswordController,
+                  obscureText: _obscureTextNewPassword,
+                  keyboardType: TextInputType.visiblePassword,
+                ),
+                IconButton(
+                  icon: Icon(
+                    _obscureTextNewPassword ? Icons.visibility : Icons.visibility_off,
+                    color: Colors.grey,
+                  ),
+                  onPressed: _toggleVisibilityNewPassword,
+                ),
+              ],
             ),
+            
           
             const SizedBox(height: 20),
-            Text("Confirm New Password"),
+            Text(S.current.ConfirmNewPassword),
             const SizedBox(height: 5),
-            BaseTextField(
-              hintText: 'Confirm New Password', 
-              controller: _confirmNewPasswordController,
-              keyboardType: TextInputType.visiblePassword,
+            Stack(
+              alignment: Alignment.centerRight,
+              children: [
+                BaseTextField(
+                  hintText: S.current.ConfirmNewPassword, 
+                  controller: _confirmNewPasswordController,
+                  obscureText: _obscureTextConfirmNewPassword,
+                  keyboardType: TextInputType.visiblePassword,
+                ),
+                IconButton(
+                  icon: Icon(
+                    _obscureTextConfirmNewPassword ? Icons.visibility : Icons.visibility_off,
+                    color: Colors.grey,
+                  ),
+                  onPressed: _toggleVisibilityConfirmNewPassword,
+                ),
+              ],
             ),
 
             const SizedBox(height: 50),
             BaseElevatedButton(
               text: S.current.ConfirmUpdate,
-              onPressed: () {},
+              onPressed: () {}
             ),
-
           ],
         ),
       ),
     );
   }
 
-  bool isValidActualPassword(String phoneNumber) {
-    final RegExp phoneNumberRegExp = RegExp(
-      r'^[9][0-9]{8}$',
-    );
-    return phoneNumberRegExp.hasMatch(phoneNumber);
+  bool isValidPassword(String password) {
+    return true;
   }
 }
