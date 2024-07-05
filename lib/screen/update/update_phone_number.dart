@@ -45,28 +45,13 @@ class _UpdatePhoneNumberState extends State<UpdatePhoneNumber> {
             const SizedBox(height: 50),
             Text(S.current.ActualPhoneNumber),
             const SizedBox(height: 10),
-            
-            TextField(
-              enabled: false,
-              decoration: InputDecoration(
-                hintText: '926471336',
-                hintStyle: TextStyle(
-                  color: Color(0xFFC8C8C8),
-                  fontSize: 16,
-                  fontFamily: 'Poppins',
-                ),
-                disabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Color(0xFFC8C8C8)),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-              ),
+            DisabledTextField(
+              hintText: '926471336',
             ),
             
             const SizedBox(height: 30),
             Text(S.current.NewPhoneNumber),
             const SizedBox(height: 10),
-
             BaseTextField(
               hintText: S.current.NewPhoneNumber, 
               controller: _phoneUpdateController,

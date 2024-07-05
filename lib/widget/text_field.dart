@@ -43,3 +43,33 @@ class BaseTextField extends StatelessWidget{
     );
   }
 }
+
+
+class DisabledTextField extends StatelessWidget{
+  final String hintText;
+
+  const DisabledTextField({
+    Key? key,
+    required this.hintText,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return TextField(
+      enabled: false,
+      decoration: InputDecoration(
+        hintText: hintText,
+        hintStyle: TextStyle(
+          color: Color(0xFFC8C8C8),
+          fontSize: 16,
+          fontFamily: 'Poppins',
+        ),
+        disabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Color(0xFFC8C8C8)),
+          borderRadius: BorderRadius.circular(8),
+        ),
+        contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+      ),
+    );
+  }
+}
