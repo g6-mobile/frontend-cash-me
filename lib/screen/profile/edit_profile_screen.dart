@@ -84,21 +84,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             Text(S.current.ProfileName),
             const SizedBox(height: 5),
             // TextField para Nombre(s)
-            TextField(
-              enabled: false,
-              decoration: InputDecoration(
-                hintText: 'Estiven Salvador',
-                hintStyle: TextStyle(
-                  color: Color(0xFFC8C8C8),
-                  fontSize: 16,
-                  fontFamily: 'Poppins',
-                ),
-                disabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Color(0xFFC8C8C8)),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-              ),
+            DisabledTextField(
+              hintText: 'Estiven Salvador',
             ),
 
             // Text Apellidos
@@ -106,21 +93,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             Text(S.current.ProfileLastName),
             const SizedBox(height: 5),
             // TextField Apellidos
-            TextField(
-              enabled: false,
-              decoration: InputDecoration(
-                hintText: 'Hurtado Santos',
-                hintStyle: TextStyle(
-                  color: Color(0xFFC8C8C8),
-                  fontSize: 16,
-                  fontFamily: 'Poppins',
-                ),
-                disabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Color(0xFFC8C8C8)),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-              ),
+            DisabledTextField(
+              hintText: 'Hurtado Santos',
             ),
 
             // Text Codigo universitario
@@ -128,21 +102,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             Text(S.current.ProfileStudentCode),
             const SizedBox(height: 5),
             // TextField de codigo
-            TextField(
-              enabled: false,
-              decoration: InputDecoration(
-                hintText: '20200284',
-                hintStyle: TextStyle(
-                  color: Color(0xFFC8C8C8),
-                  fontSize: 16,
-                  fontFamily: 'Poppins',
-                ),
-                disabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Color(0xFFC8C8C8)),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-              ),
+            DisabledTextField(
+              hintText: '20200284',
             ),
 
             // lo que si se puede cambiar es la comtraseña y el phone number
@@ -216,12 +177,40 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 ],
               ),
             ),
-            
-            
           ],
         ),
       ),
     );
-
   }
 }
+
+
+class DisabledTextField extends StatelessWidget{
+  final String hintText;
+
+  const DisabledTextField({
+    Key? key,
+    required this.hintText,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return TextField(
+      enabled: false,
+      decoration: InputDecoration(
+        hintText: hintText,
+        hintStyle: TextStyle(
+          color: Color(0xFFC8C8C8),
+          fontSize: 16,
+          fontFamily: 'Poppins',
+        ),
+        disabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Color(0xFFC8C8C8)),
+          borderRadius: BorderRadius.circular(8),
+        ),
+        contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+      ),
+    );
+  }
+}
+
