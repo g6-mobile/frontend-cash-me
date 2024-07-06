@@ -25,8 +25,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "AcceptTerms": MessageLookupByLibrary.simpleMessage(
             "Aceptar los términos y condiciones."),
         "Account": MessageLookupByLibrary.simpleMessage("Cuenta"),
+        "CashToDigital":
+            MessageLookupByLibrary.simpleMessage("Efectivo a Digital"),
         "DefaultErrorStatusCode": MessageLookupByLibrary.simpleMessage(
             "Ha ocurrido un error, por favor intente más tarde."),
+        "DigitalToCash":
+            MessageLookupByLibrary.simpleMessage("Digital a Efectivo"),
         "EmailAddress":
             MessageLookupByLibrary.simpleMessage("Correo Electrónico"),
         "EmailVerificationDescription": MessageLookupByLibrary.simpleMessage(
@@ -59,6 +63,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Historial"),
         "PendingTransaction": MessageLookupByLibrary.simpleMessage(
             "Tienes una transacción pendiente"),
+        "PublishRequestCash": MessageLookupByLibrary.simpleMessage("Publicar"),
         "QuestionCancelTransaction": MessageLookupByLibrary.simpleMessage(
             "¿Desea cancelar la solicitud?"),
         "QuestionSignUp":

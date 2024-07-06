@@ -44,5 +44,8 @@
   "QuestionCancelTransaction": "¿Desea cancelar la solicitud?",
   "ResponseCashback": "Aceptar",
   "SignOut": "Cerrar sesión",
-  "DefaultErrorStatusCode": "Ha ocurrido un error, por favor intente más tarde."
+  "DefaultErrorStatusCode": "Ha ocurrido un error, por favor intente más tarde.",
+  "DigitalToCash": "Digital a Efectivo",
+  "CashToDigital": "Efectivo a Digital",
+  "PublishRequestCash": "Publicar"
 }

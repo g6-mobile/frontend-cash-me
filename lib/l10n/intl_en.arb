@@ -44,5 +44,8 @@
   "QuestionCancelTransaction": "Do you want to cancel the transaction?",
   "ResponseCashback": "Accept",
   "SignOut": "Sign Out",
-  "DefaultErrorStatusCode": "An error occurred, please try again later"
+  "DefaultErrorStatusCode": "An error occurred, please try again later",
+  "DigitalToCash": "Digital to Cash",
+  "CashToDigital": "Cash to Digital",
+  "PublishRequestCash": "Publish"
 }

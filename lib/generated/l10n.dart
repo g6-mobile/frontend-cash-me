@@ -509,6 +509,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Digital to Cash`
+  String get DigitalToCash {
+    return Intl.message(
+      'Digital to Cash',
+      name: 'DigitalToCash',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cash to Digital`
+  String get CashToDigital {
+    return Intl.message(
+      'Cash to Digital',
+      name: 'CashToDigital',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Publish`
+  String get PublishRequestCash {
+    return Intl.message(
+      'Publish',
+      name: 'PublishRequestCash',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

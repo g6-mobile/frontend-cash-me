@@ -43,3 +43,25 @@ class BaseTextField extends StatelessWidget{
     );
   }
 }
+
+class CurrencyTextField extends StatelessWidget {
+  final TextEditingController controller;
+  final ValueChanged<String> onChanged;
+
+  const CurrencyTextField({required this.controller, required this.onChanged});
+
+  @override
+  Widget build(BuildContext context) {
+    return TextField(
+      controller: controller,
+      keyboardType: TextInputType.number,
+      textAlign: TextAlign.center,
+      style: TextStyle(fontSize: 50.0),
+      decoration: const InputDecoration(
+        border: InputBorder.none,
+      ),
+      cursorColor: Colors.transparent,
+      onChanged: onChanged,
+    );
+  }
+}

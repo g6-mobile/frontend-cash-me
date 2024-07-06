@@ -4,11 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:pocket_swap_fisi/domain/entities/transaction_pending_by_student_code.dart';
 import 'package:pocket_swap_fisi/providers/transaction_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../../dummy_data_maps.dart';
 import '../../generated/l10n.dart';
+import '../../providers/auth_provider.dart';
 import '../../widget/bottom_sheet.dart';
 import '../../widget/button.dart';
 
@@ -20,16 +22,20 @@ class MapSample extends StatefulWidget {
   State<MapSample> createState() => MapSampleState();
 }
 
-class MapSampleState extends State<MapSample> with WidgetsBindingObserver{
+class MapSampleState extends State<MapSample> with WidgetsBindingObserver {
   final Completer<GoogleMapController> _controller =
       Completer<GoogleMapController>();
   late String _darkMapStyle;
   CameraPosition? _initialCameraPosition;
   Set<Marker> _markers = {};
   late Position position;
+  late AuthProvider authProvider =
+      Provider.of<AuthProvider>(context, listen: false);
+  late TransactionProvider transactionProvider =
+      Provider.of<TransactionProvider>(context, listen: false);
   Timer? _locationUpdateTimer;
-  ValueNotifier<Brightness> brightnessNotifier = ValueNotifier(WidgetsBinding.instance!.window.platformBrightness);
-
+  ValueNotifier<Brightness> brightnessNotifier =
+      ValueNotifier(WidgetsBinding.instance!.window.platformBrightness);
 
   void _showBottomSheet(MarkerData data) {
     showModalBottomSheet(
@@ -48,10 +54,10 @@ class MapSampleState extends State<MapSample> with WidgetsBindingObserver{
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Card(
-                  color: Theme.of(context).colorScheme.secondaryContainer,
-                  elevation: 5,
-                  child: Center(
-                    child: Column(
+                    color: Theme.of(context).colorScheme.secondaryContainer,
+                    elevation: 5,
+                    child: Center(
+                        child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
@@ -64,7 +70,9 @@ class MapSampleState extends State<MapSample> with WidgetsBindingObserver{
                               maxHeight: 64,
                             ),
                             child: ClipOval(
-                              child: Image.asset('assets/images/img_profile_user.png', fit: BoxFit.cover),
+                              child: Image.asset(
+                                  'assets/images/img_profile_user.png',
+                                  fit: BoxFit.cover),
                             ),
                           ),
                           title: Text(
@@ -72,12 +80,11 @@ class MapSampleState extends State<MapSample> with WidgetsBindingObserver{
                             style: const TextStyle(
                                 fontSize: 18.0, fontWeight: FontWeight.bold),
                           ),
-                          subtitle: Text('Ing. de Software\n#${data.studentCode}'),
+                          subtitle:
+                              Text('Ing. de Software\n#${data.studentCode}'),
                         )
                       ],
-                    )
-                  )
-                ),
+                    ))),
                 const SizedBox(height: 20),
                 Text(
                   "PEN",
@@ -95,9 +102,11 @@ class MapSampleState extends State<MapSample> with WidgetsBindingObserver{
                 ),
                 Text(data.cashType),
                 const SizedBox(height: 20),
-                BaseElevatedButton(text: S.current.ResponseCashback, onPressed: () {
-                  Navigator.pop(context);
-                })
+                BaseElevatedButton(
+                    text: S.current.ResponseCashback,
+                    onPressed: () {
+                      Navigator.pop(context);
+                    })
                 // Agrega más campos aquí si es necesario
               ],
             ),
@@ -150,7 +159,8 @@ class MapSampleState extends State<MapSample> with WidgetsBindingObserver{
         updateMakerPosition();
       });
       final GoogleMapController controller = await _controller.future;
-      controller.animateCamera(CameraUpdate.newCameraPosition(_initialCameraPosition!));
+      controller.animateCamera(
+          CameraUpdate.newCameraPosition(_initialCameraPosition!));
     } catch (e) {
       print('Could not get the location: $e');
     }
@@ -161,7 +171,7 @@ class MapSampleState extends State<MapSample> with WidgetsBindingObserver{
     final Uint8List markerIconBytes =
         await _readImageBytes('assets/images/current_location.png');
     final BitmapDescriptor markerIcon =
-    BitmapDescriptor.fromBytes(markerIconBytes);
+        BitmapDescriptor.fromBytes(markerIconBytes);
     setState(() {
       _markers.add(
         Marker(
@@ -175,7 +185,8 @@ class MapSampleState extends State<MapSample> with WidgetsBindingObserver{
   }
 
   void _startLocationUpdateTimer() {
-    _locationUpdateTimer = Timer.periodic(const Duration(seconds: 10), (timer) async {
+    _locationUpdateTimer =
+        Timer.periodic(const Duration(seconds: 10), (timer) async {
       updateMakerPosition();
     });
   }
@@ -199,7 +210,8 @@ class MapSampleState extends State<MapSample> with WidgetsBindingObserver{
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.resumed) {
-      brightnessNotifier.value = WidgetsBinding.instance!.window.platformBrightness;
+      brightnessNotifier.value =
+          WidgetsBinding.instance!.window.platformBrightness;
     }
     super.didChangeAppLifecycleState(state);
   }
@@ -216,52 +228,62 @@ class MapSampleState extends State<MapSample> with WidgetsBindingObserver{
       body: _initialCameraPosition == null
           ? Center(child: CircularProgressIndicator())
           : Stack(
-        children: [
-          ValueListenableBuilder(
-            valueListenable: brightnessNotifier,
-            builder: (context, value, child) {
-              return GoogleMap(
-                mapType: MapType.normal,
-                initialCameraPosition: _initialCameraPosition ?? _fisiAno,
-                onMapCreated: (GoogleMapController controller) {
-                  _controller.complete(controller);
-                  if (brightnessNotifier.value == Brightness.dark) {
-                    controller.setMapStyle(_darkMapStyle);
-                  } else {
-                    controller.setMapStyle(null);
-                  }
-                },
-                markers: _markers,
-                zoomControlsEnabled: false,
-                mapToolbarEnabled: false,
-              );
-            },
-          ),
-          Positioned(
-            bottom: 10,
-            left: 0,
-            right: 0,
-            child: Center(
-              child: FloatingActionButton(
-                onPressed: () {
-                  showCustomBottomSheet(context, position);
-                },
-                child: Icon(Icons.currency_exchange), // Icono del botón
-              ),
+              children: [
+                ValueListenableBuilder(
+                  valueListenable: brightnessNotifier,
+                  builder: (context, value, child) {
+                    return GoogleMap(
+                      mapType: MapType.normal,
+                      initialCameraPosition: _initialCameraPosition ?? _fisiAno,
+                      onMapCreated: (GoogleMapController controller) {
+                        _controller.complete(controller);
+                        if (brightnessNotifier.value == Brightness.dark) {
+                          controller.setMapStyle(_darkMapStyle);
+                        } else {
+                          controller.setMapStyle(null);
+                        }
+                      },
+                      markers: _markers,
+                      zoomControlsEnabled: false,
+                      mapToolbarEnabled: false,
+                    );
+                  },
+                ),
+                Positioned(
+                  bottom: 10,
+                  left: 0,
+                  right: 0,
+                  child: Center(
+                    child: FloatingActionButton(
+                      onPressed: () async {
+                        await authProvider.loadUser();
+                        if (authProvider.user != null) {
+                          await transactionProvider
+                                  .getTransactionPendingProvider(
+                                      authProvider.user!.studentCode ?? '');
+                          showCustomBottomSheet(
+                              context,
+                              position,
+                              authProvider.user!,
+                              transactionProvider.transactionPending!);
+                        }
+                      },
+                      child: Icon(Icons.currency_exchange), // Icono del botón
+                    ),
+                  ),
+                ),
+                Positioned(
+                  bottom: 70,
+                  right: 10,
+                  child: FloatingActionButton(
+                    onPressed: () {
+                      getCurrentLocation();
+                    },
+                    child: Icon(Icons.my_location), // Icono del botón
+                  ),
+                ),
+              ],
             ),
-          ),
-          Positioned(
-            bottom: 70,
-            right: 10,
-            child: FloatingActionButton(
-              onPressed: () {
-                getCurrentLocation();
-              },
-              child: Icon(Icons.my_location), // Icono del botón
-            ),
-          ),
-        ],
-      ),
     );
   }
 

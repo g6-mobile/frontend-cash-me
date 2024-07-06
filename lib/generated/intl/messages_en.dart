@@ -25,8 +25,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "AcceptTerms": MessageLookupByLibrary.simpleMessage(
             "Accept the terms and conditions."),
         "Account": MessageLookupByLibrary.simpleMessage("Account"),
+        "CashToDigital":
+            MessageLookupByLibrary.simpleMessage("Cash to Digital"),
         "DefaultErrorStatusCode": MessageLookupByLibrary.simpleMessage(
             "An error occurred, please try again later"),
+        "DigitalToCash":
+            MessageLookupByLibrary.simpleMessage("Digital to Cash"),
         "EmailAddress": MessageLookupByLibrary.simpleMessage("Email Address"),
         "EmailVerificationDescription": MessageLookupByLibrary.simpleMessage(
             "This action requires email verification, you will be asked to fill out the code. A verification email has been sent to:"),
@@ -59,6 +63,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("History"),
         "PendingTransaction": MessageLookupByLibrary.simpleMessage(
             "You have a pending transaction"),
+        "PublishRequestCash": MessageLookupByLibrary.simpleMessage("Publish"),
         "QuestionCancelTransaction": MessageLookupByLibrary.simpleMessage(
             "Do you want to cancel the transaction?"),
         "QuestionSignUp":
