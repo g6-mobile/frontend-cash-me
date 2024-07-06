@@ -21,6 +21,10 @@ class AuthProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> loginWithGoogle() async {
+    await _authUseCase.loginWithGoogle();    
+  }
+
   Future<void> logout() async {
     await _authUseCase.logout();
     clearUser();
@@ -44,7 +48,7 @@ class AuthProvider extends ChangeNotifier {
     _token = null;
     notifyListeners();
     const storage = FlutterSecureStorage();
-    await storage.deleteAll();    
+    await storage.deleteAll();
   }
 
   Future<void> loadUser() async {
@@ -57,12 +61,13 @@ class AuthProvider extends ChangeNotifier {
 
   Future<int?> register(String name, String lastname, String studentCode,
       String email, String password) async {
-    final register = await _authUseCase.register(name, lastname, studentCode, email, password);
+    final register = await _authUseCase.register(
+        name, lastname, studentCode, email, password);
     notifyListeners();
     return register;
   }
 
-  Future <StudentByCode> studentByCode(String studentCode) async {
+  Future<StudentByCode> studentByCode(String studentCode) async {
     final student = await _authUseCase.studentByCode(studentCode);
     notifyListeners();
     return student;

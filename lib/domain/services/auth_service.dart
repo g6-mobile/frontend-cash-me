@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:pocket_swap_fisi/domain/entities/studentByCode.dart';
 import 'package:pocket_swap_fisi/domain/entities/user.dart';
 import 'package:pocket_swap_fisi/utils/constants/api_constants.dart';
@@ -44,6 +45,49 @@ class AuthService {
       throw Exception(e);
     }
   }
+
+  Future<void> loginWithGoogle() async {    
+    try {
+      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();            
+
+      if (googleUser == null) {
+        throw Exception('Failed to login with Google');
+      }
+
+      final response = await dio.post('${ApiConstants.baseURL}/auth/google', data: {
+        'googleId': googleUser.id,
+        'email': googleUser.email,
+        'fullName': googleUser.displayName,
+        'userPhoto': googleUser.photoUrl,
+      });
+
+      if (response.statusCode != 201) {
+        throw Exception('Failed to login with Google');
+      }
+
+      final data = response.data['data'];
+
+       // Guardar el token en el almacenamiento seguro
+      const storage = FlutterSecureStorage();
+      await storage.write(key: 'accessToken', value: data['accessToken']);
+      await storage.write(key: 'refreshToken', value: data['refreshToken']);
+
+      final user = await dio.get('${ApiConstants.baseURL}/users/me',
+          options: Options(
+              headers: {'Authorization': 'Bearer ${data['accessToken']}'}));
+
+      if (user.statusCode != 200) {
+        throw Exception('Failed to get user data');
+      }
+
+      final userData = User.fromJson(user.data['data']);
+
+      await storage.write(key: 'user', value: User.serialize(userData));
+
+    } catch (error) {
+      throw Exception(error);
+    }
+  }  
 
   Future<void> logout() async {
     const storage = FlutterSecureStorage();

@@ -22,8 +22,8 @@ class RoomProvider extends ChangeNotifier {
   }
 
   void getRooms() async {
-    final allRooms = _roomUsecase.getRooms();
-    _rooms = await allRooms;
+    final allRooms = await _roomUsecase.getRooms();
+    _rooms = allRooms;
     notifyListeners();
   }
 
