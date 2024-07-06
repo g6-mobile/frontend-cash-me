@@ -81,7 +81,14 @@ class _LoginScreenState extends State<LoginScreen> {
                 const SizedBox(height: 42),
                 BaseAssetOutlinedButton(
                     text: S.current.LoginGoogle,
-                    onPressed: () {},
+                    onPressed: () async {
+                      await authProvider.loginWithGoogle();
+                      // if (accessToken != null) {
+                      //   await authProvider.loginWithGoogleCallback(accessToken);
+                      // }
+
+                      widget.onResult.call(true);
+                    },
                     asset: 'assets/images/google_logo.png'),
                 const SizedBox(height: 20),
                 RegularText(
@@ -138,7 +145,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       });
                       try {
                         await authProvider.login(
-                            _emailController.text, _passwordController.text);                       
+                            _emailController.text, _passwordController.text);
                         widget.onResult.call(true);
                       } catch (e) {
                         print('Error: $e');

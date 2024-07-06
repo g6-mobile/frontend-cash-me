@@ -9,9 +9,12 @@ class AuthUseCase {
   AuthUseCase(this._authService);
 
   Future<void> login(String email, String password) async {
-    final user = await _authService.login(email, password);
-    return user;
+    await _authService.login(email, password);
   }
+
+  Future<void> loginWithGoogle() async {
+    await _authService.loginWithGoogle();
+  }  
 
   Future<void> logout() async {
     await _authService.logout();
