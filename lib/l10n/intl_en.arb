@@ -1,8 +1,8 @@
 {
   "Account": "Account",
   "EditProfile" : "Edit Profile",
-  "LinkedDevices": "Linked Devices",
   "Theme": "Theme",
+  "LinkedDevices": "Linked Devices",
   "Language": "Language",
   "Notifications": "Notifications",
   "ReportAnError": "Report an Error",

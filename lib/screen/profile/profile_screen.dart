@@ -188,6 +188,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           return const SwitchBottomSheet();
                         },
                       );
+                      // S.load(Locale('es','ES'));
+                      //S.load(Locale('en'));
                     },
                     child: ListTile(
                       leading: Icon(Icons.public_outlined),
@@ -282,14 +284,16 @@ class _SwitchBottomSheetState extends State<SwitchBottomSheet> {
         children: [
           Image.asset(
             _isSwitched
-                ? 'assets/images/eeuu_english.png'
-                : 'assets/images/peru_spanish.png',
+                ? 'assets/images/peru_spanish.png'
+                : 'assets/images/eeuu_english.png',
             width: 100,
             height: 100,
           ),
+
           const SizedBox(height: 10),
-          Text(_isSwitched ? 'English' : 'Español'),
+          Text(_isSwitched ? 'Español' : 'English'),
           const SizedBox(height: 2),
+          
           CupertinoSwitch(
             value: _isSwitched,
             activeColor: const Color.fromARGB(255, 217, 217, 217),
@@ -298,6 +302,11 @@ class _SwitchBottomSheetState extends State<SwitchBottomSheet> {
               setState(() {
                 _isSwitched = value;
                 prefs.setBool('switchState', value);
+                if (_isSwitched) {
+                  S.load(Locale('es', 'ES')); // Cargar español
+                } else {
+                  S.load(Locale('en', '')); // Cargar inglés
+                };
               });
             },
           ),
