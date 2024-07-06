@@ -22,6 +22,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios),
+          onPressed: () {
+            AutoRouter.of(context).maybePop();
+          },
+        ),
         title:
             SubtitleText(text: S.current.EditProfile, fontWeight: FontWeight.w500),
         centerTitle: true,
