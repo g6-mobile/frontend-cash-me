@@ -80,7 +80,7 @@ class S {
     );
   }
 
-  /// `Theme` - Appearance
+  /// `Theme`
   String get Theme {
     return Intl.message(
       'Theme',
@@ -110,7 +110,7 @@ class S {
     );
   }
 
-  /// `Report an error`
+  /// `Report an Error`
   String get ReportAnError {
     return Intl.message(
       'Report an Error',
@@ -120,7 +120,7 @@ class S {
     );
   }
 
-  /// `Profile Name`
+  /// `Name`
   String get ProfileName {
     return Intl.message(
       'Name',
@@ -130,7 +130,7 @@ class S {
     );
   }
 
-  /// `Profile Last Name`
+  /// `Last Name`
   String get ProfileLastName {
     return Intl.message(
       'Last Name',
@@ -140,7 +140,7 @@ class S {
     );
   }
 
-  /// `Profile Student Code`
+  /// `Student Code`
   String get ProfileStudentCode {
     return Intl.message(
       'Student Code',
@@ -150,7 +150,7 @@ class S {
     );
   }
 
-  /// `Profile Phone Number`
+  /// `Phone Number`
   String get ProfilePhoneNumber {
     return Intl.message(
       'Phone Number',
@@ -160,7 +160,7 @@ class S {
     );
   }
 
-  /// `Profile Password`
+  /// `Password`
   String get ProfilePassword {
     return Intl.message(
       'Password',
@@ -170,7 +170,7 @@ class S {
     );
   }
 
-  /// `Update Phone Number`
+  /// `Update phone number`
   String get UpdatePhoneNumber {
     return Intl.message(
       'Update phone number',
@@ -180,7 +180,7 @@ class S {
     );
   }
 
-  /// `Actual Phone Number`
+  /// `Actual phone number`
   String get ActualPhoneNumber {
     return Intl.message(
       'Actual phone number',
@@ -190,7 +190,7 @@ class S {
     );
   }
 
-  /// `New Phone Number`
+  /// `New phone number`
   String get NewPhoneNumber {
     return Intl.message(
       'New phone number',
@@ -200,7 +200,7 @@ class S {
     );
   }
 
-  /// `Confirm Update Phone Number`
+  /// `Confirm update phone number`
   String get ConfirmUpdatePhoneNumber {
     return Intl.message(
       'Confirm update phone number',
@@ -210,7 +210,7 @@ class S {
     );
   }
 
-  /// `Ask For Update Confirmation`
+  /// `Are you sure you want to update your phone number to`
   String get AskUpdatePhoneNumber {
     return Intl.message(
       'Are you sure you want to update your phone number to',
@@ -220,7 +220,7 @@ class S {
     );
   }
 
-  /// `message in the Snack Bar about update phone number`
+  /// `Phone number updated successfully to`
   String get PhoneNumberUpdatedSuccessfullySnackBar {
     return Intl.message(
       'Phone number updated successfully to',
@@ -230,7 +230,7 @@ class S {
     );
   }
 
-  /// `Update Password`
+  /// `Update password`
   String get UpdatePassword {
     return Intl.message(
       'Update password',
@@ -240,7 +240,7 @@ class S {
     );
   }
 
-  /// `Write actual password`
+  /// `Write Actual Password`
   String get WriteActualPassword {
     return Intl.message(
       'Write Actual Password',
@@ -250,7 +250,7 @@ class S {
     );
   }
 
-  /// `actual password`
+  /// `Actual Password`
   String get ActualPassword {
     return Intl.message(
       'Actual Password',
@@ -260,7 +260,7 @@ class S {
     );
   }
 
-  /// `Write new password`
+  /// `Write New Password`
   String get WriteNewPassword {
     return Intl.message(
       'Write New Password',
@@ -270,7 +270,7 @@ class S {
     );
   }
 
-  /// `New password`
+  /// `New Password`
   String get NewPassword {
     return Intl.message(
       'New Password',
@@ -280,7 +280,7 @@ class S {
     );
   }
 
-  /// `Confirm New password`
+  /// `Confirm New Password`
   String get ConfirmNewPassword {
     return Intl.message(
       'Confirm New Password',
@@ -290,7 +290,7 @@ class S {
     );
   }
 
-  /// `Confirm Update`
+  /// `Confirm`
   String get ConfirmUpdate {
     return Intl.message(
       'Confirm',
@@ -300,7 +300,7 @@ class S {
     );
   }
 
-  /// `Cancel Update`
+  /// `Cancel`
   String get CancelUpdate {
     return Intl.message(
       'Cancel',
@@ -710,6 +710,26 @@ class S {
     );
   }
 
+  /// `You have a pending transaction`
+  String get PendingTransaction {
+    return Intl.message(
+      'You have a pending transaction',
+      name: 'PendingTransaction',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Do you want to cancel the transaction?`
+  String get QuestionCancelTransaction {
+    return Intl.message(
+      'Do you want to cancel the transaction?',
+      name: 'QuestionCancelTransaction',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Accept`
   String get ResponseCashback {
     return Intl.message(
@@ -740,11 +760,51 @@ class S {
     );
   }
 
+  /// `Digital to Cash`
+  String get DigitalToCash {
+    return Intl.message(
+      'Digital to Cash',
+      name: 'DigitalToCash',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cash to Digital`
+  String get CashToDigital {
+    return Intl.message(
+      'Cash to Digital',
+      name: 'CashToDigital',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Publish`
+  String get PublishRequestCash {
+    return Intl.message(
+      'Publish',
+      name: 'PublishRequestCash',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Chats`
   String get ChatListTitle {
     return Intl.message(
       'Chats',
       name: 'ChatListTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You don't have any chats yet`
+  String get ChatListEmpty {
+    return Intl.message(
+      'You don\'t have any chats yet',
+      name: 'ChatListEmpty',
       desc: '',
       args: [],
     );

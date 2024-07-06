@@ -65,8 +65,15 @@
   "NavBarBottomGiftShop": "Tienda",
   "NavBarBottomMessage": "Mensajes",
   "NavBarBottomProfile": "Perfil",
+  "PendingTransaction": "Tienes una transacción pendiente",
+  "QuestionCancelTransaction": "¿Desea cancelar la solicitud?",
   "ResponseCashback": "Aceptar",
   "SignOut": "Cerrar sesión",
   "DefaultErrorStatusCode": "Ha ocurrido un error, por favor intente más tarde.",
-  "ChatListTitle": "Chats"
+  "DigitalToCash": "Digital a Efectivo",
+  "CashToDigital": "Efectivo a Digital",
+  "PublishRequestCash": "Publicar",
+  "DefaultErrorStatusCode": "Ha ocurrido un error, por favor intente más tarde.",
+  "ChatListTitle": "Chats",
+  "ChatListEmpty": "No tienes chats"
 }

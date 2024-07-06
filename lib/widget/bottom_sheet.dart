@@ -1,163 +1,293 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:pocket_swap_fisi/domain/entities/transaction_pending_by_student_code.dart';
 import 'package:pocket_swap_fisi/widget/button.dart';
 import 'package:pocket_swap_fisi/widget/text.dart';
+import 'package:pocket_swap_fisi/widget/text_field.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
-
+import '../../generated/l10n.dart';
+import '../domain/entities/user.dart';
 import '../providers/auth_provider.dart';
 import '../providers/transaction_provider.dart';
 import 'drop_down_menu.dart';
+import 'package:intl/intl.dart';
 
-void showCustomBottomSheet(BuildContext context, Position position) {
-  final authProvider = Provider.of<AuthProvider>(context, listen: false);
-  int selectedValue = 0;
-  final transactionProvider =
-      Provider.of<TransactionProvider>(context, listen: false);
-  authProvider.loadUser();
-  final user = authProvider.user;
-  TextEditingController amountController = TextEditingController(text: null);
-  const List<String> list = <String>[
-    'Digital a efectivo',
-    'Efectivo a digital'
-  ];
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+void showCustomBottomSheet(BuildContext context, Position position, User user,
+    TransactionPendingByStudentCode transactionPending) {
   showModalBottomSheet(
     context: context,
     backgroundColor: Theme.of(context).colorScheme.background,
     showDragHandle: true,
     isScrollControlled: true,
     builder: (context) {
-      return Container(
-        height: (MediaQuery.of(context).size.height) * 0.8,
-        width: MediaQuery.of(context).size.width,
-        padding: const EdgeInsets.symmetric(horizontal: 35, vertical: 20),
-        child: Center(
-            child: user != null
-                ? Column(
-                    children: <Widget>[
-                      ConstrainedBox(
-                        constraints: const BoxConstraints(
-                          minWidth: 44,
-                          minHeight: 44,
-                          maxWidth: 64,
-                          maxHeight: 64,
-                        ),
-                        child: ClipOval(
-                          child:
-                              Image.network(user.userPhoto ?? '', fit: BoxFit.cover),
-                        ),
-                      ),
-                      const SizedBox(height: 10),
-                      Text(
-                        user.firstName,
-                        style: const TextStyle(
-                          fontSize: 18.0,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      Text('${user.major}'),
-                      Text('${user.studentCode}'),
-                      const SizedBox(height: 40),
-                      const RegularText(
-                        text: 'PEN',
-                        fontWeight: FontWeight.bold,
-                      ),
-                      TextField(
-                        controller: amountController,
-                        keyboardType: TextInputType.number,
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(
-                          fontSize: 50.0,
-                        ),
-                        decoration: const InputDecoration(
-                          border: InputBorder.none,
-                          hintText: '0.0',
-                          hintStyle: TextStyle(
-                            fontSize: 50.0,
-                          ),
-                        ),
-                        onChanged: (value) {
-                          // Lógica adicional si es necesario cuando el texto cambia
-                        },
-                      ),
-                      const SizedBox(height: 20),
-                      DropdownMenuExample(
-                        list: list,
-                        onItemSelected: (index) {
-                          selectedValue = index;
-                          print(
-                              'El usuario seleccionó el índice: $selectedValue');
-                        },
-                      ),
-                      const SizedBox(height: 40),
-                      BaseElevatedButton(
-                          text: 'Publicar',
-                          onPressed: () async {
-                            print(
-                                'Posicion:${position.latitude} - ${position.longitude}');
-                            print(
-                                'El usuario seleccionó el índice: $selectedValue');
-                            var register = await transactionProvider.createTransaction(
-                                '${user.studentCode}',
-                                double.parse(amountController.text),
-                                selectedValue,
-                                position.latitude,
-                                position.longitude);
-                            print('register Cash request: $register');
-                            if(register == 201) {
-                              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                                  content: Text('Registro de solicitud de cash exitosa')));
-                              Navigator.pop(context);
-                            }
-                          }),
-                      // Agrega más widgets aquí según tus necesidades
-                    ],
-                  )
-                : Shimmer.fromColors(
-                    baseColor: Colors.grey[300]!,
-                    highlightColor: Colors.grey[100]!,
-                    child: Column(
-                      children: <Widget>[
-                        ConstrainedBox(
-                          constraints: const BoxConstraints(
-                            minWidth: 44,
-                            minHeight: 44,
-                            maxWidth: 64,
-                            maxHeight: 64,
-                          ),
-                          child: ClipOval(
-                            child: Container(
-                              width: 54,
-                              height: 64,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 10),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              width: 210,
-                              height: 30,
-                              color: Colors.white,
-                            ),
-                            const SizedBox(height: 10),
-                            Container(
-                              width: 210,
-                              height: 20,
-                              color: Colors.white,
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  )),
-      );
+      return TransactionForm(
+          position: position,
+          user: user,
+          transactionPending: transactionPending);
     },
   );
+}
+
+class TransactionForm extends StatefulWidget {
+  final Position position;
+  final User user;
+  final TransactionPendingByStudentCode transactionPending;
+
+  const TransactionForm(
+      {super.key,
+      required this.position,
+      required this.user,
+      required this.transactionPending});
+
+  @override
+  _TransactionFormState createState() => _TransactionFormState();
+}
+
+class _TransactionFormState extends State<TransactionForm> {
+  int selectedValue = 1;
+  late TextEditingController amountController;
+
+  @override
+  void initState() {
+    super.initState();
+    amountController = TextEditingController(text: '0.0');
+  }
+
+  @override
+  void dispose() {
+    amountController.dispose();
+    super.dispose();
+  }
+
+  void _onAmountChanged(String value) {
+    // Remove any non-digit characters
+    String cleanedValue = value.replaceAll(RegExp(r'[^0-9]'), '');
+
+    // Ensure the value is not empty and does not start with leading zeros
+    if (cleanedValue.isEmpty) {
+      cleanedValue = '0';
+    } else {
+      cleanedValue = cleanedValue.replaceFirst(RegExp(r'^0+'), '');
+      if (cleanedValue.isEmpty) {
+        cleanedValue = '0';
+      }
+    }
+
+    // Convert the string to a double
+    double newValue = double.parse(cleanedValue) / 10;
+
+    // Ensure the value does not exceed 200.0
+    if (newValue > 200.0) {
+      newValue = 200.0;
+    }
+
+    // Format the value with one decimal place
+    String formattedValue = newValue.toStringAsFixed(1);
+
+    // Update the text field value
+    setState(() {
+      amountController.value = TextEditingValue(
+        text: formattedValue,
+        selection: TextSelection.fromPosition(
+            TextPosition(offset: formattedValue.length)),
+      );
+    });
+  }
+
+  void _submitTransaction() async {
+    final transactionProvider =
+        Provider.of<TransactionProvider>(context, listen: false);
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
+    authProvider.loadUser();
+    final user = authProvider.user;
+
+    if (user != null) {
+      var register = await transactionProvider.createTransaction(
+        user.studentCode ?? '',
+        double.parse(amountController.text),
+        selectedValue,
+        widget.position.latitude,
+        widget.position.longitude,
+      );
+
+      if (register == 201) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+              content: Text('Registro de solicitud de cash exitosa')),
+        );
+        Navigator.pop(context);
+      }
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: MediaQuery.of(context).size.height * 0.8,
+      width: MediaQuery.of(context).size.width,
+      padding: const EdgeInsets.symmetric(horizontal: 35, vertical: 20),
+      child: Center(
+        child: widget.transactionPending.amount != 0
+            ? _BuildPendingTransacction(widget.transactionPending)
+            : _buildForm(widget.user),
+      ),
+    );
+  }
+
+  Widget _buildForm(User user) {
+    return Center(
+      child: Column(
+        children: <Widget>[
+          ClipOval(
+            child: Image.network(
+              user.userPhoto ?? '',
+              width: 84,
+              height: 84,
+              fit: BoxFit.cover,
+            ),
+          ),
+          const SizedBox(height: 10),
+          Text(
+            user.firstName,
+            style: const TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+          ),
+          Text(user.major ?? ''),
+          Text(user.studentCode ?? ''),
+          const SizedBox(height: 40),
+          const Text(
+            'PEN',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+          CurrencyTextField(
+            controller: amountController,
+            onChanged: _onAmountChanged,
+          ),
+          const SizedBox(height: 20),
+          DropdownMenuExample(
+            list: [S.current.DigitalToCash, S.current.CashToDigital],
+            onItemSelected: (index) {
+              setState(() {
+                selectedValue = index + 1;
+              });
+            },
+          ),
+          const SizedBox(height: 40),
+          BaseElevatedButton(
+            text: S.current.PublishRequestCash,
+            onPressed: () {
+              if (double.parse(amountController.text) != 0.0) {
+                _submitTransaction();
+              } else {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('El monto no puede ser 0')),
+                );
+              }
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _BuildPendingTransacction(
+      TransactionPendingByStudentCode transactionPendingByStudentCode) {
+    return Center(
+      child: Column(
+        children: <Widget>[
+          const RegularText(
+            text: 'Tienes una transacción pendiente',
+            fontWeight: FontWeight.bold,
+            textAlign: TextAlign.center,
+            fontSize: 20.0,
+          ),
+          const SizedBox(height: 20),
+          Column(
+            children: <Widget>[
+              const RegularText(
+                text: 'PEN',
+                fontWeight: FontWeight.bold,
+              ),
+              Text(
+                transactionPendingByStudentCode.amount.toString(),
+                style: TextStyle(
+                  fontSize: 50.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Text(transactionPendingByStudentCode.operationType == 1
+                  ? S.current.DigitalToCash
+                  : S.current.CashToDigital),
+            ],
+          ),
+          const SizedBox(height: 20),
+          RegularText(
+            text: '¿Deseas cancelar la transacción?',
+            fontWeight: FontWeight.bold,
+            fontSize: 18.0,
+          ),
+          const SizedBox(height: 20),
+          BaseElevatedButton(
+              text: 'Aceptar',
+              onPressed: () async {
+                final transactionProvider =
+                    Provider.of<TransactionProvider>(context, listen: false);
+
+                int? response =
+                    await transactionProvider.updateStatusTransaction(
+                        widget.transactionPending.id,
+                        widget.user.studentCode ?? '',
+                        4);
+                if (response == 200) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                        content: Text('Transacción cancelada exitosamente')),
+                  );
+                  Navigator.pop(context);
+                }else{
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                        content: Text('Error')));
+                }
+
+              }),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildLoadingPlaceholder() {
+    return Center(
+      child: Column(
+        children: <Widget>[
+          ClipOval(
+            child: Container(
+              width: 64,
+              height: 64,
+              color: Colors.white,
+            ),
+          ),
+          const SizedBox(height: 10),
+          Container(
+            width: 210,
+            height: 30,
+            color: Colors.white,
+          ),
+          const SizedBox(height: 10),
+          Container(
+            width: 210,
+            height: 20,
+            color: Colors.white,
+          ),
+        ],
+      ),
+    );
+  }
 }
 
 class SwitchBottomSheet extends StatefulWidget {

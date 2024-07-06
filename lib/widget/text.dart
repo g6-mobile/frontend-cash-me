@@ -56,10 +56,12 @@ class RegularText extends StatelessWidget {
   final TextAlign textAlign;
   final FontWeight fontWeight;
   final TextDecoration textDecoration;
+  final double fontSize;
 
   const RegularText({
     Key? key,
     required this.text,
+    this.fontSize = 16,
     this.textAlign = TextAlign.start,
     this.fontWeight = FontWeight.normal,
     this.textDecoration = TextDecoration.none,
@@ -71,7 +73,7 @@ class RegularText extends StatelessWidget {
       text,
       style: TextStyle(
         color: Theme.of(context).colorScheme.onBackground,
-        fontSize: 16,
+        fontSize: fontSize,
         fontWeight: fontWeight,
         fontFamily: 'Poppins',
         decoration: textDecoration,
