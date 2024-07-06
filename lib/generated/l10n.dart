@@ -60,6 +60,256 @@ class S {
     );
   }
 
+  /// `Edit Profile`
+  String get EditProfile {
+    return Intl.message(
+      'Edit Profile',
+      name: 'EditProfile',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Linked Devices`
+  String get LinkedDevices {
+    return Intl.message(
+      'Linked Devices',
+      name: 'LinkedDevices',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Theme`
+  String get Theme {
+    return Intl.message(
+      'Theme',
+      name: 'Theme',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Language`
+  String get Language {
+    return Intl.message(
+      'Language',
+      name: 'Language',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Notifications`
+  String get Notifications {
+    return Intl.message(
+      'Notifications',
+      name: 'Notifications',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Report an Error`
+  String get ReportAnError {
+    return Intl.message(
+      'Report an Error',
+      name: 'ReportAnError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Name`
+  String get ProfileName {
+    return Intl.message(
+      'Name',
+      name: 'ProfileName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Last Name`
+  String get ProfileLastName {
+    return Intl.message(
+      'Last Name',
+      name: 'ProfileLastName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Student Code`
+  String get ProfileStudentCode {
+    return Intl.message(
+      'Student Code',
+      name: 'ProfileStudentCode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Phone Number`
+  String get ProfilePhoneNumber {
+    return Intl.message(
+      'Phone Number',
+      name: 'ProfilePhoneNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Password`
+  String get ProfilePassword {
+    return Intl.message(
+      'Password',
+      name: 'ProfilePassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Update phone number`
+  String get UpdatePhoneNumber {
+    return Intl.message(
+      'Update phone number',
+      name: 'UpdatePhoneNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Actual phone number`
+  String get ActualPhoneNumber {
+    return Intl.message(
+      'Actual phone number',
+      name: 'ActualPhoneNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `New phone number`
+  String get NewPhoneNumber {
+    return Intl.message(
+      'New phone number',
+      name: 'NewPhoneNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Confirm update phone number`
+  String get ConfirmUpdatePhoneNumber {
+    return Intl.message(
+      'Confirm update phone number',
+      name: 'ConfirmUpdatePhoneNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Are you sure you want to update your phone number to`
+  String get AskUpdatePhoneNumber {
+    return Intl.message(
+      'Are you sure you want to update your phone number to',
+      name: 'AskUpdatePhoneNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Phone number updated successfully to`
+  String get PhoneNumberUpdatedSuccessfullySnackBar {
+    return Intl.message(
+      'Phone number updated successfully to',
+      name: 'PhoneNumberUpdatedSuccessfullySnackBar',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Update password`
+  String get UpdatePassword {
+    return Intl.message(
+      'Update password',
+      name: 'UpdatePassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Write Actual Password`
+  String get WriteActualPassword {
+    return Intl.message(
+      'Write Actual Password',
+      name: 'WriteActualPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Actual Password`
+  String get ActualPassword {
+    return Intl.message(
+      'Actual Password',
+      name: 'ActualPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Write New Password`
+  String get WriteNewPassword {
+    return Intl.message(
+      'Write New Password',
+      name: 'WriteNewPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `New Password`
+  String get NewPassword {
+    return Intl.message(
+      'New Password',
+      name: 'NewPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Confirm New Password`
+  String get ConfirmNewPassword {
+    return Intl.message(
+      'Confirm New Password',
+      name: 'ConfirmNewPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Confirm`
+  String get ConfirmUpdate {
+    return Intl.message(
+      'Confirm',
+      name: 'ConfirmUpdate',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cancel`
+  String get CancelUpdate {
+    return Intl.message(
+      'Cancel',
+      name: 'CancelUpdate',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Login`
   String get Login {
     return Intl.message(
@@ -535,6 +785,26 @@ class S {
     return Intl.message(
       'Publish',
       name: 'PublishRequestCash',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Chats`
+  String get ChatListTitle {
+    return Intl.message(
+      'Chats',
+      name: 'ChatListTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You don't have any chats yet`
+  String get ChatListEmpty {
+    return Intl.message(
+      'You don\'t have any chats yet',
+      name: 'ChatListEmpty',
       desc: '',
       args: [],
     );

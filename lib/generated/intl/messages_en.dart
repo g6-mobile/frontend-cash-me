@@ -25,12 +25,28 @@ class MessageLookup extends MessageLookupByLibrary {
         "AcceptTerms": MessageLookupByLibrary.simpleMessage(
             "Accept the terms and conditions."),
         "Account": MessageLookupByLibrary.simpleMessage("Account"),
+        "ActualPassword":
+            MessageLookupByLibrary.simpleMessage("Actual Password"),
+        "ActualPhoneNumber":
+            MessageLookupByLibrary.simpleMessage("Actual phone number"),
+        "AskUpdatePhoneNumber": MessageLookupByLibrary.simpleMessage(
+            "Are you sure you want to update your phone number to"),
+        "CancelUpdate": MessageLookupByLibrary.simpleMessage("Cancel"),
         "CashToDigital":
             MessageLookupByLibrary.simpleMessage("Cash to Digital"),
+        "ChatListEmpty": MessageLookupByLibrary.simpleMessage(
+            "You don\'t have any chats yet"),
+        "ChatListTitle": MessageLookupByLibrary.simpleMessage("Chats"),
+        "ConfirmNewPassword":
+            MessageLookupByLibrary.simpleMessage("Confirm New Password"),
+        "ConfirmUpdate": MessageLookupByLibrary.simpleMessage("Confirm"),
+        "ConfirmUpdatePhoneNumber":
+            MessageLookupByLibrary.simpleMessage("Confirm update phone number"),
         "DefaultErrorStatusCode": MessageLookupByLibrary.simpleMessage(
             "An error occurred, please try again later"),
         "DigitalToCash":
             MessageLookupByLibrary.simpleMessage("Digital to Cash"),
+        "EditProfile": MessageLookupByLibrary.simpleMessage("Edit Profile"),
         "EmailAddress": MessageLookupByLibrary.simpleMessage("Email Address"),
         "EmailVerificationDescription": MessageLookupByLibrary.simpleMessage(
             "This action requires email verification, you will be asked to fill out the code. A verification email has been sent to:"),
@@ -48,6 +64,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Confirm Password"),
         "HintEmail": MessageLookupByLibrary.simpleMessage("Email"),
         "HintPassword": MessageLookupByLibrary.simpleMessage("Password"),
+        "Language": MessageLookupByLibrary.simpleMessage("Language"),
+        "LinkedDevices": MessageLookupByLibrary.simpleMessage("Linked Devices"),
         "Login": MessageLookupByLibrary.simpleMessage("Login"),
         "LoginButton": MessageLookupByLibrary.simpleMessage("Continue"),
         "LoginEmail":
@@ -61,8 +79,22 @@ class MessageLookup extends MessageLookupByLibrary {
         "NavBarBottomProfile": MessageLookupByLibrary.simpleMessage("Profile"),
         "NavBarBottomTransaction":
             MessageLookupByLibrary.simpleMessage("History"),
+        "NewPassword": MessageLookupByLibrary.simpleMessage("New Password"),
+        "NewPhoneNumber":
+            MessageLookupByLibrary.simpleMessage("New phone number"),
+        "Notifications": MessageLookupByLibrary.simpleMessage("Notifications"),
         "PendingTransaction": MessageLookupByLibrary.simpleMessage(
             "You have a pending transaction"),
+        "PhoneNumberUpdatedSuccessfullySnackBar":
+            MessageLookupByLibrary.simpleMessage(
+                "Phone number updated successfully to"),
+        "ProfileLastName": MessageLookupByLibrary.simpleMessage("Last Name"),
+        "ProfileName": MessageLookupByLibrary.simpleMessage("Name"),
+        "ProfilePassword": MessageLookupByLibrary.simpleMessage("Password"),
+        "ProfilePhoneNumber":
+            MessageLookupByLibrary.simpleMessage("Phone Number"),
+        "ProfileStudentCode":
+            MessageLookupByLibrary.simpleMessage("Student Code"),
         "PublishRequestCash": MessageLookupByLibrary.simpleMessage("Publish"),
         "QuestionCancelTransaction": MessageLookupByLibrary.simpleMessage(
             "Do you want to cancel the transaction?"),
@@ -95,10 +127,21 @@ class MessageLookup extends MessageLookupByLibrary {
             "You must accept the terms and conditions"),
         "RegisterUserExistsSnackBar": MessageLookupByLibrary.simpleMessage(
             "The email is already registered"),
+        "ReportAnError":
+            MessageLookupByLibrary.simpleMessage("Report an Error"),
         "ResendCode": MessageLookupByLibrary.simpleMessage("Resend code"),
         "ResponseCashback": MessageLookupByLibrary.simpleMessage("Accept"),
         "SendButton": MessageLookupByLibrary.simpleMessage("Send"),
         "SignOut": MessageLookupByLibrary.simpleMessage("Sign Out"),
-        "SignUp": MessageLookupByLibrary.simpleMessage("Sign Up")
+        "SignUp": MessageLookupByLibrary.simpleMessage("Sign Up"),
+        "Theme": MessageLookupByLibrary.simpleMessage("Theme"),
+        "UpdatePassword":
+            MessageLookupByLibrary.simpleMessage("Update password"),
+        "UpdatePhoneNumber":
+            MessageLookupByLibrary.simpleMessage("Update phone number"),
+        "WriteActualPassword":
+            MessageLookupByLibrary.simpleMessage("Write Actual Password"),
+        "WriteNewPassword":
+            MessageLookupByLibrary.simpleMessage("Write New Password")
       };
 }

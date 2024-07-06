@@ -74,5 +74,6 @@
   "CashToDigital": "Efectivo a Digital",
   "PublishRequestCash": "Publicar",
   "DefaultErrorStatusCode": "Ha ocurrido un error, por favor intente más tarde.",
-  "ChatListTitle": "Chats"
+  "ChatListTitle": "Chats",
+  "ChatListEmpty": "No tienes chats"
 }

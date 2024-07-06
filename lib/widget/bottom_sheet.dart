@@ -146,7 +146,7 @@ class _TransactionFormState extends State<TransactionForm> {
         children: <Widget>[
           ClipOval(
             child: Image.network(
-              user.userPhoto,
+              user.userPhoto ?? '',
               width: 84,
               height: 84,
               fit: BoxFit.cover,
