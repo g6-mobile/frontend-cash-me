@@ -18,7 +18,7 @@ List<ChangeNotifierProvider> providers = [
     create: (_) => AuthProvider(AuthUseCase(AuthService())),
   ),
   ChangeNotifierProvider(
-    create: (_) => UserProvider(UserUseCase(UserService(dio))),
+    create: (_) => UserProvider(UserUseCase(UserService())),
   ),
   ChangeNotifierProvider(
       create: (_) =>

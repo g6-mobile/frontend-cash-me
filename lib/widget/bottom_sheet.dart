@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:pocket_swap_fisi/domain/entities/transaction_pending_by_student_code.dart';
 import 'package:pocket_swap_fisi/widget/button.dart';

@@ -4,7 +4,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'app_router.gr.dart';
 
 @AutoRouterConfig()
-class AppRouter extends $AppRouter implements AutoRouteGuard {  
+class AppRouter extends $AppRouter implements AutoRouteGuard {
   @override
   void onNavigation(NavigationResolver resolver, StackRouter router) async {
     const storage = FlutterSecureStorage();
@@ -24,10 +24,23 @@ class AppRouter extends $AppRouter implements AutoRouteGuard {
   List<AutoRoute> get routes => [
         AutoRoute(path: '/login', page: LoginRoute.page),
         AutoRoute(path: '/', page: HomeRoute.page, children: [
-          AutoRoute(path: 'chat', page: ChatRoute.page),
+          AutoRoute(
+              path: 'chat-list',
+              page: ChatNavigationRoute.page,
+              children: [
+                AutoRoute(path: 'chat-list', page: ChatListRoute.page, initial: true),
+                AutoRoute(path: 'chat', page: ChatRoute.page),
+              ]),
           AutoRoute(path: 'gift-shop', page: GiftShopRoute.page),
           AutoRoute(path: 'maps', page: MapSample.page),
-          AutoRoute(path: 'profile', page: ProfileRoute.page),
+          AutoRoute(path: 'profile', page: ProfileNavigationRoute.page, children: [
+            AutoRoute(path: 'profile', page: ProfileRoute.page, initial: true),
+            AutoRoute(path: 'edit-profile', page: NavigatorEditProfileRoute.page, children: [
+              AutoRoute(path: 'profile', page: EditProfileRoute.page, initial: true),
+              AutoRoute(path: 'update-phone-number', page: UpdatePhoneNumber.page),
+              AutoRoute(path: 'update-password', page: UpdatePassword.page),
+            ]),
+          ]),
           AutoRoute(path: 'transaction-history', page: TransactionsList.page),
         ]),
       ];

@@ -64,8 +64,9 @@ class AuthService {
     Response response = Response(requestOptions: RequestOptions(path: ''));
     try {
       response = await dio.post('${ApiConstants.baseURL}/students/verify-code',
-          data: {'code': studentCode}).timeout(
-          const Duration(seconds: 10), onTimeout: () {
+          data: {
+            'code': studentCode
+          }).timeout(const Duration(seconds: 10), onTimeout: () {
         throw TimeoutException('Time out');
       });
 
@@ -88,10 +89,10 @@ class AuthService {
     Response response = Response(requestOptions: RequestOptions(path: ''));
     try {
       print("email: $email");
-      response = await dio.post('${ApiConstants.baseURL}/students/verify-email', data: {
+      response = await dio
+          .post('${ApiConstants.baseURL}/students/verify-email', data: {
         'email': email,
-      }).timeout(
-          const Duration(seconds: 10), onTimeout: () {
+      }).timeout(const Duration(seconds: 10), onTimeout: () {
         throw TimeoutException('Time out');
       });
 

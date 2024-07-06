@@ -6,21 +6,23 @@ mixin class ChatScreenManager {
   List<Message> messages = [];
   final TextEditingController msgController = TextEditingController();
 
-  listenMessageEvent(VoidCallback setState) {
-    WebsocketUseCase.instance.webSocketReceiver("chat_update", (data) {
-      messages.add(Message.fromJson(data));
-      setState();
-    });
-  }
+  // listenMessageEvent(VoidCallback setState) {
+  //   WebsocketUseCase.instance.webSocketReceiver("chat_update", (data) {
+  //     debugPrint("data: $data");
+  //     messages.add(Message.fromJson(data));
+  //     debugPrint("messages list: $messages");
+  //     setState();
+  //   });
+  // }
 
-  sendMessage(String sender, VoidCallback setState) {
-    final Message data = Message(sender: sender, message: msgController.text);
+  // sendMessage(String sender, VoidCallback setState) {
+  //   final Message data = Message(sender: sender, message: msgController.text);
 
-    WebsocketUseCase.instance.webSocketSender("chat_update", data.toJson());
-    //Reset input
-    msgController.text = "";
-    setState();
-  }
+  //   WebsocketUseCase.instance.webSocketSender("chat_update", data.toJson());
+  //   //Reset input
+  //   msgController.text = "";
+  //   setState();
+  // }
 
   Alignment setMessageAlignment(String senderName, String userName) {
     switch (senderName == userName) {
