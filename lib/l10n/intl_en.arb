@@ -1,8 +1,8 @@
 {
   "Account": "Account",
   "EditProfile" : "Edit Profile",
-  "LinkedDevices": "Linked Devices",
   "Theme": "Theme",
+  "LinkedDevices": "Linked Devices",
   "Language": "Language",
   "Notifications": "Notifications",
   "ReportAnError": "Report an Error",
@@ -73,7 +73,6 @@
   "DigitalToCash": "Digital to Cash",
   "CashToDigital": "Cash to Digital",
   "PublishRequestCash": "Publish",
-  "DefaultErrorStatusCode": "An error occurred, please try again later",
   "ChatListTitle": "Chats",
   "ChatListEmpty": "You don't have any chats yet"
 }

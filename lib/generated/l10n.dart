@@ -70,21 +70,21 @@ class S {
     );
   }
 
-  /// `Linked Devices`
-  String get LinkedDevices {
-    return Intl.message(
-      'Linked Devices',
-      name: 'LinkedDevices',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Theme`
   String get Theme {
     return Intl.message(
       'Theme',
       name: 'Theme',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Linked Devices`
+  String get LinkedDevices {
+    return Intl.message(
+      'Linked Devices',
+      name: 'LinkedDevices',
       desc: '',
       args: [],
     );
