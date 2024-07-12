@@ -22,7 +22,7 @@ class AuthProvider extends ChangeNotifier {
   }
 
   Future<void> loginWithGoogle() async {
-    await _authUseCase.loginWithGoogle();    
+    await _authUseCase.loginWithGoogle();
   }
 
   Future<void> logout() async {
@@ -52,6 +52,7 @@ class AuthProvider extends ChangeNotifier {
   }
 
   Future<void> loadUser() async {
+    if (_user != null) return;
     _token = await _authUseCase.getAccessToken();
     if (_token != null) {
       _user = await _authUseCase.loadUser();
