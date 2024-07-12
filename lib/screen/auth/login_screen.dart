@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:pocket_swap_fisi/providers/auth_provider.dart';
+import 'package:pocket_swap_fisi/routes/app_router.gr.dart';
 import 'package:pocket_swap_fisi/screen/register/multi_step_register_screen.dart';
 import 'package:pocket_swap_fisi/widget/button.dart';
 import 'package:pocket_swap_fisi/widget/text.dart';
@@ -87,7 +88,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       //   await authProvider.loginWithGoogleCallback(accessToken);
                       // }
 
-                      widget.onResult.call(true);
+                      AutoRouter.of(context).replace(HomeRoute());
                     },
                     asset: 'assets/images/google_logo.png'),
                 const SizedBox(height: 20),
@@ -146,7 +147,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       try {
                         await authProvider.login(
                             _emailController.text, _passwordController.text);
-                        widget.onResult.call(true);
+                        AutoRouter.of(context).replace(HomeRoute());
                       } catch (e) {
                         print('Error: $e');
                       } finally {

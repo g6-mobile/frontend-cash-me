@@ -12,24 +12,32 @@ class RoomProvider extends ChangeNotifier {
   Chat _chats = Chat(users: [], messages: []);
   Chat get chats => _chats;
 
+  bool _isLoading = false;
+  bool get isLoading => _isLoading;
+
   final RoomUsecase _roomUsecase;
 
   RoomProvider(this._roomUsecase);
 
   void addRoom(CreateRoom room) async {
+    _isLoading = true;
     await _roomUsecase.createRoom(room);
     notifyListeners();
+    _isLoading = false;
   }
 
   void getRooms() async {
+    if (_rooms.isNotEmpty) return;
+    _isLoading = true;
     final allRooms = await _roomUsecase.getRooms();
     _rooms = allRooms;
     notifyListeners();
+    _isLoading = false;
   }
 
-  void getChats(String roomId, GetChat chat) async {
+  void getChats(String roomId, GetChat chat) async {            
     final chats = await _roomUsecase.getChats(roomId, chat);
     _chats = chats;
-    notifyListeners();
+    notifyListeners();    
   }
 }

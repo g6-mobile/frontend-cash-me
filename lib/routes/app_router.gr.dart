@@ -11,7 +11,8 @@
 import 'package:auto_route/auto_route.dart' as _i15;
 import 'package:flutter/material.dart' as _i16;
 import 'package:pocket_swap_fisi/domain/entities/chat/room.dart' as _i17;
-import 'package:pocket_swap_fisi/domain/entities/transaction.dart' as _i18;
+import 'package:pocket_swap_fisi/domain/entities/transaction.dart' as _i19;
+import 'package:pocket_swap_fisi/domain/entities/user.dart' as _i18;
 import 'package:pocket_swap_fisi/screen/auth/login_screen.dart' as _i7;
 import 'package:pocket_swap_fisi/screen/chat/chat_list_screen.dart' as _i1;
 import 'package:pocket_swap_fisi/screen/chat/chat_navigation_screen.dart'
@@ -57,6 +58,8 @@ abstract class $AppRouter extends _i15.RootStackRouter {
         child: _i3.ChatScreen(
           key: args.key,
           room: args.room,
+          loggedUser: args.loggedUser,
+          otherUser: args.otherUser,
         ),
       );
     },
@@ -168,12 +171,16 @@ class ChatRoute extends _i15.PageRouteInfo<ChatRouteArgs> {
   ChatRoute({
     _i16.Key? key,
     required _i17.Room room,
+    required _i18.User loggedUser,
+    required _i18.User otherUser,
     List<_i15.PageRouteInfo>? children,
   }) : super(
           ChatRoute.name,
           args: ChatRouteArgs(
             key: key,
             room: room,
+            loggedUser: loggedUser,
+            otherUser: otherUser,
           ),
           initialChildren: children,
         );
@@ -188,15 +195,21 @@ class ChatRouteArgs {
   const ChatRouteArgs({
     this.key,
     required this.room,
+    required this.loggedUser,
+    required this.otherUser,
   });
 
   final _i16.Key? key;
 
   final _i17.Room room;
 
+  final _i18.User loggedUser;
+
+  final _i18.User otherUser;
+
   @override
   String toString() {
-    return 'ChatRouteArgs{key: $key, room: $room}';
+    return 'ChatRouteArgs{key: $key, room: $room, loggedUser: $loggedUser, otherUser: $otherUser}';
   }
 }
 
@@ -340,7 +353,7 @@ class ProfileRoute extends _i15.PageRouteInfo<void> {
 /// [_i12.TransactionsList]
 class TransactionsList extends _i15.PageRouteInfo<TransactionsListArgs> {
   TransactionsList({
-    required List<_i18.Transaction> transactions,
+    required List<_i19.Transaction> transactions,
     List<_i15.PageRouteInfo>? children,
   }) : super(
           TransactionsList.name,
@@ -357,7 +370,7 @@ class TransactionsList extends _i15.PageRouteInfo<TransactionsListArgs> {
 class TransactionsListArgs {
   const TransactionsListArgs({required this.transactions});
 
-  final List<_i18.Transaction> transactions;
+  final List<_i19.Transaction> transactions;
 
   @override
   String toString() {
