@@ -8,6 +8,7 @@ import 'package:pocket_swap_fisi/domain/entities/transaction_pending_by_student_
 import 'package:pocket_swap_fisi/providers/transaction_provider.dart';
 import 'package:provider/provider.dart';
 
+import '../../domain/entities/studentByCode.dart';
 import '../../dummy_data_maps.dart';
 import '../../generated/l10n.dart';
 import '../../providers/auth_provider.dart';
@@ -36,8 +37,11 @@ class MapSampleState extends State<MapSample> with WidgetsBindingObserver {
   Timer? _locationUpdateTimer;
   ValueNotifier<Brightness> brightnessNotifier =
       ValueNotifier(WidgetsBinding.instance!.window.platformBrightness);
+  Timer? _updateTimer;
+  late Future<StudentByCode> _studentFuture;
 
-  void _showBottomSheet(MarkerData data) {
+  void _showBottomSheet(TransactionPendingByStudentCode transaction) {
+    _studentFuture = authProvider.studentByCode(transaction.initiatorCode.toString());
     showModalBottomSheet(
       showDragHandle: true,
       context: context,
@@ -45,90 +49,136 @@ class MapSampleState extends State<MapSample> with WidgetsBindingObserver {
       backgroundColor: Theme.of(context).colorScheme.background,
       isDismissible: true,
       builder: (context) {
-        return Container(
-          height: (MediaQuery.of(context).size.height) * 0.4,
-          width: MediaQuery.of(context).size.width,
-          padding: const EdgeInsets.symmetric(horizontal: 35, vertical: 20),
-          child: Center(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Card(
-                    color: Theme.of(context).colorScheme.secondaryContainer,
-                    elevation: 5,
-                    child: Center(
-                        child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        ListTile(
-                          leading: ConstrainedBox(
-                            constraints: const BoxConstraints(
-                              minWidth: 44,
-                              minHeight: 44,
-                              maxWidth: 64,
-                              maxHeight: 64,
-                            ),
-                            child: ClipOval(
-                              child: Image.asset(
-                                  'assets/images/img_profile_user.png',
-                                  fit: BoxFit.cover),
-                            ),
-                          ),
-                          title: Text(
-                            data.name,
-                            style: const TextStyle(
-                                fontSize: 18.0, fontWeight: FontWeight.bold),
-                          ),
-                          subtitle:
-                              Text('Ing. de Software\n#${data.studentCode}'),
-                        )
-                      ],
-                    ))),
-                const SizedBox(height: 20),
-                Text(
-                  "PEN",
-                  style: const TextStyle(
-                    fontSize: 16.0,
-                    fontWeight: FontWeight.w300,
+        return FutureBuilder<StudentByCode>(
+          future: _studentFuture,
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (snapshot.hasError) {
+              return Text('Error: ${snapshot.error}');
+            } else {
+              StudentByCode student = snapshot.data!;
+              return Container(
+                height: (MediaQuery.of(context).size.height) * 0.4,
+                width: MediaQuery.of(context).size.width,
+                padding: const EdgeInsets.symmetric(horizontal: 35, vertical: 5),
+                child: Center(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Card(
+                          color: Theme.of(context).colorScheme.secondaryContainer,
+                          elevation: 5,
+                          child: Center(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  ListTile(
+                                    leading: ConstrainedBox(
+                                      constraints: const BoxConstraints(
+                                        minWidth: 44,
+                                        minHeight: 44,
+                                        maxWidth: 64,
+                                        maxHeight: 64,
+                                      ),
+                                      child: ClipOval(
+                                        child: Image.network(
+                                            student.userPhoto,
+                                            fit: BoxFit.cover),
+                                      ),
+                                    ),
+                                    title: Text(
+                                      student.name,
+                                      style: const TextStyle(
+                                          fontSize: 18.0, fontWeight: FontWeight.bold),
+                                    ),
+                                    subtitle:
+                                    Text('${student.major}\n#${transaction.initiatorCode}'),
+                                  )
+                                ],
+                              ))),
+                      const SizedBox(height: 20),
+                      const Text(
+                        "PEN",
+                        style: TextStyle(
+                          fontSize: 16.0,
+                          fontWeight: FontWeight.w300,
+                        ),
+                      ),
+                      Text(
+                        transaction.amount.toString(),
+                        style: const TextStyle(
+                          fontSize: 40.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Text(
+                        transaction.operationType == 1
+                            ? S.current.DigitalToCash
+                            : S.current.CashToDigital,
+                        style: const TextStyle(
+                          fontSize: 16.0,
+                          fontWeight: FontWeight.w300,
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      BaseElevatedButton(
+                          text: S.current.ResponseCashback,
+                          onPressed: () {
+                            Navigator.pop(context);
+                          })
+                      // Agrega más campos aquí si es necesario
+                    ],
                   ),
                 ),
-                Text(
-                  data.amount.toString(),
-                  style: const TextStyle(
-                    fontSize: 40.0,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                Text(data.cashType),
-                const SizedBox(height: 20),
-                BaseElevatedButton(
-                    text: S.current.ResponseCashback,
-                    onPressed: () {
-                      Navigator.pop(context);
-                    })
-                // Agrega más campos aquí si es necesario
-              ],
-            ),
-          ),
+              );
+            }
+          },
         );
       },
     );
   }
 
-  void _addMarkersFromData(List<MarkerData> data) {
-    for (var item in data) {
+  void _addMarkersFromData() {
+    // Accede a los datos de las transacciones a través del TransactionProvider
+    print('Adding markers from data');
+    final transactions = transactionProvider.transactionsForMap?.data.transactions ?? [];
+    for (var transaction in transactions) {
+      print('Transaction: ${transaction.id}');
+      print('Transaction: ${transaction.location.coordinates[0]}');
       final marker = Marker(
-        markerId: MarkerId(item.studentCode),
-        position: item.coordinates,
+        markerId: MarkerId(transaction.id),
+        position: LatLng(transaction.location.coordinates[0], transaction.location.coordinates[1]),
         onTap: () {
-          _showBottomSheet(item);
+          _showBottomSheet(transaction);
         },
       );
       setState(() {
         _markers.add(marker);
       });
     }
+  }
+
+  Future<void> updateTransactionsAndMarkers() async {
+    // Obtén las nuevas transacciones del servidor
+    await transactionProvider.getTransactionsForMapProvider(authProvider.user!.studentCode ?? '');
+
+    // Filtra los marcadores para mantener solo el marcador 'current_position'
+    Set<Marker> newMarkers = {};
+    for (var marker in _markers) {
+      if (marker.markerId.value == 'current_position') {
+        newMarkers.add(marker);
+      }
+    }
+
+    // Asigna el nuevo conjunto de marcadores
+    setState(() {
+      _markers = newMarkers;
+    });
+
+    // Agrega nuevos marcadores para cada transacción en la lista actualizada de transacciones
+    _addMarkersFromData();
   }
 
   Future<Position> determinePosition() async {
@@ -198,12 +248,29 @@ class MapSampleState extends State<MapSample> with WidgetsBindingObserver {
     _loadMapStyles();
     getCurrentLocation();
     _startLocationUpdateTimer();
-    _addMarkersFromData(dummyData);
+    _startUpdateTimer();
+    _loadUserAndTransactions();
+  }
+
+  Future<void> _loadUserAndTransactions() async {
+    await authProvider.loadUser();
+    if (authProvider.user != null) {
+      await transactionProvider.getTransactionsForMapProvider(authProvider.user!.studentCode ?? '');
+      _addMarkersFromData();
+    }
+  }
+
+  void _startUpdateTimer() {
+    _updateTimer = Timer.periodic(
+      const Duration(seconds: 10), // Cambia esto al intervalo de tiempo que prefieras
+          (timer) => updateTransactionsAndMarkers(),
+    );
   }
 
   @override
   void dispose() {
     _locationUpdateTimer?.cancel();
+    _updateTimer?.cancel();
     super.dispose();
   }
 

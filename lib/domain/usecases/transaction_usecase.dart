@@ -1,6 +1,8 @@
 import 'package:pocket_swap_fisi/domain/services/transaction_service.dart';
 
+import '../entities/transaction_history.dart';
 import '../entities/transaction_pending_by_student_code.dart';
+import '../entities/transactions_for_map.dart';
 
 class TransactionUseCase {
   final TransactionService _transactionService;
@@ -24,6 +26,16 @@ class TransactionUseCase {
   Future<int?> updateStatusTransaction(String id, String studentCode, int status) async {
     final response = await _transactionService.updateStatusTransaction(
         id, studentCode, status);
+    return response;
+  }
+
+  Future<TransactionResponse> getTransactionsForMapUseCase(String studentCode) async {
+    final response = await _transactionService.getTransactionsForMap(studentCode);
+    return response;
+  }
+
+  Future<TransactionHistoryResponse> getTransactionsHistoryUseCase(String studentCode) async {
+    final response = await _transactionService.getTransactionsHistory(studentCode);
     return response;
   }
 

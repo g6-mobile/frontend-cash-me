@@ -2,6 +2,7 @@ import 'package:pocket_swap_fisi/domain/entities/user.dart';
 import 'package:pocket_swap_fisi/domain/services/auth_service.dart';
 
 import '../entities/studentByCode.dart';
+import '../entities/student_by_history.dart';
 
 class AuthUseCase {
   final AuthService _authService;
@@ -41,6 +42,11 @@ class AuthUseCase {
 
   Future<StudentByCode> studentByCode(String studentCode) async {
     final student = await _authService.studentDataByCode(studentCode);
+    return student;
+  }
+
+  Future<StudentByCodeHistory> studentByCodeByHistory(String studentCode) async {
+    final student = await _authService.studentDataByCodeForHistory(studentCode);
     return student;
   }
 

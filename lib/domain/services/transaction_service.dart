@@ -3,7 +3,9 @@ import 'dart:async';
 import 'package:dio/dio.dart';
 
 import '../../utils/constants/api_constants.dart';
+import '../entities/transaction_history.dart';
 import '../entities/transaction_pending_by_student_code.dart';
+import '../entities/transactions_for_map.dart';
 
 class TransactionService {
   final Dio dio;
@@ -90,4 +92,47 @@ class TransactionService {
       return 500;
     }
   }
+
+  Future<TransactionResponse> getTransactionsForMap(String studentCode) async {
+    Response response = Response(requestOptions: RequestOptions(path: ''));
+
+    try {
+      response = await dio.get('${ApiConstants.baseURL}/transactions?initiatorCode=$studentCode&excludeSelf=true&status=1')
+          .timeout(const Duration(seconds: 10), onTimeout: () {
+        throw TimeoutException('Time out');
+      });
+
+      print('Response: $response');
+
+      return TransactionResponse.fromJson(response.data);
+    } on DioException catch (e) {
+      print('Error: ${response.statusMessage}');
+      throw e;
+    } on TimeoutException catch (e) {
+      print('Error: ${response.statusMessage}');
+      throw e;
+    }
+  }
+
+  Future<TransactionHistoryResponse> getTransactionsHistory(String studentCode) async {
+    Response response = Response(requestOptions: RequestOptions(path: ''));
+    print('Lista de transacciones del Codigo de estudiante: $studentCode');
+    try {
+      response = await dio.get('${ApiConstants.baseURL}/transactions/$studentCode')
+          .timeout(const Duration(seconds: 10), onTimeout: () {
+        throw TimeoutException('Time out');
+      });
+
+      print('Response: $response');
+
+      return TransactionHistoryResponse.fromJson(response.data);
+    } on DioException catch (e) {
+      print('Error: ${response.statusMessage}');
+      throw e;
+    } on TimeoutException catch (e) {
+      print('Error: ${response.statusMessage}');
+      throw e;
+    }
+  }
+
 }

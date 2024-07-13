@@ -4,6 +4,7 @@ import 'package:pocket_swap_fisi/domain/entities/user.dart';
 import 'package:pocket_swap_fisi/domain/usecases/auth_usecase.dart';
 
 import '../domain/entities/studentByCode.dart';
+import '../domain/entities/student_by_history.dart';
 
 class AuthProvider extends ChangeNotifier {
   User? _user;
@@ -73,6 +74,13 @@ class AuthProvider extends ChangeNotifier {
     notifyListeners();
     return student;
   }
+
+  Future<StudentByCodeHistory> studentByCodeForHistory(String studentCode) async {
+    final student = await _authUseCase.studentByCodeByHistory(studentCode);
+    notifyListeners();
+    return student;
+  }
+
 
   Future<int?> validateEmail(String email) async {
     final response = await _authUseCase.validateEmail(email);
