@@ -42,6 +42,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "ConfirmUpdate": MessageLookupByLibrary.simpleMessage("Confirm"),
         "ConfirmUpdatePhoneNumber":
             MessageLookupByLibrary.simpleMessage("Confirm update phone number"),
+        "DarkTheme": MessageLookupByLibrary.simpleMessage("Dark"),
         "DefaultErrorStatusCode": MessageLookupByLibrary.simpleMessage(
             "An error occurred, please try again later"),
         "DigitalToCash":
@@ -52,6 +53,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "This action requires email verification, you will be asked to fill out the code. A verification email has been sent to:"),
         "EmailVerificationTitle": MessageLookupByLibrary.simpleMessage(
             "Check your institutional email"),
+        "English": MessageLookupByLibrary.simpleMessage("English"),
         "ForgotPassword":
             MessageLookupByLibrary.simpleMessage("Forgot my password"),
         "ForgotPasswordDescription": MessageLookupByLibrary.simpleMessage(
@@ -65,6 +67,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "HintEmail": MessageLookupByLibrary.simpleMessage("Email"),
         "HintPassword": MessageLookupByLibrary.simpleMessage("Password"),
         "Language": MessageLookupByLibrary.simpleMessage("Language"),
+        "LightTheme": MessageLookupByLibrary.simpleMessage("Light"),
         "LinkedDevices": MessageLookupByLibrary.simpleMessage("Linked Devices"),
         "Login": MessageLookupByLibrary.simpleMessage("Login"),
         "LoginButton": MessageLookupByLibrary.simpleMessage("Continue"),
@@ -134,6 +137,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "SendButton": MessageLookupByLibrary.simpleMessage("Send"),
         "SignOut": MessageLookupByLibrary.simpleMessage("Sign Out"),
         "SignUp": MessageLookupByLibrary.simpleMessage("Sign Up"),
+        "Spanish": MessageLookupByLibrary.simpleMessage("Spanish"),
         "Theme": MessageLookupByLibrary.simpleMessage("Theme"),
         "UpdatePassword":
             MessageLookupByLibrary.simpleMessage("Update password"),

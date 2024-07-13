@@ -11,6 +11,7 @@ import 'package:pocket_swap_fisi/domain/usecases/user_usecase.dart';
 import 'package:pocket_swap_fisi/providers/auth_provider.dart';
 import 'package:pocket_swap_fisi/providers/message_provider.dart';
 import 'package:pocket_swap_fisi/providers/room_provider.dart';
+import 'package:pocket_swap_fisi/providers/theme_provider.dart';
 import 'package:pocket_swap_fisi/providers/transaction_provider.dart';
 import 'package:pocket_swap_fisi/providers/user_provider.dart';
 import 'package:pocket_swap_fisi/routes/app_router.dart';
@@ -18,25 +19,34 @@ import 'package:pocket_swap_fisi/theme/dark_theme.dart';
 import 'package:pocket_swap_fisi/theme/light_theme.dart';
 import 'package:pocket_swap_fisi/utils/constants/api_constants.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'domain/services/transaction_service.dart';
 import 'domain/usecases/transaction_usecase.dart';
 import 'generated/l10n.dart';
 
-void main() {
-  runApp(MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  String languageCode = await getLanguageCode();
+  runApp(MyApp(languageCode: languageCode));
+}
+
+Future<String> getLanguageCode() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  return prefs.getString('languageCode') ??
+      WidgetsBinding.instance.window.locale.languageCode;
 }
 
 class MyApp extends StatelessWidget {
-  MyApp({Key? key}) : super(key: key);
+  final String languageCode;
+
+  MyApp({Key? key, required this.languageCode}) : super(key: key);
 
   final Dio dio = Dio();
   final _appRouter = AppRouter();
 
   @override
   Widget build(BuildContext context) {
-    dio.options.baseUrl = ApiConstants.baseURL;
-
     return MultiProvider(
         providers: [
           ChangeNotifierProvider(
@@ -46,32 +56,43 @@ class MyApp extends StatelessWidget {
             create: (_) => UserProvider(UserUseCase(UserService())),
           ),
           ChangeNotifierProvider(
-              create: (_) =>
-                  TransactionProvider(TransactionUseCase(TransactionService()))
-          ),
+              create: (_) => TransactionProvider(
+                  TransactionUseCase(TransactionService()))),
           ChangeNotifierProvider(create: (_) => MessageProvider()),
-          ChangeNotifierProvider(create: (_) => RoomProvider(RoomUsecase(RoomService()))),
+          ChangeNotifierProvider(
+              create: (_) => RoomProvider(RoomUsecase(RoomService()))),
+          ChangeNotifierProvider(
+              create: (_) => ThemeProvider()),
         ],
-        child: MaterialApp.router(
-          localizationsDelegates: const [
-            S.delegate,
-            GlobalMaterialLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-          ],
-          supportedLocales: S.delegate.supportedLocales,
-          theme: lightTheme,
-          darkTheme: darkTheme,
-          routerConfig: _appRouter.config(),
-          builder: (context, child) {
-            final isDarkMode = MediaQuery.of(context).platformBrightness == Brightness.dark;
+        child: Consumer<ThemeProvider>(
+          builder: (context, themeProvider, child) {
+            return MaterialApp.router(
+              localizationsDelegates: const [
+                S.delegate,
+                GlobalMaterialLocalizations.delegate,
+                GlobalCupertinoLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+              ],
+              locale: Locale(languageCode, ''),
+              // Set the locale
+              supportedLocales: S.delegate.supportedLocales,
+              theme: lightTheme,
+              darkTheme: darkTheme,
+              themeMode: themeProvider.themeMode,
+              routerConfig: _appRouter.config(),
+              builder: (context, child) {
+                final isDarkMode =
+                    MediaQuery.of(context).platformBrightness == Brightness.dark;
 
-            return AnnotatedRegion<SystemUiOverlayStyle>(
-              value: SystemUiOverlayStyle(
-                statusBarColor: Colors.transparent,
-                statusBarIconBrightness: isDarkMode ? Brightness.light : Brightness.dark,
-              ),
-              child: child!,
+                return AnnotatedRegion<SystemUiOverlayStyle>(
+                  value: SystemUiOverlayStyle(
+                    statusBarColor: Colors.transparent,
+                    statusBarIconBrightness:
+                    isDarkMode ? Brightness.light : Brightness.dark,
+                  ),
+                  child: child!,
+                );
+              },
             );
           },
         ));

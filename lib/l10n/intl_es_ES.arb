@@ -74,5 +74,9 @@
   "CashToDigital": "Efectivo a Digital",
   "PublishRequestCash": "Publicar",
   "ChatListTitle": "Chats",
-  "ChatListEmpty": "No tienes chats"
+  "ChatListEmpty": "No tienes chats",
+  "LightTheme": "Claro",
+  "DarkTheme": "Oscuro",
+  "Spanish": "Español",
+  "English": "Inglés"
 }

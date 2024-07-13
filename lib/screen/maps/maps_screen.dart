@@ -12,6 +12,7 @@ import '../../domain/entities/studentByCode.dart';
 import '../../dummy_data_maps.dart';
 import '../../generated/l10n.dart';
 import '../../providers/auth_provider.dart';
+import '../../providers/theme_provider.dart';
 import '../../widget/bottom_sheet.dart';
 import '../../widget/button.dart';
 
@@ -149,7 +150,7 @@ class MapSampleState extends State<MapSample> with WidgetsBindingObserver {
       print('Transaction: ${transaction.location.coordinates[0]}');
       final marker = Marker(
         markerId: MarkerId(transaction.id),
-        position: LatLng(transaction.location.coordinates[0], transaction.location.coordinates[1]),
+        position: LatLng(transaction.location.coordinates[1], transaction.location.coordinates[0]),
         onTap: () {
           _showBottomSheet(transaction);
         },
@@ -245,6 +246,7 @@ class MapSampleState extends State<MapSample> with WidgetsBindingObserver {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
+
     _loadMapStyles();
     getCurrentLocation();
     _startLocationUpdateTimer();
@@ -261,6 +263,7 @@ class MapSampleState extends State<MapSample> with WidgetsBindingObserver {
   }
 
   void _startUpdateTimer() {
+
     _updateTimer = Timer.periodic(
       const Duration(seconds: 10), // Cambia esto al intervalo de tiempo que prefieras
           (timer) => updateTransactionsAndMarkers(),
@@ -295,62 +298,61 @@ class MapSampleState extends State<MapSample> with WidgetsBindingObserver {
       body: _initialCameraPosition == null
           ? Center(child: CircularProgressIndicator())
           : Stack(
-              children: [
-                ValueListenableBuilder(
-                  valueListenable: brightnessNotifier,
-                  builder: (context, value, child) {
-                    return GoogleMap(
-                      mapType: MapType.normal,
-                      initialCameraPosition: _initialCameraPosition ?? _fisiAno,
-                      onMapCreated: (GoogleMapController controller) {
-                        _controller.complete(controller);
-                        if (brightnessNotifier.value == Brightness.dark) {
-                          controller.setMapStyle(_darkMapStyle);
-                        } else {
-                          controller.setMapStyle(null);
-                        }
-                      },
-                      markers: _markers,
-                      zoomControlsEnabled: false,
-                      mapToolbarEnabled: false,
-                    );
-                  },
-                ),
-                Positioned(
-                  bottom: 10,
-                  left: 0,
-                  right: 0,
-                  child: Center(
-                    child: FloatingActionButton(
-                      onPressed: () async {
-                        await authProvider.loadUser();
-                        if (authProvider.user != null) {
-                          await transactionProvider
-                                  .getTransactionPendingProvider(
-                                      authProvider.user!.studentCode ?? '');
-                          showCustomBottomSheet(
-                              context,
-                              position,
-                              authProvider.user!,
-                              transactionProvider.transactionPending!);
-                        }
-                      },
-                      child: Icon(Icons.currency_exchange), // Icono del botón
-                    ),
-                  ),
-                ),
-                Positioned(
-                  bottom: 70,
-                  right: 10,
-                  child: FloatingActionButton(
-                    onPressed: () {
-                      getCurrentLocation();
-                    },
-                    child: Icon(Icons.my_location), // Icono del botón
-                  ),
-                ),
-              ],
+        children: [
+          Consumer<ThemeProvider>(
+            builder: (context, themeProvider, child) {
+              return GoogleMap(
+                mapType: MapType.normal,
+                initialCameraPosition: _initialCameraPosition ?? _fisiAno,
+                onMapCreated: (GoogleMapController controller) {
+                  _controller.complete(controller);
+                  if (themeProvider.themeMode == ThemeMode.dark) {
+                    controller.setMapStyle(_darkMapStyle);
+                  } else {
+                    controller.setMapStyle(null);
+                  }
+                },
+                markers: _markers,
+                zoomControlsEnabled: false,
+                mapToolbarEnabled: false,
+              );
+            },
+          ),
+          Positioned(
+            bottom: 10,
+            left: 0,
+            right: 0,
+            child: Center(
+              child: FloatingActionButton(
+                onPressed: () async {
+                  await authProvider.loadUser();
+                  if (authProvider.user != null) {
+                    await transactionProvider
+                        .getTransactionPendingProvider(
+                        authProvider.user!.studentCode ?? '');
+                    showCustomBottomSheet(
+                        context,
+                        position,
+                        authProvider.user!,
+                        transactionProvider.transactionPending!);
+                  }
+                },
+                child: Icon(Icons.currency_exchange), // Icono del botón
+              ),
             ),
+          ),
+          Positioned(
+            bottom: 70,
+            right: 10,
+            child: FloatingActionButton(
+              onPressed: () {
+                getCurrentLocation();
+              },
+              child: Icon(Icons.my_location), // Icono del botón
+            ),
+          ),
+        ],
+      ),
     );
   }
 

@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_switch/flutter_switch.dart';
 import 'package:pocket_swap_fisi/providers/auth_provider.dart';
 import 'package:pocket_swap_fisi/routes/app_router.gr.dart';
 import 'package:pocket_swap_fisi/widget/button.dart';
@@ -9,7 +10,8 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
 
-import '../../generated/l10n.dart'; //S
+import '../../generated/l10n.dart';
+import '../../providers/theme_provider.dart'; //S
 
 @RoutePage()
 class ProfileScreen extends StatefulWidget {
@@ -178,7 +180,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
                             EdgeInsets.zero), // Establece el padding a cero
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        showModalBottomSheet(
+                          context: context,
+                          builder: (context) {
+                            return const ThemeBottomSheet();
+                          },
+                        );
+                      },
                       child: ListTile(
                         leading: Icon(Icons.wb_sunny_outlined),
                         title: Text(S.current.Theme),
@@ -192,7 +201,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         showModalBottomSheet(
                           context: context,
                           builder: (context) {
-                            return const SwitchBottomSheet();
+                            return const LanguagesBottomSheet();
                           },
                         );
                       },
@@ -255,13 +264,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
 }
 
 /*  */
-class SwitchBottomSheet extends StatefulWidget {
-  const SwitchBottomSheet({Key? key}) : super(key: key);
+class LanguagesBottomSheet extends StatefulWidget {
+  const LanguagesBottomSheet({Key? key}) : super(key: key);
   @override
-  _SwitchBottomSheetState createState() => _SwitchBottomSheetState();
+  _LanguagesBottomSheetState createState() => _LanguagesBottomSheetState();
 }
 
-class _SwitchBottomSheetState extends State<SwitchBottomSheet> {
+class _LanguagesBottomSheetState extends State<LanguagesBottomSheet> {
   bool _isSwitched = false;
 
   @override
@@ -272,8 +281,9 @@ class _SwitchBottomSheetState extends State<SwitchBottomSheet> {
 
   _loadSwitchState() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
+    String languageCode = prefs.getString('languageCode') ?? WidgetsBinding.instance!.window.locale.languageCode;
     setState(() {
-      _isSwitched = prefs.getBool('switchState') ?? false;
+      _isSwitched = languageCode == 'es';
     });
   }
 
@@ -281,37 +291,33 @@ class _SwitchBottomSheetState extends State<SwitchBottomSheet> {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      height: 250,
+      height: 350,
       padding: const EdgeInsets.all(10.0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center, // Centra verticalmente
         crossAxisAlignment: CrossAxisAlignment.center, // Centra horizontalmente
-        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Image.asset(
             _isSwitched
                 ? 'assets/images/peru_spanish.png'
                 : 'assets/images/eeuu_english.png',
-            width: 100,
-            height: 100,
+            width: 140,
+            height: 140,
           ),
 
-          const SizedBox(height: 10),
-          Text(_isSwitched ? 'Español' : 'English'),
-          const SizedBox(height: 2),
-          
-          CupertinoSwitch(
-            value: _isSwitched,
-            activeColor: const Color.fromARGB(255, 217, 217, 217),
-            onChanged: (bool value) async {
+          const SizedBox(height: 40),
+          LanguageSwitch(
+            isSpanish: _isSwitched,
+            onToggle: (bool value) async {
               SharedPreferences prefs = await SharedPreferences.getInstance();
               setState(() {
                 _isSwitched = value;
-                prefs.setBool('switchState', value);
                 if (_isSwitched) {
                   S.load(Locale('es', 'ES')); // Cargar español
+                  prefs.setString('languageCode', 'es'); // Guardar el código de idioma como un String
                 } else {
                   S.load(Locale('en', '')); // Cargar inglés
+                  prefs.setString('languageCode', 'en'); // Guardar el código de idioma como un String
                 };
               });
             },
@@ -321,3 +327,223 @@ class _SwitchBottomSheetState extends State<SwitchBottomSheet> {
     );
   }
 }
+
+class ThemeBottomSheet extends StatefulWidget {
+  const ThemeBottomSheet({Key? key}) : super(key: key);
+
+  @override
+  _ThemeBottomSheetState createState() => _ThemeBottomSheetState();
+}
+
+class _ThemeBottomSheetState extends State<ThemeBottomSheet> {
+  bool _isDarkMode = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadThemeState();
+  }
+
+  _loadThemeState() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _isDarkMode = (prefs.getBool('isDarkMode') ?? false);
+    });
+  }
+
+  _saveThemeState() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('isDarkMode', _isDarkMode);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      height: 350,
+      padding: const EdgeInsets.all(10.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center, // Centra verticalmente
+        crossAxisAlignment: CrossAxisAlignment.center, // Centra horizontalmente
+        children: [
+          Image.asset(
+            _isDarkMode
+                ? 'assets/images/dark_mode.png'
+                : 'assets/images/light_mode.png',
+            width: 140,
+            height: 140,
+          ),
+          const SizedBox(height: 40),
+          ThemeSwitch(
+            isDarkMode: _isDarkMode,
+            onToggle: (bool value) {
+              setState(() {
+                _isDarkMode = value;
+                _saveThemeState();
+                // Change the theme of the app
+                if (_isDarkMode) {
+                  Provider.of<ThemeProvider>(context, listen: false).themeMode = ThemeMode.dark;
+                } else {
+                  Provider.of<ThemeProvider>(context, listen: false).themeMode = ThemeMode.light;
+                }
+              });
+            },
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class LanguageSwitch extends StatelessWidget {
+  final bool isSpanish;
+  final Function(bool) onToggle;
+
+  LanguageSwitch({required this.isSpanish, required this.onToggle});
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        onToggle(!isSpanish);
+      },
+      child: AnimatedContainer(
+        duration: Duration(milliseconds: 300),
+        height: 60,
+        width: 300,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(30.0),
+          color: Colors.grey[300],
+        ),
+        child: Stack(
+          children: [
+            Positioned(
+              left: isSpanish ? 160 : 10,
+              top: 5,
+              bottom: 5,
+              child: AnimatedContainer(
+                duration: Duration(milliseconds: 300),
+                width: 130,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(25.0),
+                  color: Colors.white,
+                ),
+              ),
+            ),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Container(
+                width: 150,
+                alignment: Alignment.center,
+                child: AnimatedDefaultTextStyle(
+                  duration: Duration(milliseconds: 300),
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                    fontFamily: 'Poppins',
+                  ),
+                  child: Text(S.current.English),
+                ),
+              ),
+            ),
+            Align(
+              alignment: Alignment.centerRight,
+              child: Container(
+                width: 150,
+                alignment: Alignment.center,
+                child: AnimatedDefaultTextStyle(
+                  duration: Duration(milliseconds: 300),
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                    fontFamily: 'Poppins',
+                  ),
+                  child: Text(S.current.Spanish),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class ThemeSwitch extends StatelessWidget {
+  final bool isDarkMode;
+  final Function(bool) onToggle;
+
+  ThemeSwitch({required this.isDarkMode, required this.onToggle});
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        onToggle(!isDarkMode);
+      },
+      child: AnimatedContainer(
+        duration: Duration(milliseconds: 300),
+        height: 60,
+        width: 300,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(30.0),
+          color: isDarkMode ? Colors.grey[700] : Colors.grey[300],
+        ),
+        child: Stack(
+          children: [
+            Positioned(
+              left: isDarkMode ? 160 : 10,
+              top: 5,
+              bottom: 5,
+              child: AnimatedContainer(
+                duration: Duration(milliseconds: 300),
+                width: 130,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(25.0),
+                  color: isDarkMode ? Colors.black : Colors.white,
+                ),
+              ),
+            ),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Container(
+                width: 150,
+                alignment: Alignment.center,
+                child: AnimatedDefaultTextStyle(
+                  duration: Duration(milliseconds: 300),
+                  style: TextStyle(
+                    color: isDarkMode ? Colors.white : Colors.black,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                    fontFamily: 'Poppins',
+                  ),
+                  child: Text(S.current.LightTheme),
+                ),
+              ),
+            ),
+            Align(
+              alignment: Alignment.centerRight,
+              child: Container(
+                width: 150,
+                alignment: Alignment.center,
+                child: AnimatedDefaultTextStyle(
+                  duration: Duration(milliseconds: 300),
+                  style: TextStyle(
+                    color: isDarkMode ? Colors.white : Colors.black,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                    fontFamily: 'Poppins',
+                  ),
+                  child: Text(S.current.DarkTheme),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
