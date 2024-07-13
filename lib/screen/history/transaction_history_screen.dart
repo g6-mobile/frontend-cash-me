@@ -116,9 +116,7 @@ class _TransactionsListState extends State<TransactionsList> {
                                   ),
                                   trailing: Container(
                                     width: 50,
-                                    // Ajusta el ancho según tus necesidades
                                     height: 20,
-                                    // Ajusta la altura según tus necesidades
                                     color: Colors.white,
                                   ),
                                 ),
@@ -132,7 +130,7 @@ class _TransactionsListState extends State<TransactionsList> {
                                   ? '${nameParts[0]} ${nameParts[1]}'
                                   : student;
                               displayName = displayNamePrefix == "Me -> "
-                                  ? "Me -> $displayName"
+                                  ? "$displayName"
                                   : "$displayName -> Me";
                               return ListTile(
                                 leading: Text(
@@ -145,7 +143,7 @@ class _TransactionsListState extends State<TransactionsList> {
                                             .colorScheme
                                             .onBackground)),
                                 trailing: Text(
-                                    "s/${transaction.amount.toStringAsFixed(2)}",
+                                    "${transaction.operationType == 1 ? '+' : '-'} s/${transaction.amount.toStringAsFixed(2)}",
                                     style: TextStyle(
                                         fontSize: 20,
                                         fontWeight: FontWeight.normal,
@@ -162,7 +160,14 @@ class _TransactionsListState extends State<TransactionsList> {
                       // Añadir un Divider entre cada transacción
                       if (i < transactions.length - 1) {
                         transactionWidgets.add(
-                            Divider(color: Theme.of(context).colorScheme.onBackground));
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                            child: Divider(
+                              color: Theme.of(context).colorScheme.onBackground.withOpacity(0.3),
+                              thickness: 1,
+                            ),
+                          ),
+                        );
                       }
                     }
                   });
