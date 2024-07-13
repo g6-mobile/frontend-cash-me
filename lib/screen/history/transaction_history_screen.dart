@@ -17,7 +17,7 @@ class TransactionsList extends StatefulWidget {
 
 class _TransactionsListState extends State<TransactionsList> {
   late final authProvider;
-  late final studentCode;
+  String studentCode = '';
 
   @override
   void initState() {

@@ -13,4 +13,11 @@ class UserProvider with ChangeNotifier {
     _user = await _userUseCase.getUserById(id);
     notifyListeners();
   }
+
+  Future<User?> getUserByStudentCode(String studentCode) async {
+    final getUser = await _userUseCase.getUserByStudentCode(studentCode);
+    notifyListeners();
+    return getUser;
+
+  }
 }

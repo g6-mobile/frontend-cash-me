@@ -9,4 +9,8 @@ class UserUseCase {
   Future<User?> getUserById(String id) async {
     return await _userService.getUserById(id);
   }
+
+  Future<User?> getUserByStudentCode(String studentCode) async {
+    return await _userService.getUserByStudentCode(studentCode);
+  }
 }

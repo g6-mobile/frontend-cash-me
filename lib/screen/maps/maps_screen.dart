@@ -4,8 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:pocket_swap_fisi/domain/entities/chat/create_room.dart';
 import 'package:pocket_swap_fisi/domain/entities/transaction_pending_by_student_code.dart';
+import 'package:pocket_swap_fisi/providers/room_provider.dart';
 import 'package:pocket_swap_fisi/providers/transaction_provider.dart';
+import 'package:pocket_swap_fisi/providers/user_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../../domain/entities/studentByCode.dart';
@@ -13,6 +16,7 @@ import '../../dummy_data_maps.dart';
 import '../../generated/l10n.dart';
 import '../../providers/auth_provider.dart';
 import '../../providers/theme_provider.dart';
+import '../../routes/app_router.gr.dart';
 import '../../widget/bottom_sheet.dart';
 import '../../widget/button.dart';
 
@@ -26,28 +30,36 @@ class MapSample extends StatefulWidget {
 
 class MapSampleState extends State<MapSample> with WidgetsBindingObserver {
   final Completer<GoogleMapController> _controller =
-      Completer<GoogleMapController>();
+  Completer<GoogleMapController>();
   late String _darkMapStyle;
   CameraPosition? _initialCameraPosition;
   Set<Marker> _markers = {};
   late Position position;
   late AuthProvider authProvider =
-      Provider.of<AuthProvider>(context, listen: false);
+  Provider.of<AuthProvider>(context, listen: false);
   late TransactionProvider transactionProvider =
-      Provider.of<TransactionProvider>(context, listen: false);
+  Provider.of<TransactionProvider>(context, listen: false);
+  late UserProvider userProvider =
+  Provider.of<UserProvider>(context, listen: false);
+  late RoomProvider roomProvider =
+  Provider.of<RoomProvider>(context, listen: false);
   Timer? _locationUpdateTimer;
   ValueNotifier<Brightness> brightnessNotifier =
-      ValueNotifier(WidgetsBinding.instance!.window.platformBrightness);
+  ValueNotifier(WidgetsBinding.instance!.window.platformBrightness);
   Timer? _updateTimer;
   late Future<StudentByCode> _studentFuture;
 
   void _showBottomSheet(TransactionPendingByStudentCode transaction) {
-    _studentFuture = authProvider.studentByCode(transaction.initiatorCode.toString());
+    _studentFuture =
+        authProvider.studentByCode(transaction.initiatorCode.toString());
     showModalBottomSheet(
       showDragHandle: true,
       context: context,
       barrierColor: Colors.transparent,
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme
+          .of(context)
+          .colorScheme
+          .background,
       isDismissible: true,
       builder: (context) {
         return FutureBuilder<StudentByCode>(
@@ -60,15 +72,25 @@ class MapSampleState extends State<MapSample> with WidgetsBindingObserver {
             } else {
               StudentByCode student = snapshot.data!;
               return Container(
-                height: (MediaQuery.of(context).size.height) * 0.4,
-                width: MediaQuery.of(context).size.width,
-                padding: const EdgeInsets.symmetric(horizontal: 35, vertical: 5),
+                height: (MediaQuery
+                    .of(context)
+                    .size
+                    .height) * 0.4,
+                width: MediaQuery
+                    .of(context)
+                    .size
+                    .width,
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 35, vertical: 5),
                 child: Center(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                       Card(
-                          color: Theme.of(context).colorScheme.secondaryContainer,
+                          color: Theme
+                              .of(context)
+                              .colorScheme
+                              .secondaryContainer,
                           elevation: 5,
                           child: Center(
                               child: Column(
@@ -92,10 +114,12 @@ class MapSampleState extends State<MapSample> with WidgetsBindingObserver {
                                     title: Text(
                                       student.name,
                                       style: const TextStyle(
-                                          fontSize: 18.0, fontWeight: FontWeight.bold),
+                                          fontSize: 18.0,
+                                          fontWeight: FontWeight.bold),
                                     ),
                                     subtitle:
-                                    Text('${student.major}\n#${transaction.initiatorCode}'),
+                                    Text('${student.major}\n#${transaction
+                                        .initiatorCode}'),
                                   )
                                 ],
                               ))),
@@ -126,8 +150,21 @@ class MapSampleState extends State<MapSample> with WidgetsBindingObserver {
                       const SizedBox(height: 20),
                       BaseElevatedButton(
                           text: S.current.ResponseCashback,
-                          onPressed: () {
-                            Navigator.pop(context);
+                          onPressed: () async {
+                            final user2 = await userProvider.getUserByStudentCode(
+                                transaction.initiatorCode.toString());
+
+
+                              final createRoom = CreateRoom(
+                                  name: "${authProvider.user?.firstName} 1",
+                                  members: [
+                                    authProvider.user!.id,
+                                    user2!.id
+                                  ]);
+                              roomProvider.addRoom(createRoom);
+                              AutoRouter.of(context).push(const ChatListRoute());
+
+
                           })
                       // Agrega más campos aquí si es necesario
                     ],
@@ -144,13 +181,15 @@ class MapSampleState extends State<MapSample> with WidgetsBindingObserver {
   void _addMarkersFromData() {
     // Accede a los datos de las transacciones a través del TransactionProvider
     print('Adding markers from data');
-    final transactions = transactionProvider.transactionsForMap?.data.transactions ?? [];
+    final transactions = transactionProvider.transactionsForMap?.data
+        .transactions ?? [];
     for (var transaction in transactions) {
       print('Transaction: ${transaction.id}');
       print('Transaction: ${transaction.location.coordinates[0]}');
       final marker = Marker(
         markerId: MarkerId(transaction.id),
-        position: LatLng(transaction.location.coordinates[1], transaction.location.coordinates[0]),
+        position: LatLng(transaction.location.coordinates[1],
+            transaction.location.coordinates[0]),
         onTap: () {
           _showBottomSheet(transaction);
         },
@@ -163,7 +202,8 @@ class MapSampleState extends State<MapSample> with WidgetsBindingObserver {
 
   Future<void> updateTransactionsAndMarkers() async {
     // Obtén las nuevas transacciones del servidor
-    await transactionProvider.getTransactionsForMapProvider(authProvider.user!.studentCode ?? '');
+    await transactionProvider.getTransactionsForMapProvider(
+        authProvider.user!.studentCode ?? '');
 
     // Filtra los marcadores para mantener solo el marcador 'current_position'
     Set<Marker> newMarkers = {};
@@ -220,9 +260,9 @@ class MapSampleState extends State<MapSample> with WidgetsBindingObserver {
   Future<void> updateMakerPosition() async {
     print("Updating marker position");
     final Uint8List markerIconBytes =
-        await _readImageBytes('assets/images/current_location.png');
+    await _readImageBytes('assets/images/current_location.png');
     final BitmapDescriptor markerIcon =
-        BitmapDescriptor.fromBytes(markerIconBytes);
+    BitmapDescriptor.fromBytes(markerIconBytes);
     setState(() {
       _markers.add(
         Marker(
@@ -238,8 +278,8 @@ class MapSampleState extends State<MapSample> with WidgetsBindingObserver {
   void _startLocationUpdateTimer() {
     _locationUpdateTimer =
         Timer.periodic(const Duration(seconds: 10), (timer) async {
-      updateMakerPosition();
-    });
+          updateMakerPosition();
+        });
   }
 
   @override
@@ -257,15 +297,16 @@ class MapSampleState extends State<MapSample> with WidgetsBindingObserver {
   Future<void> _loadUserAndTransactions() async {
     await authProvider.loadUser();
     if (authProvider.user != null) {
-      await transactionProvider.getTransactionsForMapProvider(authProvider.user!.studentCode ?? '');
+      await transactionProvider.getTransactionsForMapProvider(
+          authProvider.user!.studentCode ?? '');
       _addMarkersFromData();
     }
   }
 
   void _startUpdateTimer() {
-
     _updateTimer = Timer.periodic(
-      const Duration(seconds: 10), // Cambia esto al intervalo de tiempo que prefieras
+      const Duration(seconds: 10),
+      // Cambia esto al intervalo de tiempo que prefieras
           (timer) => updateTransactionsAndMarkers(),
     );
   }
@@ -358,6 +399,6 @@ class MapSampleState extends State<MapSample> with WidgetsBindingObserver {
 
   Future _loadMapStyles() async {
     _darkMapStyle =
-        await rootBundle.loadString('assets/map/dark_theme_map.json');
+    await rootBundle.loadString('assets/map/dark_theme_map.json');
   }
 }

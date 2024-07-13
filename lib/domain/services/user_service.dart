@@ -26,4 +26,23 @@ class UserService {
     }
   }
 
+  Future<User?> getUserByStudentCode(String studentCode) async {
+    const storage = FlutterSecureStorage();
+    final accessToken = await storage.read(key: 'accessToken');
+    try {
+      final response = await dio.get('${ApiConstants.baseURL}/users/student-code/$studentCode',
+          options: Options(headers: {'Authorization': 'Bearer $accessToken'}));
+
+      print("getUserByStudentCode $response");
+
+      if (response.statusCode != 200) {
+        throw Exception('Failed to get user');
+      }
+
+      return User.fromJson(response.data['data']);
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
 }
