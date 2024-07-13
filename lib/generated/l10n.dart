@@ -809,6 +809,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Gift Shop`
+  String get GiftShop {
+    return Intl.message(
+      'Gift Shop',
+      name: 'GiftShop',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

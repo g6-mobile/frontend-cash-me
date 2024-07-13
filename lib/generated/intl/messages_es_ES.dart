@@ -61,6 +61,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Por favor, ingresa un correo electrónico válido con el dominio @unmsm.edu.pe"),
         "ForgotPasswordTitle":
             MessageLookupByLibrary.simpleMessage("Recuperar Contraseña"),
+        "GiftShop": MessageLookupByLibrary.simpleMessage("Tienda de Regalos"),
         "HintConfirmPassword":
             MessageLookupByLibrary.simpleMessage("Confirmar Contraseña"),
         "HintEmail": MessageLookupByLibrary.simpleMessage("Email"),
