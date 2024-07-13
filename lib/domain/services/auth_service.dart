@@ -9,6 +9,8 @@ import 'package:pocket_swap_fisi/domain/entities/user.dart';
 import 'package:pocket_swap_fisi/utils/constants/api_constants.dart';
 import 'package:pocket_swap_fisi/utils/providers/dio_provider.dart';
 
+import '../entities/student_by_history.dart';
+
 class AuthService {
   final Dio dio;
 
@@ -125,6 +127,31 @@ class AuthService {
           faculty: 'error', major: '', name: '', userPhoto: '');
     } on TimeoutException catch (_) {
       return StudentByCode(
+          faculty: 'error', major: '', name: '', userPhoto: '');
+    }
+  }
+
+  Future<StudentByCodeHistory> studentDataByCodeForHistory(String studentCode) async {
+    Response response = Response(requestOptions: RequestOptions(path: ''));
+    try {
+      response = await dio.post('${ApiConstants.baseURL}/students/verify-code',
+          data: {
+            'code': studentCode
+          }).timeout(const Duration(seconds: 10), onTimeout: () {
+        throw TimeoutException('Time out');
+      });
+
+      return StudentByCodeHistory.fromJson(response.data['data']);
+    } on DioException catch (_) {
+      if (response.statusCode != 500) {
+        return StudentByCodeHistory(
+            faculty: 'notFound', major: '', name: '', userPhoto: '');
+      }
+
+      return StudentByCodeHistory(
+          faculty: 'error', major: '', name: '', userPhoto: '');
+    } on TimeoutException catch (_) {
+      return StudentByCodeHistory(
           faculty: 'error', major: '', name: '', userPhoto: '');
     }
   }

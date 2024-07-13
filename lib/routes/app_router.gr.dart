@@ -116,7 +116,7 @@ abstract class $AppRouter extends _i15.RootStackRouter {
       final args = routeData.argsAs<TransactionsListArgs>();
       return _i15.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i12.TransactionsList(transactions: args.transactions),
+        child: _i12.TransactionsList(),
       );
     },
     UpdatePassword.name: (routeData) {
